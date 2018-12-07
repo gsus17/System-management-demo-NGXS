@@ -13,6 +13,10 @@ export const routes: Routes = [
       {
         path: 'personas/listado',
         loadChildren: './personas/listado/listado.module#ListadoModule'
+      },
+      {
+        path: 'personas/formulario',
+        loadChildren: './personas/formulario/formulario.module#FormularioModule'
       }
     ]
   },

@@ -15,6 +15,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [],
@@ -35,7 +40,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatCheckboxModule,
     MatListModule,
     MatExpansionModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSlideToggleModule,
+    MatDatepickerModule,
+    MatSelectModule,
+    MatNativeDateModule,
+    MatDividerModule
   ],
   exports: [
     MatCardModule,
@@ -54,7 +64,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatCheckboxModule,
     MatListModule,
     MatExpansionModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSlideToggleModule,
+    MatDatepickerModule,
+    MatSelectModule,
+    MatNativeDateModule,
+    MatDividerModule
   ]
 })
 export class AngularMaterialModule { }

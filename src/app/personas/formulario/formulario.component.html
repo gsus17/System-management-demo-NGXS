@@ -1,3 +1,220 @@
-<p>
-  formulario works!
-</p>
+<div fxFlex
+     fxLayout="column"
+     fxLayoutAlign="center center">
+  <mat-card fxFlex
+            class="card-form">
+    <mat-card-title>
+      Formulario de Personas
+    </mat-card-title>
+
+    <mat-card-content>
+
+      <form fxLayout="column">
+        <div>
+          <div fxLayout="row">
+            <mat-form-field fxFlex
+                            class="example-full-width">
+              <input matInput
+                     placeholder="Nombre Completo">
+            </mat-form-field>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field fxFlex
+                            class="example-full-width">
+              <input matInput
+                     placeholder="Correo electronico">
+            </mat-form-field>
+          </div>
+          <div fxLayout="row">
+            <table fxLayout="row"
+                   fxFlex
+                   cellspacing="5">
+              <tr>
+                <td>
+                  <mat-form-field class="example-full-width">
+                    <input matInput
+                           placeholder="Ahorro">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field class="example-full-width">
+                    <input matInput
+                           placeholder="Porcentaje">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-slide-toggle fxFlex>Recibir notificaciones</mat-slide-toggle>
+                </td>
+
+              </tr>
+            </table>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field fxFlex
+                            class="example-full-width">
+              <input matInput
+                     placeholder="Direccion">
+            </mat-form-field>
+          </div>
+          <div fxLayout="row">
+            <table fxLayout="row"
+                   fxFlex
+                   cellspacing="5">
+              <tr>
+                <td>
+                  <mat-form-field>
+                    <input matInput
+                           [matDatepicker]="picker"
+                           placeholder="Fecha de nacimiento">
+                    <mat-datepicker-toggle matSuffix
+                                           [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field>
+                    <mat-select placeholder="Sexo">
+                      <mat-option *ngFor="let food of foods"
+                                  [value]="food.value">
+                        {{food.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field>
+                    <mat-select placeholder="Estado">
+                      <mat-option *ngFor="let food of foods"
+                                  [value]="food.value">
+                        {{food.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!-- <mat-divider></mat-divider> -->
+        <div>
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Datos regionales
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div fxLayout="column">
+                <div fxLayout="row">
+                  <table fxLayout="row"
+                         fxFlex
+                         cellspacing="5">
+                    <tr>
+                      <td>
+                        <mat-form-field>
+                          <mat-select placeholder="Formato de fecha">
+                            <mat-option *ngFor="let food of foods"
+                                        [value]="food.value">
+                              {{food.viewValue}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field>
+                          <mat-select placeholder="Formato de hora">
+                            <mat-option *ngFor="let food of foods"
+                                        [value]="food.value">
+                              {{food.viewValue}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field>
+                          <mat-select placeholder="Zona Horaria">
+                            <mat-option *ngFor="let food of foods"
+                                        [value]="food.value">
+                              {{food.viewValue}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </td>
+
+                    </tr>
+                  </table>
+                </div>
+
+                <div fxLayout="row">
+                  <table fxLayout="row"
+                         fxFlex
+                         cellspacing="5">
+                    <tr>
+                      <td>
+                        <mat-form-field>
+                          <mat-select placeholder="Nacionalidad">
+                            <mat-option *ngFor="let food of foods"
+                                        [value]="food.value">
+                              {{food.viewValue}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field>
+                          <mat-select placeholder="Idioma">
+                            <mat-option *ngFor="let food of foods"
+                                        [value]="food.value">
+                              {{food.viewValue}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Bienes
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>I'm visible because I am open</p>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+
+        <div>
+          <mat-form-field fxFlex>
+            <mat-label>Observaciones</mat-label>
+            <textarea matInput
+                      cdkTextareaAutosize
+                      cdkAutosizeMinRows="2"
+                      cdkAutosizeMaxRows="5"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div fxFlexLayout="row"
+             fxLayoutAlign="end center">
+          <div fxFlex="20%"
+               fxFlexLayout="row"
+               fxLayoutAlign="space-between center">
+            <button mat-raised-button
+                    (click)="cancel()">Cancelar</button>
+            <button mat-raised-button
+                    (click)="update()"
+                    color="primary">Actualizar</button>
+          </div>
+
+        </div>
+      </form>
+
+    </mat-card-content>
+  </mat-card>
+
+</div>
