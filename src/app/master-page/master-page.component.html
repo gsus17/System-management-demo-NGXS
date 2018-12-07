@@ -1,3 +1,45 @@
-<p>
-  master-page works!
-</p>
+<div fxFlexFill
+     fxLayout="column">
+  <div fxLayout="row"
+       fxLayoutAlign="center start">
+    <mat-toolbar color="primary">
+      <button mat-icon-button
+              (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </mat-toolbar>
+  </div>
+  <mat-drawer-container fxFlex
+                        fxFlexLayout="column">
+
+    <mat-drawer #drawer
+                class="contents"
+                [(opened)]="openedSideBar"
+                mode="side">
+      <mat-list>
+        <mat-list-item (click)="logout()">
+          <mat-icon matListIcon>exit_to_app</mat-icon>
+          <h3 matLine> Cerrar sesión </h3>
+        </mat-list-item>
+        <mat-list-item (click)="logout()">
+          <mat-icon matListIcon>person_outline</mat-icon>
+          <h3 matLine> Listado de personas </h3>
+        </mat-list-item>
+        <mat-list-item (click)="logout()">
+          <mat-icon matListIcon>public</mat-icon>
+          <h3 matLine> Listado de personas </h3>
+        </mat-list-item>
+      </mat-list>
+
+    </mat-drawer>
+
+    <mat-drawer-content fxLayout="column">
+
+      <div class="master-page-container">
+        <router-outlet></router-outlet>
+      </div>
+
+    </mat-drawer-content>
+
+  </mat-drawer-container>
+</div>

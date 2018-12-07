@@ -11,7 +11,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatListModule } from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [],
@@ -29,7 +32,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatToolbarModule,
     MatIconModule,
     ScrollDispatchModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatListModule,
+    MatExpansionModule,
+    MatPaginatorModule
   ],
   exports: [
     MatCardModule,
@@ -45,7 +51,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatToolbarModule,
     MatIconModule,
     ScrollDispatchModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatListModule,
+    MatExpansionModule,
+    MatPaginatorModule
   ]
 })
 export class AngularMaterialModule { }

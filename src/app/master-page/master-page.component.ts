@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MasterPageComponent implements OnInit {
 
+  public openedSideBar: boolean = true;
+
   constructor() { }
 
   ngOnInit() {

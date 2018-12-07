@@ -137,5 +137,10 @@
       }
     }
   },
-  "defaultProject": "system-management-demo"
+  "defaultProject": "system-management-demo",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "sass"
+    }
+  }
 }

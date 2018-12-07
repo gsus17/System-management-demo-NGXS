@@ -1,3 +1,111 @@
-<p>
-  listado works!
-</p>
+<mat-card>
+  <mat-card-title>
+    Listado de Personas
+  </mat-card-title>
+
+  <mat-card-content>
+
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <div fxFlex
+               fxLayout="row">
+            <div fxFlex="10%"
+                 fxLayout="row"
+                 fxLayoutAlign="start center">
+              <div class="status-persona">
+                A
+              </div>
+            </div>
+            <div fxFlex="10%"
+                 fxLayout="row"
+                 fxLayoutAlign="start center"> 16</div>
+            <div fxFlex
+                 fxLayoutAlign="center start"
+                 fxLayout="column">
+              <span class="mat-body-2">Error,Cuatro</span>
+              <span class="mat-body-1">cuatro@error.com</span>
+            </div>
+            <div fxFlex
+                 fxLayoutAlign="center start"
+                 fxLayout="column">
+              <span>United States of America</span>
+              <span>o</span>
+            </div>
+            <div fxFlex
+                 fxLayout="row"
+                 fxLayoutAlign="center center">
+              <span>1945-09-09</span>
+            </div>
+            <div class="icon-container"
+                 fxFlex="10%"
+                 fxLayout="row"
+                 fxLayoutAlign="space-between center">
+              <mat-icon>delete_forever</mat-icon>
+              <mat-icon>mode_edit</mat-icon>
+              <mat-icon>more_vert</mat-icon>
+            </div>
+          </div>
+        </mat-expansion-panel-header>
+
+        <div fxFlex
+             fxLayout="row">
+          <div fxLayout="row"
+               fxFlex="10%">
+            <div fxLayout="column"
+                 fxLayoutAlign="space-between center">
+              <div>10</div>
+              <div>Activo</div>
+              <div>1967</div>
+            </div>
+
+          </div>
+          <div fxLayout="row"
+               fxFlex="70%">
+
+            <div fxLayout="column">
+              <div fxLayout="column">
+                <span class="mat-caption label-caption">
+                  Nombre
+                </span>
+                <span>
+                  White ,Walter
+                </span>
+              </div>
+              <div fxLayout="column">
+                <span class="mat-caption label-caption">
+                  Email
+                </span>
+                <span>
+                  heisenberg@saymyname.com
+                </span>
+              </div>
+              <div fxLayout="column">
+                <span class="mat-caption label-caption">
+                  Observaciones
+                </span>
+                <span>
+                  Sin Observaciones
+                </span>
+              </div>
+            </div>
+
+          </div>
+          <div fxLayout="row"
+               fxFlex="20%">
+            <div fxLayout="column">
+              <div class="mat-caption label-caption">Ahorro</div>
+              <div class="mat-body-2">$5.00(ARS)</div>
+            </div>
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card-content>
+  <mat-paginator [length]="length"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="pageSizeOptions"
+                 (page)="pageEvent = $event">
+  </mat-paginator>
+</mat-card>

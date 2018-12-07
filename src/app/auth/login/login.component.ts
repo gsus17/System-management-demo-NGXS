@@ -48,21 +48,22 @@ export class LoginComponent implements OnInit {
   /**
    * Auth process.
    */
-  // public login() {
-  //   console.log(`${LoginComponent.name}::login credentials %o`, this.credentials);
-  //   this.progressLinear = true;
-  //   this.loginService.login(this.credentials)
-  //     .then(() => {
-  //       console.log(`${LoginComponent.name}::login (then)`);
-  //       this.redirect();
-  //     })
-  //     .catch((error) => {
-  //       console.log(`${LoginComponent.name}::login (catch) %o`, error);
-  //     })
-  //     .finally(() => {
-  //       this.progressLinear = false;
-  //     });
-  // }
+  public login() {
+    console.log(`${LoginComponent.name}::login credentials %o`, this.credentials);
+    this.router.navigate(['master-page']);
+    // this.progressLinear = true;
+    // this.loginService.login(this.credentials)
+    //   .then(() => {
+    //     console.log(`${LoginComponent.name}::login (then)`);
+    //     this.redirect();
+    //   })
+    //   .catch((error) => {
+    //     console.log(`${LoginComponent.name}::login (catch) %o`, error);
+    //   })
+    //   .finally(() => {
+    //     this.progressLinear = false;
+    //   });
+  }
 
   /**
    * Redirect to main view.

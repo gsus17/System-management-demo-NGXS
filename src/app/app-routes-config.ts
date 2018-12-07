@@ -6,16 +6,16 @@ export const routes: Routes = [
     path: 'login',
     loadChildren: './auth/login/login.module#LoginModule'
   },
-  // {
-  //   path: 'master-page',
-  //   component: MasterPageComponent,
-  //   children: [
-  //     {
-  //       path: 'tracking',
-  //       loadChildren: './tracking-map/tracking-map.module#TrackingMapModule'
-  //     }
-  //   ]
-  // },
+  {
+    path: 'master-page',
+    component: MasterPageComponent,
+    children: [
+      {
+        path: 'personas/listado',
+        loadChildren: './personas/listado/listado.module#ListadoModule'
+      }
+    ]
+  },
   {
     path: '',
     redirectTo: 'login',
