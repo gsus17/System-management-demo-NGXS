@@ -1,0 +1,73 @@
+<div fxFlexFill
+     class="container"
+     fxLayout="column"
+     fxLayoutAlign="center center">
+
+  <div fxLayout="column">
+    <div fxLayout="column"
+         class="fxMargin"
+         fxLayoutAlign="center center">
+      <span class="mat-title">Personas</span>
+      <span class="mat-title">Sistemas de gestión de personas</span>
+      <span class="mat-title"> (para training y aplicación de estándares)</span>
+    </div>
+  </div>
+
+  <mat-card class="login-content"
+            fxLayout="column"
+            fxLayoutAlign="center flex">
+    <div class="progress-bar-container">
+      <mat-progress-bar mode="indeterminate"
+                        *ngIf="progressLinear"></mat-progress-bar>
+    </div>
+
+    <mat-card-subtitle>
+      <span>Ingrese sus credenciales para ingresar.</span>
+    </mat-card-subtitle>
+
+    <form class="example-form"
+          [formGroup]="authForm"
+          fxLayout="column">
+      <mat-form-field [floatLabel]="Usuario">
+        <mat-label>Usuario</mat-label>
+        <input matInput
+               name="user"
+               formControlName="user"
+               [(ngModel)]="credentials.user"
+               type="text"
+               placeholder="Usuario">
+        <mat-error *ngIf="form.user.invalid">El usuario invalido.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput
+               name="password"
+               type="password"
+               formControlName="password"
+               [(ngModel)]="credentials.password"
+               placeholder="Contraseña">
+        <mat-error *ngIf="form.password.invalid">El password es requerido.</mat-error>
+      </mat-form-field>
+      <div class="selection-section"
+           fxLayout="column">
+
+        <div fxLayout="row"
+             fxFlex
+             fxLayoutAlign="space-between center">
+          <mat-checkbox>No cerrar sesión al salir.</mat-checkbox>
+          <button mat-raised-button
+                  (click)="login()"
+                  [disabled]="authForm.invalid"
+                  color="primary">Ingresar</button>
+        </div>
+
+      </div>
+
+    </form>
+  </mat-card>
+
+  <div class="fxMargin">
+    <span class="version-app">Version 0.0.1</span>
+  </div>
+
+</div>
