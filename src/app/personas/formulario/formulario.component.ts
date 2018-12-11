@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PersonasService } from '../personas.service';
 import { PersonasFormularioViewData } from './formulario.viewdata';
 import { Form } from './formulario';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -22,15 +22,15 @@ export class FormularioComponent implements OnInit {
    */
   public personForm = new FormGroup(
     {
-      name: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required]),
-      ahorro: new FormControl('', [Validators.required]),
-      ahorroPercentage: new FormControl('', [Validators.required]),
-      enableNotify: new FormControl('', [Validators.required]),
-      address: new FormControl('', [Validators.required]),
-      birthdate: new FormControl('', [Validators.required]),
-      gender: new FormControl('', [Validators.required]),
-      status: new FormControl('', [Validators.required]),
+      'name': new FormControl('', [Validators.required]),
+      'email': new FormControl('', [Validators.required]),
+      'ahorro': new FormControl('', [Validators.required]),
+      'ahorroPercentage': new FormControl('', [Validators.required]),
+      'enableNotify': new FormControl('', [Validators.required]),
+      'address': new FormControl('', [Validators.required]),
+      'birthdate': new FormControl('', [Validators.required]),
+      'gender': new FormControl('', [Validators.required]),
+      'status': new FormControl('', [Validators.required])
     }
   );
 
@@ -71,6 +71,13 @@ export class FormularioComponent implements OnInit {
    */
   public addPerson() {
     console.log(`${FormularioComponent.name}::update %o`, this.formulario);
+  }
+
+  /**
+   * Retorna el listado de errores.
+   */
+  public getErrors(indicator: string): ValidationErrors {
+    return this.personForm.get(`${indicator}`).errors;
   }
 
   /**

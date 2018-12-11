@@ -5,6 +5,7 @@ import { FormularioRoutingModule } from './formulario-routing.module';
 import { FormularioComponent } from './formulario.component';
 import { AngularMaterialModule } from 'src/app/angular-material/angular-material.module';
 import { PersonasModule } from '../personas.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [FormularioComponent],
@@ -12,7 +13,8 @@ import { PersonasModule } from '../personas.module';
     CommonModule,
     FormularioRoutingModule,
     AngularMaterialModule,
-    PersonasModule
+    PersonasModule,
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
   ]
 })
 export class FormularioModule { }

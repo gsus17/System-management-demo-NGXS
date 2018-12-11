@@ -24,6 +24,9 @@
                        [(ngModel)]="formulario.name"
                        placeholder="Nombre Completo">
                 <mat-hint align="start"><strong>Con el siguiente formato Apellido, Nombre/s.</strong> </mat-hint>
+                <mat-error *ngIf="getErrors('name').required">
+                  Debe ingresar el nombre completo.
+                </mat-error>
               </mat-form-field>
             </div>
             <div fxLayout="row">
@@ -34,6 +37,9 @@
                        formControlName="email"
                        [(ngModel)]="formulario.email"
                        placeholder="Correo electronico">
+                <mat-error *ngIf="getErrors('email').required">
+                  Debe ingresar el correo electrónico.
+                </mat-error>
               </mat-form-field>
             </div>
             <div fxLayout="row">
@@ -56,6 +62,7 @@
                     <mat-form-field class="example-full-width">
                       <input matInput
                              name="ahorroPercentage"
+                             type="number"
                              formControlName="ahorroPercentage"
                              [(ngModel)]="formulario.ahorroPercentage"
                              placeholder="Porcentaje">
