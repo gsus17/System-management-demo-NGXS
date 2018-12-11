@@ -3,6 +3,7 @@ import { PersonasService } from '../personas.service';
 import { PersonasFormularioViewData } from './formulario.viewdata';
 import { Form } from './formulario';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-formulario',
@@ -11,7 +12,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class FormularioComponent implements OnInit {
 
-  constructor(private personasService: PersonasService) { }
+  constructor(
+    private personasService: PersonasService,
+    private route: ActivatedRoute) {
+  }
 
   /**
    * Validation Form control.
@@ -43,6 +47,33 @@ export class FormularioComponent implements OnInit {
   }
 
   /**
+   * Filtra la accion ejecutada.
+   */
+  public action() {
+    console.log(`${FormularioComponent.name}::action`);
+
+    if (this.viewdata.editMode) {
+      this.updatePerson();
+    } else {
+      this.addPerson();
+    }
+  }
+
+  /**
+   * Actualiza una persona.
+   */
+  public updatePerson() {
+    console.log(`${FormularioComponent.name}::update %o`, this.formulario);
+  }
+
+  /**
+   * Agraga una nueva persona.
+   */
+  public addPerson() {
+    console.log(`${FormularioComponent.name}::update %o`, this.formulario);
+  }
+
+  /**
    * Inicializa el modelo.
    */
   private initForm() {
@@ -65,6 +96,9 @@ export class FormularioComponent implements OnInit {
    * Construye el viewdata.
    */
   private buildViewData() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    const editMode: boolean = id ? true : false;
+
     this.viewdata = {
       isExpandedRegionalData: true,
       isExpandedBienes: true,
@@ -75,7 +109,10 @@ export class FormularioComponent implements OnInit {
       dateFormats: this.personasService.getDateFormats(),
       timeFormats: this.personasService.getTimeFormats(),
       timeZones: this.personasService.getTimeZones(),
-      languageCodes: this.personasService.getLanguageCodes()
+      languageCodes: this.personasService.getLanguageCodes(),
+      titleForm: editMode ? 'Edición de personas' : 'Crear persona',
+      buttonActionText: editMode ? 'Actualizar' : 'Agregar',
+      editMode: editMode
     };
   }
 }

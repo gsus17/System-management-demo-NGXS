@@ -15,8 +15,12 @@ export const routes: Routes = [
         loadChildren: './personas/listado/listado.module#ListadoModule'
       },
       {
-        path: 'personas/formulario',
-        loadChildren: './personas/formulario/formulario.module#FormularioModule'
+        path: 'personas/add',
+        loadChildren: './personas/formulario/formulario.module#FormularioModule',
+      },
+      {
+        path: 'personas/formulario/:id',
+        loadChildren: './personas/formulario/formulario.module#FormularioModule',
       }
     ]
   },
