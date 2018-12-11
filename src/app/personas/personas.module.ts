@@ -7,7 +7,7 @@ import { PersonasService } from './personas.service';
   imports: [
     CommonModule
   ],
-  exports: [
+  providers: [
     PersonasService
   ]
 })
