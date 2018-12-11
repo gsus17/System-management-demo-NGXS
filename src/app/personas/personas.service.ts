@@ -2,14 +2,56 @@ import { Injectable } from '@angular/core';
 import { TimeZone } from 'src/api/entities/time-zone.entity';
 import { Sexo } from 'src/api/entities/sexo.entity';
 import { AccountStatus } from 'src/api/entities/account-status.entity';
+import { Persona } from 'src/api/entities/persona.entity';
+import { PersonasApiService } from 'src/api/personas/personas-api.service';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { Form } from './formulario/formulario';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonasService {
+  constructor(private personasApiService: PersonasApiService) { }
 
-  constructor() { }
+  /**
+   * Devuelve el listado de personas.
+   */
+  public getPersonas$(): Observable<Persona[]> {
+    return this.personasApiService.getPersonas$();
+  }
 
+  /**
+   * Devuelve el formulario correspondiente.
+   */
+  public getFormPersonaById$(id: string): Observable<Form> {
+    const methodName: string = `${PersonasService.name}::getFormPersonaById`;
+    console.log(`${methodName}`);
+    return this.personasApiService.getPersonas$()
+      .pipe(
+        map(persons => {
+          const personFiltered = persons.filter(person => person.id === +id)[0];
+          const form: Form = {
+            address: '',
+            regionalData: personFiltered.regionalData,
+            bienes: personFiltered.bienes,
+            ahorro: personFiltered.totalAhorro,
+            ahorroPercentage: personFiltered.porcAhorro,
+            birthdate: new Date(),
+            email: personFiltered.eMail,
+            enableNotify: false,
+            gender: personFiltered.sexo,
+            name: personFiltered.nombreCompleto,
+            status: personFiltered.estado
+          };
+
+          return form;
+        }),
+
+        tap((form) => console.log(`${methodName} form %o`, form)),
+      );
+  }
 
   /**
    * Devuelve una lista de los estados de cuenta existentes.

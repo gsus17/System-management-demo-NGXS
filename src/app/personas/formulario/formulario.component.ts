@@ -1,21 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PersonasService } from '../personas.service';
 import { PersonasFormularioViewData } from './formulario.viewdata';
 import { Form } from './formulario';
 import { FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-formulario',
   templateUrl: './formulario.component.html',
   styleUrls: ['./formulario.component.sass']
 })
-export class FormularioComponent implements OnInit {
+export class FormularioComponent implements OnInit, OnDestroy {
 
-  constructor(
-    private personasService: PersonasService,
-    private route: ActivatedRoute) {
-  }
+  private subscription: Subscription;
 
   /**
    * Validation Form control.
@@ -30,9 +28,19 @@ export class FormularioComponent implements OnInit {
       'address': new FormControl('', [Validators.required]),
       'birthdate': new FormControl('', [Validators.required]),
       'gender': new FormControl('', [Validators.required]),
-      'status': new FormControl('', [Validators.required])
+      'status': new FormControl('', [Validators.required]),
+      'dateFormat': new FormControl('', [Validators.required]),
+      'timeFormat': new FormControl('', [Validators.required]),
+      'timeZone': new FormControl('', [Validators.required]),
+      'languageCode': new FormControl('', [Validators.required])
     }
   );
+
+  constructor(
+    private personasService: PersonasService,
+    private route: ActivatedRoute) {
+  }
+
 
   // Convenience getter for easy access to form fields.
   get form() { return this.personForm.controls; }
@@ -42,8 +50,21 @@ export class FormularioComponent implements OnInit {
   public viewdata: PersonasFormularioViewData;
 
   ngOnInit() {
-    this.initForm();
+    this.initDefaultForm();
     this.buildViewData();
+
+    this.subscription = this.route.params
+      .subscribe(params => {
+        const id = +params['id']; // (+) converts string 'id' to a number
+        if (id) {
+          this.initDataForm(id);
+        }
+      });
+  }
+
+  ngOnDestroy() {
+    // Unsubscribe.
+    this.subscription.unsubscribe();
   }
 
   /**
@@ -77,13 +98,33 @@ export class FormularioComponent implements OnInit {
    * Retorna el listado de errores.
    */
   public getErrors(indicator: string): ValidationErrors {
-    return this.personForm.get(`${indicator}`).errors;
+    const res = this.personForm.get(`${indicator}`).errors;
+    return res;
+  }
+
+  /**
+   * Valida si esta precargado el error en el form.
+   */
+  public validateError(indicator) {
+    const res = this.getErrors(`${indicator}`) !== null;
+    return res;
   }
 
   /**
    * Inicializa el modelo.
    */
-  private initForm() {
+  private initDataForm(id) {
+
+    this.personasService.getFormPersonaById$(id)
+      .subscribe((response: Form) => {
+        this.formulario = { ...response };
+      });
+  }
+
+  /**
+   * Inicializa el modelo.
+   */
+  private initDefaultForm() {
     this.formulario = {
       address: '',
       ahorro: 0,
@@ -95,7 +136,12 @@ export class FormularioComponent implements OnInit {
       name: '',
       status: null,
       bienes: [],
-      regionalData: null
+      regionalData: {
+        dateFormat: '',
+        languageCode: '',
+        timeFormat: '',
+        timeZone: null
+      }
     };
   }
 

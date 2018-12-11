@@ -24,7 +24,7 @@
                        [(ngModel)]="formulario.name"
                        placeholder="Nombre Completo">
                 <mat-hint align="start"><strong>Con el siguiente formato Apellido, Nombre/s.</strong> </mat-hint>
-                <mat-error *ngIf="getErrors('name').required">
+                <mat-error *ngIf="validateError('name') && getErrors('name').required">
                   Debe ingresar el nombre completo.
                 </mat-error>
               </mat-form-field>
@@ -37,7 +37,7 @@
                        formControlName="email"
                        [(ngModel)]="formulario.email"
                        placeholder="Correo electronico">
-                <mat-error *ngIf="getErrors('email').required">
+                <mat-error *ngIf="validateError('email') && getErrors('email').required">
                   Debe ingresar el correo electrónico.
                 </mat-error>
               </mat-form-field>
@@ -152,7 +152,21 @@
                       <tr>
                         <td>
                           <mat-form-field>
-                            <mat-select placeholder="Formato de fecha">
+
+                            <!-- <mat-select placeholder="Sexo"
+                                        name="gender"
+                                        formControlName="gender"
+                                        [(ngModel)]="formulario.gender">
+                              <mat-option *ngFor="let sexos of viewdata.sexos"
+                                          [value]="sexos">
+                                {{sexos}}
+                              </mat-option>
+                            </mat-select> -->
+
+                            <mat-select placeholder="Formato de fecha"
+                                        name="dateFormat"
+                                        formControlName="dateFormat"
+                                        [(ngModel)]="formulario.regionalData.dateFormat">
                               <mat-option *ngFor="let dateFormats of viewdata.dateFormats"
                                           [value]="dateFormats">
                                 {{dateFormats}}
@@ -162,7 +176,10 @@
                         </td>
                         <td>
                           <mat-form-field>
-                            <mat-select placeholder="Formato de hora">
+                            <mat-select placeholder="Formato de hora"
+                                        name="timeFormat"
+                                        formControlName="timeFormat"
+                                        [(ngModel)]="formulario.regionalData.timeFormat">
                               <mat-option *ngFor="let timeFormats of viewdata.timeFormats"
                                           [value]="timeFormats">
                                 {{timeFormats}}
@@ -172,7 +189,10 @@
                         </td>
                         <td>
                           <mat-form-field>
-                            <mat-select placeholder="Zona Horaria">
+                            <mat-select placeholder="Zona Horaria"
+                                        name="timeZone"
+                                        formControlName="timeZone"
+                                        [(ngModel)]="formulario.regionalData.timeZone">
                               <mat-option *ngFor="let timeZones of viewdata.timeZones"
                                           [value]="timeZones.timeZoneId">
                                 {{timeZones.timeZoneName}}
@@ -202,7 +222,10 @@
                         </td>
                         <td>
                           <mat-form-field>
-                            <mat-select placeholder="Idioma">
+                            <mat-select placeholder="Idioma"
+                                        name="languageCode"
+                                        formControlName="languageCode"
+                                        [(ngModel)]="formulario.regionalData.languageCode">
                               <mat-option *ngFor="let languageCodes of viewdata.languageCodes"
                                           [value]="languageCodes">
                                 {{languageCodes}}
@@ -247,7 +270,6 @@
             <div class="button-container">
               <button mat-raised-button
                       (click)="action()"
-                      [disabled]="personForm.invalid"
                       color="primary">{{viewdata.buttonActionText}}</button>
             </div>
 

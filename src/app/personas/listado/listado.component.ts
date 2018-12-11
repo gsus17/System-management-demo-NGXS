@@ -1,20 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Persona } from 'src/api/entities/persona.entity';
+import { PersonasService } from '../personas.service';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-listado',
   templateUrl: './listado.component.html',
   styleUrls: ['./listado.component.sass']
 })
-export class ListadoComponent implements OnInit {
+export class ListadoComponent implements OnInit, OnDestroy {
 
+  public personList: Persona[] = [];
   public length = 100;
   public pageSize = 10;
   public pageSizeOptions: number[] = [5, 10, 25, 100];
+  private personasSubscription: Subscription = null;
 
-  constructor(private router: Router) { }
+  constructor(
+    private personasService: PersonasService,
+    private router: Router) { }
 
   ngOnInit() {
+
+    this.personasSubscription = this.personasService.getPersonas$()
+      .subscribe((listado: Persona[]) => {
+        this.personList = listado;
+      });
+  }
+
+  ngOnDestroy() {
+    // Unsubscribe.
+    this.personasSubscription.unsubscribe();
   }
 
   /**

@@ -6,7 +6,7 @@
 
     <mat-card-content>
       <mat-accordion>
-        <mat-expansion-panel>
+        <mat-expansion-panel *ngFor="let person of personList">
           <mat-expansion-panel-header>
             <div fxFlex
                  fxLayout="row">
@@ -19,30 +19,30 @@
               </div>
               <div fxFlex="10%"
                    fxLayout="row"
-                   fxLayoutAlign="start center"> 16</div>
+                   fxLayoutAlign="start center"> {{person.id}}</div>
               <div fxFlex
                    fxLayoutAlign="center start"
                    fxLayout="column">
-                <span class="mat-body-2">Error,Cuatro</span>
-                <span class="mat-body-1">cuatro@error.com</span>
+                <span class="mat-body-2">{{person.nombreCompleto}}</span>
+                <span class="mat-body-1">{{person.eMail}}</span>
               </div>
               <div fxFlex
                    fxLayoutAlign="center start"
                    fxLayout="column">
-                <span>United States of America</span>
+                <span>{{person.nacionalidad}}</span>
                 <span>o</span>
               </div>
               <div fxFlex
                    fxLayout="row"
                    fxLayoutAlign="center center">
-                <span>1945-09-09</span>
+                <span>{{person.fechaCreo | date}}</span>
               </div>
               <div class="icon-container"
                    fxFlex="10%"
                    fxLayout="row"
                    fxLayoutAlign="space-between center">
                 <mat-icon>delete_forever</mat-icon>
-                <mat-icon (click)="editPerson(5)">mode_edit</mat-icon>
+                <mat-icon (click)="editPerson(person.id)">mode_edit</mat-icon>
                 <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
                 <mat-menu #menu="matMenu">
                   <button mat-menu-item>Editar</button>
@@ -59,8 +59,8 @@
                  fxFlex="10%">
               <div fxLayout="column"
                    fxLayoutAlign="space-between center">
-                <div>10</div>
-                <div>Activo</div>
+                <div>{{person.id}}</div>
+                <div>{{person.estado}}</div>
                 <div>1967</div>
               </div>
 
@@ -74,7 +74,7 @@
                     Nombre
                   </span>
                   <span>
-                    White ,Walter
+                    {{person.nombreCompleto}}
                   </span>
                 </div>
                 <div fxLayout="column">
@@ -82,7 +82,7 @@
                     Email
                   </span>
                   <span>
-                    heisenberg@saymyname.com
+                    {{person.eMail}}
                   </span>
                 </div>
                 <div fxLayout="column">
@@ -90,7 +90,7 @@
                     Observaciones
                   </span>
                   <span>
-                    Sin Observaciones
+                    {{person.obs}}
                   </span>
                 </div>
               </div>
@@ -100,7 +100,7 @@
                  fxFlex="20%">
               <div fxLayout="column">
                 <div class="mat-caption label-caption">Ahorro</div>
-                <div class="mat-body-2">$5.00(ARS)</div>
+                <div class="mat-body-2">${{person.totalAhorro}}(ARS)</div>
               </div>
             </div>
           </div>
