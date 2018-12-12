@@ -5,7 +5,9 @@
   <mat-toolbar color="primary">
     <span class="mat-title">{{viewdata.titleForm}}</span>
   </mat-toolbar>
-  <div class="general-container">
+  <div class="general-container form-container"
+       fxFlexLayout="row"
+       fxLayoutAlign="center center">
     <mat-card class="card-form">
       <mat-card-title>
         Formulario de Personas
@@ -236,7 +238,8 @@
                 <mat-card class="card-form">
                   <mat-card-content>
 
-                    <mat-list *ngIf="hasBienes()" fxLayout="column"
+                    <mat-list *ngIf="hasBienes()"
+                              fxLayout="column"
                               fxFlex
                               fxLayoutAlign="space-between center">
                       <mat-list-item *ngFor="let bien of formulario.bienes"

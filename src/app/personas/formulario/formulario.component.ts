@@ -149,6 +149,13 @@ export class FormularioComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Cancela la operacion.
+   */
+  public cancel() {
+    console.log(`${FormularioComponent.name}::cancel`);
+  }
+
+  /**
    * Elimina el item correspondiente.
    */
   public deleteBien(id: string) {
