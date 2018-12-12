@@ -21,6 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [],
@@ -47,7 +48,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatSelectModule,
     MatNativeDateModule,
     MatDividerModule,
-    MatMenuModule
+    MatMenuModule,
+    MatRippleModule
   ],
   exports: [
     MatCardModule,
@@ -72,7 +74,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatSelectModule,
     MatNativeDateModule,
     MatDividerModule,
-    MatMenuModule
+    MatMenuModule,
+    MatRippleModule
   ]
 })
 export class AngularMaterialModule { }
