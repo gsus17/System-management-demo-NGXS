@@ -5,115 +5,123 @@
     </mat-card-title>
 
     <mat-card-content>
-      <mat-accordion>
-        <mat-expansion-panel *ngFor="let person of personList">
-          <mat-expansion-panel-header>
-            <div fxFlex
-                 fxLayout="row">
-              <div fxFlex="10%"
-                   fxLayout="row"
-                   fxLayoutAlign="start center">
-                <div class="status-persona">
-                  A
+      <cdk-virtual-scroll-viewport itemSize="50"
+                                   class="virtual-viewport">
+        <div>
+          <mat-accordion>
+            <mat-expansion-panel *cdkVirtualFor="let person of personList"
+                                 class="virtual-item">
+              <mat-expansion-panel-header>
+                <div fxFlex
+                     fxLayout="row">
+                  <div fxFlex="5%"
+                       fxLayout="row"
+                       fxLayoutAlign="start center">
+                    <div class="status-persona">
+                      A
+                    </div>
+                  </div>
+                  <div fxFlex="10%"
+                       fxLayout="row"
+                       fxLayoutAlign="start center"> {{person.id}}</div>
+                  <div fxFlex
+                       fxLayoutAlign="center start"
+                       fxLayout="column">
+                    <span class="mat-body-2">{{person.nombreCompleto}}</span>
+                    <span class="mat-body-1">{{person.eMail}}</span>
+                  </div>
+                  <div fxFlex
+                       fxLayoutAlign="center start"
+                       fxLayout="column">
+                    <span>{{person.nacionalidad}}</span>
+                    <span>o</span>
+                  </div>
+                  <div fxFlex
+                       fxLayout="row"
+                       fxLayoutAlign="center center">
+                    <span>{{person.fechaCreo | date}}</span>
+                  </div>
+                  <div class="icon-container"
+                       fxFlex="10%"
+                       fxLayout="row"
+                       fxLayoutAlign="space-between center">
+                    <mat-icon>delete_forever</mat-icon>
+                    <mat-icon (click)="editPerson(person.id)">mode_edit</mat-icon>
+                    <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item>Editar</button>
+                      <button mat-menu-item>Eliminar</button>
+                      <button mat-menu-item>Nueva</button>
+                    </mat-menu>
+                  </div>
                 </div>
-              </div>
-              <div fxFlex="10%"
-                   fxLayout="row"
-                   fxLayoutAlign="start center"> {{person.id}}</div>
+              </mat-expansion-panel-header>
+
               <div fxFlex
-                   fxLayoutAlign="center start"
-                   fxLayout="column">
-                <span class="mat-body-2">{{person.nombreCompleto}}</span>
-                <span class="mat-body-1">{{person.eMail}}</span>
-              </div>
-              <div fxFlex
-                   fxLayoutAlign="center start"
-                   fxLayout="column">
-                <span>{{person.nacionalidad}}</span>
-                <span>o</span>
-              </div>
-              <div fxFlex
-                   fxLayout="row"
-                   fxLayoutAlign="center center">
-                <span>{{person.fechaCreo | date}}</span>
-              </div>
-              <div class="icon-container"
-                   fxFlex="10%"
-                   fxLayout="row"
-                   fxLayoutAlign="space-between center">
-                <mat-icon>delete_forever</mat-icon>
-                <mat-icon (click)="editPerson(person.id)">mode_edit</mat-icon>
-                <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item>Editar</button>
-                  <button mat-menu-item>Eliminar</button>
-                  <button mat-menu-item>Nueva</button>
-                </mat-menu>
-              </div>
-            </div>
-          </mat-expansion-panel-header>
+                   fxLayout="row">
+                <div fxLayout="row"
+                     fxFlex="15%">
+                  <div fxLayout="column"
+                       fxLayoutAlign="space-between center">
+                    <div>{{person.id}}</div>
+                    <div>{{person.estado}}</div>
+                    <div>1967</div>
+                  </div>
 
-          <div fxFlex
-               fxLayout="row">
-            <div fxLayout="row"
-                 fxFlex="10%">
-              <div fxLayout="column"
-                   fxLayoutAlign="space-between center">
-                <div>{{person.id}}</div>
-                <div>{{person.estado}}</div>
-                <div>1967</div>
-              </div>
-
-            </div>
-            <div fxLayout="row"
-                 fxFlex="70%">
-
-              <div fxLayout="column">
-                <div fxLayout="column">
-                  <span class="mat-caption label-caption">
-                    Nombre
-                  </span>
-                  <span>
-                    {{person.nombreCompleto}}
-                  </span>
                 </div>
-                <div fxLayout="column">
-                  <span class="mat-caption label-caption">
-                    Email
-                  </span>
-                  <span>
-                    {{person.eMail}}
-                  </span>
+                <div fxLayout="row"
+                     fxFlex="70%">
+
+                  <div fxLayout="column">
+                    <div fxLayout="column">
+                      <span class="mat-caption label-caption">
+                        Nombre
+                      </span>
+                      <span>
+                        {{person.nombreCompleto}}
+                      </span>
+                    </div>
+                    <div fxLayout="column">
+                      <span class="mat-caption label-caption">
+                        Email
+                      </span>
+                      <span>
+                        {{person.eMail}}
+                      </span>
+                    </div>
+                    <div fxLayout="column">
+                      <span class="mat-caption label-caption">
+                        Observaciones
+                      </span>
+                      <span>
+                        {{person.obs}}
+                      </span>
+                    </div>
+                  </div>
+
                 </div>
-                <div fxLayout="column">
-                  <span class="mat-caption label-caption">
-                    Observaciones
-                  </span>
-                  <span>
-                    {{person.obs}}
-                  </span>
+                <div fxLayout="row"
+                     fxFlex="20%">
+                  <div fxLayout="column">
+                    <div class="mat-caption label-caption">Ahorro</div>
+                    <div class="mat-body-2">${{person.totalAhorro}}(ARS)</div>
+                  </div>
                 </div>
               </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
 
-            </div>
-            <div fxLayout="row"
-                 fxFlex="20%">
-              <div fxLayout="column">
-                <div class="mat-caption label-caption">Ahorro</div>
-                <div class="mat-body-2">${{person.totalAhorro}}(ARS)</div>
-              </div>
-            </div>
-          </div>
-
-        </mat-expansion-panel>
-      </mat-accordion>
-
+      </cdk-virtual-scroll-viewport>
       <div fxLayout="row"
+           class="buttom-container"
            fxLayoutAlign="end center">
-        <button mat-fab
-                (click)="addPerson()">
-          <mat-icon>add</mat-icon>
-        </button>
+        <div>
+          <button mat-fab
+                  (click)="addPerson()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
       </div>
     </mat-card-content>
     <mat-paginator [length]="length"
