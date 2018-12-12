@@ -56,7 +56,6 @@
                              type="number"
                              placeholder="Ahorro">
                     </mat-form-field>
-
                   </td>
                   <td>
                     <mat-form-field class="example-full-width">
@@ -152,17 +151,6 @@
                       <tr>
                         <td>
                           <mat-form-field>
-
-                            <!-- <mat-select placeholder="Sexo"
-                                        name="gender"
-                                        formControlName="gender"
-                                        [(ngModel)]="formulario.gender">
-                              <mat-option *ngFor="let sexos of viewdata.sexos"
-                                          [value]="sexos">
-                                {{sexos}}
-                              </mat-option>
-                            </mat-select> -->
-
                             <mat-select placeholder="Formato de fecha"
                                         name="dateFormat"
                                         formControlName="dateFormat"
@@ -200,7 +188,6 @@
                             </mat-select>
                           </mat-form-field>
                         </td>
-
                       </tr>
                     </table>
                   </div>
@@ -246,7 +233,52 @@
                     Bienes
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-                <p>I'm visible because I am open</p>
+                <mat-card class="card-form">
+                  <mat-card-content>
+
+                    <mat-list *ngIf="hasBienes()" fxLayout="column"
+                              fxFlex
+                              fxLayoutAlign="space-between center">
+                      <mat-list-item *ngFor="let bien of formulario.bienes"
+                                     fxFlex>
+                        <div fxLayout="row"
+                             fxLayoutAlign="start center"
+                             fxFlex>
+                          <div fxLayout="row"
+                               fxFlex="30%"
+                               fxLayoutAlign="center center">{{bien.descripcion}}</div>
+                          <div fxLayout="row"
+                               fxFlex="30%"
+                               fxLayoutAlign="center center">{{bien.tipo}}</div>
+                          <div fxLayout="row"
+                               fxFlex="30%"
+                               fxLayoutAlign="center center">{{bien.valor}}</div>
+                          <div fxLayout="row"
+                               fxFlex="10%"
+                               fxLayoutAlign="center center">
+                            <button mat-icon-button
+                                    (click)="deleteBien(bien.id)">
+                              <mat-icon>delete_forever</mat-icon>
+                            </button>
+                          </div>
+                        </div>
+                      </mat-list-item>
+                    </mat-list>
+
+                    <span *ngIf="!hasBienes()">No hay bienes cargados.</span>
+
+                  </mat-card-content>
+                </mat-card>
+                <div class="agregar-bien-container">
+                  <div fxLayout="row"
+                       fxLayoutAlign="start center">
+                    <button mat-button
+                            (click)="openDialog()">
+                      <mat-icon>add_circle_outline</mat-icon>
+                      <span class="agregar-bien-label">Agregar bien</span>
+                    </button>
+                  </div>
+                </div>
               </mat-expansion-panel>
             </mat-accordion>
           </div>
@@ -269,6 +301,7 @@
             </div>
             <div class="button-container">
               <button mat-raised-button
+                      [disabled]="personForm.invalid"
                       (click)="action()"
                       color="primary">{{viewdata.buttonActionText}}</button>
             </div>

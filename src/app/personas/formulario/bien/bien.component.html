@@ -1,0 +1,56 @@
+<h1 mat-dialog-title>Agregar bien</h1>
+<div mat-dialog-content>
+  <form [formGroup]="bienForm"
+        fxLayout="column"
+        fxFlex>
+    <div fxLayout="row">
+      <mat-form-field fxFlex>
+        <input matInput
+               type="text"
+               name="descripcion"
+               formControlName="descripcion"
+               placeholder="Descripcion"
+               [(ngModel)]="formulario.descripcion">
+        <mat-error *ngIf="validateError('descripcion') && getErrors('descripcion').required">
+          Debe ingresar la descripción para el bien.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row"
+         fxLayoutAlign="space-between center">
+      <mat-form-field>
+        <mat-select placeholder="Categoria"
+                    name="categories"
+                    formControlName="categories"
+                    [(ngModel)]="formulario.tipo">
+          <mat-option *ngFor="let categorie of viewdata.categories"
+                      [value]="categorie">
+            {{categorie}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="validateError('categories') && getErrors('categories').required">
+          Seleccione una categoría.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput
+               type="number"
+               name="valor"
+               formControlName="valor"
+               placeholder="Valor"
+               [(ngModel)]="formulario.valor">
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions
+     fxLayout="row"
+     fxLayoutAlign="end center">
+  <button mat-button
+          (click)="cancel()">Cancelar</button>
+  <button mat-button
+          [disabled]="bienForm.invalid"
+          [mat-dialog-close]="formulario"
+          cdkFocusInitial>Agregar</button>
+</div>

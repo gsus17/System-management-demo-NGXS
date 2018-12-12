@@ -5,6 +5,9 @@ import { Form } from './formulario';
 import { FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { BienComponent } from './bien/bien.component';
+import { Bien } from 'src/api/entities/bien.entity';
 
 @Component({
   selector: 'app-formulario',
@@ -37,6 +40,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
   );
 
   constructor(
+    public dialog: MatDialog,
     private personasService: PersonasService,
     private route: ActivatedRoute) {
   }
@@ -45,9 +49,20 @@ export class FormularioComponent implements OnInit, OnDestroy {
   // Convenience getter for easy access to form fields.
   get form() { return this.personForm.controls; }
 
+  /**
+   * Esto es un formulario.
+   */
   public formulario: Form;
 
+  /**
+   * Datos complementario de la vista.
+   */
   public viewdata: PersonasFormularioViewData;
+
+  /**
+   * Datos para almacenar un bien.
+   */
+  public bienForm: Bien;
 
   ngOnInit() {
     this.initDefaultForm();
@@ -108,6 +123,36 @@ export class FormularioComponent implements OnInit, OnDestroy {
   public validateError(indicator) {
     const res = this.getErrors(`${indicator}`) !== null;
     return res;
+  }
+
+  public hasBienes() {
+    return this.formulario.bienes !== null && this.formulario.bienes.length > 0;
+  }
+
+  /**
+   * Abre formulario para agregar un nuevo bien.
+   */
+  public openDialog(): void {
+    const methodName: string = `${FormularioComponent.name}::openDialog`;
+    console.log(`${methodName}`);
+
+    const dialogRef = this.dialog.open(BienComponent, {
+      width: '500px',
+      data: { bienForm: this.bienForm }
+    });
+
+    dialogRef.afterClosed()
+      .subscribe(response => {
+        console.log(`${methodName}::afterClosed selection %o`, response);
+        this.bienForm = response;
+      });
+  }
+
+  /**
+   * Elimina el item correspondiente.
+   */
+  public deleteBien(id: string) {
+    console.log(`${FormularioComponent.name}::deleteBien id: %o`, id);
   }
 
   /**
