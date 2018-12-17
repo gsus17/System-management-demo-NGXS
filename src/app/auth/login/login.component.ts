@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
    */
   public login() {
     console.log(`${LoginComponent.name}::login credentials %o`, this.credentials);
-    this.router.navigate(['master-page']);
+    this.redirect();
     // this.progressLinear = true;
     // this.loginService.login(this.credentials)
     //   .then(() => {
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
    * Redirect to main view.
    */
   public redirect() {
-    this.router.navigate(['master-page']);
+    this.router.navigate(['master-page/personas/listado']);
   }
 
 }
