@@ -4,6 +4,7 @@ import { RegionalData } from 'src/api/entities/regional-data.entity';
 import { Bien } from 'src/api/entities/bien.entity';
 
 export interface Form {
+  id: number;
   name?: string;
   email?: string;
   ahorro?: number;
@@ -15,4 +16,5 @@ export interface Form {
   status?: AccountStatus;
   regionalData?: RegionalData;
   bienes?: Bien[];
+  obs?: string;
 }

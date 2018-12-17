@@ -26,7 +26,8 @@
                        [(ngModel)]="formulario.name"
                        placeholder="Nombre Completo">
                 <mat-hint align="start"><strong i18n>Con el siguiente formato Apellido, Nombre/s.</strong> </mat-hint>
-                <mat-error *ngIf="validateError('name') && getErrors('name').required" i18n>
+                <mat-error *ngIf="validateError('name') && getErrors('name').required"
+                           i18n>
                   Debe ingresar el nombre completo.
                 </mat-error>
               </mat-form-field>
@@ -39,7 +40,8 @@
                        formControlName="email"
                        [(ngModel)]="formulario.email"
                        placeholder="Correo electronico">
-                <mat-error *ngIf="validateError('email') && getErrors('email').required" i18n>
+                <mat-error *ngIf="validateError('email') && getErrors('email').required"
+                           i18n>
                   Debe ingresar el correo electrónico.
                 </mat-error>
               </mat-form-field>
@@ -73,7 +75,8 @@
                     <mat-slide-toggle class="toggle-container"
                                       formControlName="enableNotify"
                                       [(ngModel)]="formulario.enableNotify"
-                                      fxFlex i18n>Recibir notificaciones</mat-slide-toggle>
+                                      fxFlex
+                                      i18n>Recibir notificaciones</mat-slide-toggle>
                   </td>
                 </tr>
               </table>
@@ -229,7 +232,7 @@
 
               </mat-expansion-panel>
               <mat-expansion-panel>
-              <!-- <mat-expansion-panel (opened)="panelOpenState = true"
+                <!-- <mat-expansion-panel (opened)="panelOpenState = true"
                                    (closed)="panelOpenState = false"> -->
                 <mat-expansion-panel-header>
                   <mat-panel-title i18n>
@@ -269,7 +272,8 @@
                       </mat-list-item>
                     </mat-list>
 
-                    <span *ngIf="!hasBienes()" i18n>No hay bienes cargados.</span>
+                    <span *ngIf="!hasBienes()"
+                          i18n>No hay bienes cargados.</span>
 
                   </mat-card-content>
                 </mat-card>
@@ -279,7 +283,8 @@
                     <button mat-button
                             (click)="openDialog()">
                       <mat-icon>add_circle_outline</mat-icon>
-                      <span class="agregar-bien-label" i18n>Agregar bien</span>
+                      <span class="agregar-bien-label"
+                            i18n>Agregar bien</span>
                     </button>
                   </div>
                 </div>
@@ -293,6 +298,9 @@
               <textarea matInput
                         cdkTextareaAutosize
                         cdkAutosizeMinRows="2"
+                        name="obs"
+                        formControlName="obs"
+                        [(ngModel)]="formulario.obs"
                         cdkAutosizeMaxRows="5"></textarea>
             </mat-form-field>
           </div>
@@ -301,7 +309,8 @@
                fxLayoutAlign="end center">
             <div class="button-container">
               <button mat-raised-button
-                      (click)="cancel()" i18n>Cancelar</button>
+                      (click)="cancel()"
+                      i18n>Cancelar</button>
             </div>
             <div class="button-container">
               <button mat-raised-button

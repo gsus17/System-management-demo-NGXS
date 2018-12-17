@@ -3,7 +3,7 @@ import { PersonasService } from '../personas.service';
 import { PersonasFormularioViewData } from './formulario.viewdata';
 import { Form } from './formulario';
 import { FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { BienComponent } from './bien/bien.component';
@@ -35,14 +35,16 @@ export class FormularioComponent implements OnInit, OnDestroy {
       'dateFormat': new FormControl('', [Validators.required]),
       'timeFormat': new FormControl('', [Validators.required]),
       'timeZone': new FormControl('', [Validators.required]),
-      'languageCode': new FormControl('', [Validators.required])
+      'languageCode': new FormControl('', [Validators.required]),
+      'obs': new FormControl('', [Validators.required])
     }
   );
 
   constructor(
     public dialog: MatDialog,
     private personasService: PersonasService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private router: Router) {
   }
 
 
@@ -100,6 +102,14 @@ export class FormularioComponent implements OnInit, OnDestroy {
    */
   public updatePerson() {
     console.log(`${FormularioComponent.name}::update %o`, this.formulario);
+    this.personasService.updatePerson(this.formulario)
+      .then(() => {
+        alert('Actualizada');
+        this.router.navigate(['master-page/personas/listado']);
+      })
+      .catch(() => {
+        alert('Error');
+      });
   }
 
   /**
@@ -107,6 +117,14 @@ export class FormularioComponent implements OnInit, OnDestroy {
    */
   public addPerson() {
     console.log(`${FormularioComponent.name}::update %o`, this.formulario);
+    this.personasService.addPerson(this.formulario)
+      .then(() => {
+        alert('Almacenada');
+        this.router.navigate(['master-page/personas/listado']);
+      })
+      .catch(() => {
+        alert('Error');
+      });
   }
 
   /**
@@ -126,7 +144,10 @@ export class FormularioComponent implements OnInit, OnDestroy {
   }
 
   public hasBienes() {
-    return this.formulario.bienes !== null && this.formulario.bienes.length > 0;
+    return this.formulario !== null
+      && this.formulario.bienes !== null
+      && this.formulario.bienes !== undefined
+      && this.formulario.bienes.length > 0;
   }
 
   /**
@@ -178,6 +199,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
    */
   private initDefaultForm() {
     this.formulario = {
+      id: null,
       address: '',
       ahorro: 0,
       ahorroPercentage: 0,

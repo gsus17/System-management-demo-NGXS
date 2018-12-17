@@ -46,8 +46,21 @@ export class ListadoComponent implements OnInit, OnDestroy {
    * Edit a concret person.
    */
   public editPerson(id: string) {
-    console.log(`${ListadoComponent.name}::addPerson`);
+    console.log(`${ListadoComponent.name}::editPerson`);
     this.router.navigate([`/master-page/personas/formulario/${id}`]);
   }
 
+  /**
+   * Edit a concret person.
+   */
+  public deletePersona(id: string) {
+    console.log(`${ListadoComponent.name}::deletePersona`);
+    this.personasService.deletePersona(id)
+      .then(() => {
+        alert('Eliminada');
+      })
+      .catch(() => {
+        alert('Error');
+      });
+  }
 }
