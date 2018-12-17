@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="ae3b8c5f9d1217e8b5b315523914283de12d852b" datatype="html">
+        <source> Cerrar sesión </source>
+        <target>Close session</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/master-page/master-page.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f0cc9d36119efb5ffc28c5bea4fd1690a79e67a7" datatype="html">
+        <source> Listado de personas </source>
+        <target>Person List</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/master-page/master-page.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d821135124181efcafa666b508faada0fee89147" datatype="html">
+        <source> Listado de paises </source>
+        <target>Country List</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/master-page/master-page.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6d914f5155bd34f2bbecadeec2c718ccf3ff1045" datatype="html">
+        <source>Personas</source>
+         <target>Persons</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/auth/login/login.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8a155c2f63a1c60ab710f6c3810fbec51fdc0ca6" datatype="html">
+        <source>Sistemas de gestión de personas</source>
+         <target>People management systems</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/auth/login/login.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7fceee2ba612afb5b09018ac4a177e1a663ad808" datatype="html">
+        <source> (para training y aplicación de estándares)</source>
+        <target>(for training and application of standards)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/auth/login/login.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6e84a12749b0afa9732604392a114fdcfa90486c" datatype="html">
+        <source>Ingrese sus credenciales para ingresar.</source>
+        <target>Enter your credentials to enter.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/auth/login/login.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9f2fa13d37e4d24b6f994a7dbde4a19a9b09c8f7" datatype="html">
+        <source>Usuario</source>
+        <target>User</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/auth/login/login.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aef765a647865378a19f90032f20c3a537a6b685" datatype="html">
+        <source>El usuario invalido.</source>
+        <target>Invalid User.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/auth/login/login.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1916a517ea97832dbdd3ed545b003c4c63c19351" datatype="html">
+        <source>El password es requerido.</source>
+        <target>Password is required.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/auth/login/login.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="689b5c6e6e73e90cb85e0b7615c56254bca2c849" datatype="html">
+        <source>No cerrar sesión al salir.</source>
+        <target>Do not log out when leaving.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/auth/login/login.component.html</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="66e9daee15cbf831a40b0f4c5df884ec139f710f" datatype="html">
+        <source>Ingresar</source>
+        <target>Enter.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/auth/login/login.component.html</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ec69fe626344403c0bb594e9aa859b263a9e57a8" datatype="html">
+        <source>Version 0.0.1</source>
+         <target>Version 0.0.1.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/auth/login/login.component.html</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3eace47efbfc91a543068affc238a0cae7a44fdc" datatype="html">
+        <source>
+        Formulario de Personas
+      </source>
+      <target>Person Form.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/personas/formulario/formulario.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="daf73ad0fa4dadffe3ebfc74ded30db61cc6f3e6" datatype="html">
+        <source>Con el siguiente formato Apellido, Nombre/s.</source>
+         <target>With the following format Surname, Name / s.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/personas/formulario/formulario.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c68dab90e8cd8839249559ef0092954d0d0e4071" datatype="html">
+        <source>
+                  Debe ingresar el nombre completo.
+                </source>
+                <target>You must enter the full name.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/personas/formulario/formulario.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="40fe9f5add30fc039ec7a021ea8098c5bfc22b6f" datatype="html">
+        <source>
+                  Debe ingresar el correo electrónico.
+                </source>
+                <target>You must enter the email.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/personas/formulario/formulario.component.html</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c53121715ed2aee0d72ab41c704bf680b3263f66" datatype="html">
+        <source>Recibir notificaciones</source>
+        <target>Receive notifications</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/personas/formulario/formulario.component.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8be91bf0359b640fed3b93d676bb15037ba48d5e" datatype="html">
+        <source>
+                    Datos regionales
+                  </source>
+                   <target>Regional data</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/personas/formulario/formulario.component.html</context>
+          <context context-type="linenumber">144</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="314d4d2ae28c9679eb89ba7e01c7b0401fe8691d" datatype="html">
+        <source>
+                    Bienes
+                  </source>
+                  <target>Properties</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/personas/formulario/formulario.component.html</context>
+          <context context-type="linenumber">235</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="87ca462065a5f512255cdb48f8869ae2c1826dbc" datatype="html">
+        <source>No hay bienes cargados.</source>
+        <target>There are no loaded properties.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/personas/formulario/formulario.component.html</context>
+          <context context-type="linenumber">272</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="370133e350bef27e915d3374ce3b4ea5f929bbbe" datatype="html">
+        <source>Agregar bien</source>
+        <target>Add properties</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/personas/formulario/formulario.component.html</context>
+          <context context-type="linenumber">282</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3cac4181edb344ca0695835cc85d3d4b3d12b356" datatype="html">
+        <source>Observaciones</source>
+         <target>Comments</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/personas/formulario/formulario.component.html</context>
+          <context context-type="linenumber">292</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e8d22cdef9f5780e31395340125d873f9df518c3" datatype="html">
+        <source>Cancelar</source>
+         <target>Cancel</target>
+
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/personas/formulario/formulario.component.html</context>
+          <context context-type="linenumber">304</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a99bcc88b40461913747c2fa7aca2e86abeb8a35" datatype="html">
+        <source>
+      Listado de Personas
+    </source>
+     <target>Person list</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/personas/listado/listado.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5d6e2342e48d75e405f0fc141ab3e4a93c872dbb" datatype="html">
+        <source>Editar</source>
+         <target>Modify</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/personas/listado/listado.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4c0cfd3e88d5d6af1d5f23914fb74cb353a83811" datatype="html">
+        <source>Eliminar</source>
+         <target>Delete</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/personas/listado/listado.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="bc97b34f4a8f6ea79d2a55c870ad2c4216197356" datatype="html">
+        <source> Nueva</source>
+         <target>New</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/personas/listado/listado.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="68cd62fffdd2e383b2760d858d50fb4aa665dbd1" datatype="html">
+        <source>
+                        Nombre
+                      </source>
+                       <target>Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/personas/listado/listado.component.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="25cadbf0847a472c11d9f514f67f517ce38b224e" datatype="html">
+        <source>
+                        Email
+                      </source>
+                       <target>Email</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/personas/listado/listado.component.html</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e0d7698e6d0d33dc21cc5a189ce09ea7ea734171" datatype="html">
+        <source>
+                        Observaciones
+                      </source>
+                       <target>Comments</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/personas/listado/listado.component.html</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b1e86520220a1128de72e74b40d48fd4ca017e58" datatype="html">
+        <source>Ahorro</source>
+         <target>Ahorro</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/personas/listado/listado.component.html</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

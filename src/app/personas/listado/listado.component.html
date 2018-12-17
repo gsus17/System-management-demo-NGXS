@@ -1,6 +1,6 @@
 <div class="general-container">
   <mat-card>
-    <mat-card-title>
+    <mat-card-title i18n>
       Listado de Personas
     </mat-card-title>
 
@@ -49,9 +49,12 @@
                     <mat-icon (click)="editPerson(person.id)">mode_edit</mat-icon>
                     <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
                     <mat-menu #menu="matMenu">
-                      <button mat-menu-item>Editar</button>
-                      <button mat-menu-item>Eliminar</button>
-                      <button mat-menu-item>Nueva</button>
+                      <button mat-menu-item
+                              i18n>Editar</button>
+                      <button mat-menu-item
+                              i18n>Eliminar</button>
+                      <button mat-menu-item
+                              i18n> Nueva</button>
                     </mat-menu>
                   </div>
                 </div>
@@ -74,7 +77,7 @@
 
                   <div fxLayout="column">
                     <div fxLayout="column">
-                      <span class="mat-caption label-caption">
+                      <span class="mat-caption label-caption" i18n>
                         Nombre
                       </span>
                       <span>
@@ -82,7 +85,7 @@
                       </span>
                     </div>
                     <div fxLayout="column">
-                      <span class="mat-caption label-caption">
+                      <span class="mat-caption label-caption" i18n>
                         Email
                       </span>
                       <span>
@@ -90,7 +93,7 @@
                       </span>
                     </div>
                     <div fxLayout="column">
-                      <span class="mat-caption label-caption">
+                      <span class="mat-caption label-caption" i18n>
                         Observaciones
                       </span>
                       <span>
@@ -103,7 +106,7 @@
                 <div fxLayout="row"
                      fxFlex="20%">
                   <div fxLayout="column">
-                    <div class="mat-caption label-caption">Ahorro</div>
+                    <div class="mat-caption label-caption" i18n>Ahorro</div>
                     <div class="mat-body-2">${{person.totalAhorro}}(ARS)</div>
                   </div>
                 </div>
@@ -126,8 +129,7 @@
     </mat-card-content>
     <mat-paginator [length]="length"
                    [pageSize]="pageSize"
-                   [pageSizeOptions]="pageSizeOptions"
-                   (page)="pageEvent = $event">
+                   [pageSizeOptions]="pageSizeOptions">
     </mat-paginator>
   </mat-card>
 </div>

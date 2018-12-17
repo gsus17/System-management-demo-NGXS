@@ -7,9 +7,12 @@
     <div fxLayout="column"
          class="fxMargin"
          fxLayoutAlign="center center">
-      <span class="mat-title">Personas</span>
-      <span class="mat-title">Sistemas de gestión de personas</span>
-      <span class="mat-title"> (para training y aplicación de estándares)</span>
+      <span class="mat-title"
+            i18n>Personas</span>
+      <span class="mat-title"
+            i18n>Sistemas de gestión de personas</span>
+      <span class="mat-title"
+            i18n> (para training y aplicación de estándares)</span>
     </div>
   </div>
 
@@ -22,21 +25,22 @@
     </div>
 
     <mat-card-subtitle>
-      <span>Ingrese sus credenciales para ingresar.</span>
+      <span i18n>Ingrese sus credenciales para ingresar.</span>
     </mat-card-subtitle>
 
     <form class="example-form"
           [formGroup]="authForm"
           fxLayout="column">
-      <mat-form-field [floatLabel]="Usuario">
-        <mat-label>Usuario</mat-label>
+      <mat-form-field>
+        <mat-label i18n>Usuario</mat-label>
         <input matInput
                name="user"
                formControlName="user"
                [(ngModel)]="credentials.user"
                type="text"
                placeholder="Usuario">
-        <mat-error *ngIf="form.user.invalid">El usuario invalido.</mat-error>
+        <mat-error *ngIf="form.user.invalid"
+                   i18n>El usuario invalido.</mat-error>
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
@@ -46,7 +50,8 @@
                formControlName="password"
                [(ngModel)]="credentials.password"
                placeholder="Contraseña">
-        <mat-error *ngIf="form.password.invalid">El password es requerido.</mat-error>
+        <mat-error *ngIf="form.password.invalid"
+                   i18n>El password es requerido.</mat-error>
       </mat-form-field>
       <div class="selection-section"
            fxLayout="column">
@@ -54,11 +59,12 @@
         <div fxLayout="row"
              fxFlex
              fxLayoutAlign="space-between center">
-          <mat-checkbox>No cerrar sesión al salir.</mat-checkbox>
+          <mat-checkbox i18n>No cerrar sesión al salir.</mat-checkbox>
           <button mat-raised-button
                   (click)="login()"
                   [disabled]="authForm.invalid"
-                  color="primary">Ingresar</button>
+                  color="primary"
+                  i18n>Ingresar</button>
         </div>
 
       </div>
@@ -67,7 +73,8 @@
   </mat-card>
 
   <div class="fxMargin">
-    <span class="version-app">Version 0.0.1</span>
+    <span class="version-app"
+          i18n>Version 0.0.1</span>
   </div>
 
 </div>

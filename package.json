@@ -7,7 +7,11 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "i18n": "ng xi18n --outputPath=./locale",
+    "english": "ng build --prod --i18n-file src/locale/messages.en.xlf --i18n-format xlf --i18n-locale en",
+    "french": "ng build --prod --i18n-file src/locale/messages.fr.xlf --i18n-format xlf --i18n-locale fr",
+    "spanish": "ng build --prod"
   },
   "private": true,
   "dependencies": {

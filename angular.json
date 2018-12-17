@@ -33,6 +33,23 @@
             "scripts": []
           },
           "configurations": {
+            "en": {
+              "aot": true,
+              "outputPath": "dist/system-management-demo-en/",
+              "i18nFile": "src/locale/messages.en.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "en",
+              "i18nMissingTranslation": "error"
+            },
+            "fr": {
+              "aot": true,
+              "outputPath": "dist/system-management-demo-fr/",
+              "baseHref": "/fr/",
+              "i18nFile": "src/locale/messages.fr.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "fr",
+              "i18nMissingTranslation": "error"
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -67,6 +84,12 @@
           "configurations": {
             "production": {
               "browserTarget": "system-management-demo:build:production"
+            },
+            "fr": {
+              "browserTarget": "system-management-demo:build:fr"
+            },
+            "en": {
+              "browserTarget": "system-management-demo:build:en"
             }
           }
         },

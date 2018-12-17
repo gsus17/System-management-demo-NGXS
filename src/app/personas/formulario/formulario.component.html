@@ -9,7 +9,7 @@
        fxFlexLayout="row"
        fxLayoutAlign="center center">
     <mat-card class="card-form">
-      <mat-card-title>
+      <mat-card-title i18n>
         Formulario de Personas
       </mat-card-title>
       <mat-card-content>
@@ -25,8 +25,8 @@
                        formControlName="name"
                        [(ngModel)]="formulario.name"
                        placeholder="Nombre Completo">
-                <mat-hint align="start"><strong>Con el siguiente formato Apellido, Nombre/s.</strong> </mat-hint>
-                <mat-error *ngIf="validateError('name') && getErrors('name').required">
+                <mat-hint align="start"><strong i18n>Con el siguiente formato Apellido, Nombre/s.</strong> </mat-hint>
+                <mat-error *ngIf="validateError('name') && getErrors('name').required" i18n>
                   Debe ingresar el nombre completo.
                 </mat-error>
               </mat-form-field>
@@ -39,7 +39,7 @@
                        formControlName="email"
                        [(ngModel)]="formulario.email"
                        placeholder="Correo electronico">
-                <mat-error *ngIf="validateError('email') && getErrors('email').required">
+                <mat-error *ngIf="validateError('email') && getErrors('email').required" i18n>
                   Debe ingresar el correo electrónico.
                 </mat-error>
               </mat-form-field>
@@ -73,7 +73,7 @@
                     <mat-slide-toggle class="toggle-container"
                                       formControlName="enableNotify"
                                       [(ngModel)]="formulario.enableNotify"
-                                      fxFlex>Recibir notificaciones</mat-slide-toggle>
+                                      fxFlex i18n>Recibir notificaciones</mat-slide-toggle>
                   </td>
                 </tr>
               </table>
@@ -141,7 +141,7 @@
             <mat-accordion>
               <mat-expansion-panel>
                 <mat-expansion-panel-header>
-                  <mat-panel-title>
+                  <mat-panel-title i18n>
                     Datos regionales
                   </mat-panel-title>
                 </mat-expansion-panel-header>
@@ -199,7 +199,7 @@
                            fxFlex
                            cellspacing="5">
                       <tr>
-                        <td>
+                        <!-- <td>
                           <mat-form-field>
                             <mat-select placeholder="Nacionalidad">
                               <mat-option *ngFor="let food of foods"
@@ -208,7 +208,7 @@
                               </mat-option>
                             </mat-select>
                           </mat-form-field>
-                        </td>
+                        </td> -->
                         <td>
                           <mat-form-field>
                             <mat-select placeholder="Idioma"
@@ -228,10 +228,11 @@
                 </div>
 
               </mat-expansion-panel>
-              <mat-expansion-panel (opened)="panelOpenState = true"
-                                   (closed)="panelOpenState = false">
+              <mat-expansion-panel>
+              <!-- <mat-expansion-panel (opened)="panelOpenState = true"
+                                   (closed)="panelOpenState = false"> -->
                 <mat-expansion-panel-header>
-                  <mat-panel-title>
+                  <mat-panel-title i18n>
                     Bienes
                   </mat-panel-title>
                 </mat-expansion-panel-header>
@@ -268,7 +269,7 @@
                       </mat-list-item>
                     </mat-list>
 
-                    <span *ngIf="!hasBienes()">No hay bienes cargados.</span>
+                    <span *ngIf="!hasBienes()" i18n>No hay bienes cargados.</span>
 
                   </mat-card-content>
                 </mat-card>
@@ -278,7 +279,7 @@
                     <button mat-button
                             (click)="openDialog()">
                       <mat-icon>add_circle_outline</mat-icon>
-                      <span class="agregar-bien-label">Agregar bien</span>
+                      <span class="agregar-bien-label" i18n>Agregar bien</span>
                     </button>
                   </div>
                 </div>
@@ -288,7 +289,7 @@
 
           <div class="comments-container">
             <mat-form-field fxFlex>
-              <mat-label>Observaciones</mat-label>
+              <mat-label i18n>Observaciones</mat-label>
               <textarea matInput
                         cdkTextareaAutosize
                         cdkAutosizeMinRows="2"
@@ -300,7 +301,7 @@
                fxLayoutAlign="end center">
             <div class="button-container">
               <button mat-raised-button
-                      (click)="cancel()">Cancelar</button>
+                      (click)="cancel()" i18n>Cancelar</button>
             </div>
             <div class="button-container">
               <button mat-raised-button
