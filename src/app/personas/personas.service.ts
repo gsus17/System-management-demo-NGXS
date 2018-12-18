@@ -88,7 +88,7 @@ export class PersonasService {
             id: personFiltered.id === undefined ? null : personFiltered.id,
             address: personFiltered.direccion,
             regionalData: personFiltered.regionalData,
-            bienes: personFiltered.bienes,
+            bienes: personFiltered.bienes === null || personFiltered.bienes === undefined ? [] : personFiltered.bienes,
             ahorro: personFiltered.totalAhorro,
             ahorroPercentage: personFiltered.porcAhorro,
             birthdate: new Date(),
@@ -215,7 +215,7 @@ export class PersonasService {
   /**
    * Genera UUID.
    */
-  private generateUUID(): string {
+  public generateUUID(): string {
     // Public Domain/MIT
     console.log(`${PersonasApiService.name}::generateUUID`);
     let d: number = new Date().getTime();
@@ -252,7 +252,7 @@ export class PersonasService {
       fechaNacimiento: form.birthdate.toDateString(),
       recibirNotificaciones: form.enableNotify,
       regionalData: form.regionalData,
-      bienes: null,
+      bienes: form.bienes,
       nacionalidad: null,
       sexo: form.gender
     };

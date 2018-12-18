@@ -239,14 +239,14 @@
                     Bienes
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-card class="card-form">
+                <mat-card>
                   <mat-card-content>
 
                     <mat-list *ngIf="hasBienes()"
                               fxLayout="column"
                               fxFlex
                               fxLayoutAlign="space-between center">
-                      <mat-list-item *ngFor="let bien of formulario.bienes"
+                      <mat-list-item *ngFor="let bien of formulario.bienes; $index as i"
                                      fxFlex>
                         <div fxLayout="row"
                              fxLayoutAlign="start center"
@@ -264,7 +264,7 @@
                                fxFlex="10%"
                                fxLayoutAlign="center center">
                             <button mat-icon-button
-                                    (click)="deleteBien(bien.id)">
+                                    (click)="deleteBien($index)">
                               <mat-icon>delete_forever</mat-icon>
                             </button>
                           </div>

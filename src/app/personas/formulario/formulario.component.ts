@@ -165,7 +165,11 @@ export class FormularioComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed()
       .subscribe(response => {
         console.log(`${methodName}::afterClosed selection %o`, response);
-        this.bienForm = response;
+        this.bienForm = {
+          ...response,
+          id: this.personasService.generateUUID()
+        };
+        this.formulario.bienes.push(this.bienForm);
       });
   }
 
@@ -179,8 +183,9 @@ export class FormularioComponent implements OnInit, OnDestroy {
   /**
    * Elimina el item correspondiente.
    */
-  public deleteBien(id: string) {
-    console.log(`${FormularioComponent.name}::deleteBien id: %o`, id);
+  public deleteBien($index: number) {
+    console.log(`${FormularioComponent.name}::deleteBien`);
+    this.formulario.bienes.splice($index, 1);
   }
 
   /**
