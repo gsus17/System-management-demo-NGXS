@@ -18,10 +18,13 @@ export class PersonasService {
   /**
    * Devuelve el listado de personas.
    */
-  public getPersonas$(): Observable<Persona[]> {
-    return this.personasApiService.getPersonas$();
+  public getPersonas$(pageIndex: number, pageSize: number): Observable<Persona[]> {
+    return this.personasApiService.getPersonas$(pageIndex, pageSize);
   }
 
+  /**
+   * Crea una persona.
+   */
   public addPerson(formulario: Form): Promise<void> {
     console.log(`${PersonasService.name}:: createPerson`);
 
@@ -67,7 +70,9 @@ export class PersonasService {
     return this.personasApiService.deleteById(id);
   }
 
-
+  /**
+   * Devuelve una persona segun su id.
+   */
   public getById$(id: string) {
     const methodName: string = `${PersonasService.name}::getFormPersonaById`;
     console.log(`${methodName}`);
@@ -235,6 +240,9 @@ export class PersonasService {
     });
   }
 
+  /**
+   * Mapea de la entidad form a la entidad person.
+   */
   private mapFormToPerson(form: Form) {
     const person: Persona = {
       id: form.id,

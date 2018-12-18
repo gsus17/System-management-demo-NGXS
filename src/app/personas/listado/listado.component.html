@@ -50,6 +50,7 @@
                     <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
                     <mat-menu #menu="matMenu">
                       <button mat-menu-item
+                              (click)="editPerson(person.id)"
                               i18n>Editar</button>
                       <button mat-menu-item
                               (click)="deletePersona(person.id)"
@@ -132,9 +133,10 @@
         </div>
       </div>
     </mat-card-content>
-    <mat-paginator [length]="length"
-                   [pageSize]="pageSize"
-                   [pageSizeOptions]="pageSizeOptions">
+    <mat-paginator [length]="paginator.length"
+                   [pageSize]="paginator.pageSize"
+                   [pageSizeOptions]="paginator.pageSizeOptions"
+                   (page)="changePaginator($event)">
     </mat-paginator>
   </mat-card>
 </div>
