@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PaisesService } from '../paises.service';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatSort } from '@angular/material';
 
 let ELEMENT_DATA: PeriodicElement[] = [];
 
@@ -11,8 +11,9 @@ let ELEMENT_DATA: PeriodicElement[] = [];
   styleUrls: ['./listado.component.sass']
 })
 export class ListadoComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
 
-  public displayedColumns: string[] = ['select', 'position', 'iata', 'nombre', 'editar', 'eliminar'];
+  public displayedColumns: string[] = ['select', 'iata', 'nombre', 'editar', 'eliminar'];
   public dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   public selection = new SelectionModel<PeriodicElement>(true, []);
 
@@ -22,6 +23,7 @@ export class ListadoComponent implements OnInit {
 
     this.paisesService.getPaises$()
       .subscribe((data) => {
+        this.dataSource.sort = this.sort;
         ELEMENT_DATA = data.map((item) => {
           return { select: '', position: 1, iata: item.codigoIata, nombre: item.nombre, editar: '', eliminar: '' };
         });
@@ -48,7 +50,6 @@ export class ListadoComponent implements OnInit {
 }
 
 export interface PeriodicElement {
-  position: number;
   iata: string;
   nombre: string;
   editar: string;

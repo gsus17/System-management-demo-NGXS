@@ -24,6 +24,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatRippleModule } from '@angular/material/core';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [],
@@ -53,7 +54,8 @@ import { MatTableModule } from '@angular/material/table';
     MatMenuModule,
     MatRippleModule,
     CdkTableModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule
   ],
   exports: [
     MatCardModule,
@@ -81,7 +83,8 @@ import { MatTableModule } from '@angular/material/table';
     MatMenuModule,
     MatRippleModule,
     CdkTableModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule
   ]
 })
 export class AngularMaterialModule { }
