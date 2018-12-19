@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PaisesService } from '../paises.service';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 
-let ELEMENT_DATA: PeriodicElement[] = [];
+let COLUMNS: Columns[] = [];
 
 @Component({
   selector: 'app-listado',
@@ -12,10 +12,11 @@ let ELEMENT_DATA: PeriodicElement[] = [];
 })
 export class ListadoComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   public displayedColumns: string[] = ['select', 'iata', 'nombre', 'editar', 'eliminar'];
-  public dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  public selection = new SelectionModel<PeriodicElement>(true, []);
+  public dataSource = new MatTableDataSource<Columns>(COLUMNS);
+  public selection = new SelectionModel<Columns>(true, []);
 
   constructor(private paisesService: PaisesService) { }
 
@@ -24,7 +25,8 @@ export class ListadoComponent implements OnInit {
     this.paisesService.getPaises$()
       .subscribe((data) => {
         this.dataSource.sort = this.sort;
-        ELEMENT_DATA = data.map((item) => {
+        this.dataSource.paginator = this.paginator;
+        COLUMNS = data.map((item) => {
           return { select: '', position: 1, iata: item.codigoIata, nombre: item.nombre, editar: '', eliminar: '' };
         });
       });
@@ -49,7 +51,10 @@ export class ListadoComponent implements OnInit {
   }
 }
 
-export interface PeriodicElement {
+/**
+ * Estructura del listado de columnas.
+ */
+export interface Columns {
   iata: string;
   nombre: string;
   editar: string;

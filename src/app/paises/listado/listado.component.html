@@ -76,7 +76,7 @@
           </ng-container>
 
           <tr mat-header-row
-              *matHeaderRowDef="displayedColumns"></tr>
+              *matHeaderRowDef="displayedColumns; sticky: true"></tr>
           <tr mat-row
               *matRowDef="let row; columns: displayedColumns;"
               (click)="selection.toggle(row)">
@@ -95,10 +95,6 @@
         </div>
       </div>
     </mat-card-content>
-    <!-- <mat-paginator [length]="paginator.length"
-                   [pageSize]="paginator.pageSize"
-                   [pageSizeOptions]="paginator.pageSizeOptions"
-                   (page)="changePaginator($event)">
-    </mat-paginator> -->
+    <mat-paginator [pageSizeOptions]="[10, 10, 20]" showFirstLastButtons></mat-paginator>
   </mat-card>
 </div>

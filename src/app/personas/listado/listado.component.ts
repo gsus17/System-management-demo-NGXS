@@ -87,7 +87,6 @@ export class ListadoComponent implements OnInit, OnDestroy {
   }
 }
 
-
 /**
  * Estructura de datos del paginador.
  */
