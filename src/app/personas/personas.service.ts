@@ -222,7 +222,7 @@ export class PersonasService {
    */
   public generateUUID(): string {
     // Public Domain/MIT
-    console.log(`${PersonasApiService.name}::generateUUID`);
+
     let d: number = new Date().getTime();
     // tslint:disable-next-line:no-typeof-undefined
     if (typeof performance !== 'undefined' && typeof performance.now === 'function') {

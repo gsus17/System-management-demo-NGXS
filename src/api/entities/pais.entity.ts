@@ -4,6 +4,11 @@
 export interface Pais {
 
   /**
+   * id.
+   */
+  id: number;
+
+  /**
    * Nombre del país.
    */
   nombre: string;

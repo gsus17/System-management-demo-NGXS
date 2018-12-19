@@ -7,7 +7,7 @@ import { Pais } from 'src/api/entities/pais.entity';
 import { CountryForm } from '../formulario/formulario.entity';
 import { Observable } from 'rxjs';
 
-let COLUMNS: Columns[] = [];
+const COLUMNS: Columns[] = [];
 
 @Component({
   selector: 'app-listado',
@@ -33,27 +33,48 @@ export class ListadoComponent implements OnInit {
 
   ngOnInit() {
 
+    this.getCountries();
+  }
+
+  /**
+   * Devuelve el listado de personas.
+   */
+  public getCountries(): void {
     this.paisesService.getPaises$()
       .subscribe((data) => {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        COLUMNS = data.map((item) => {
-          return { select: '', position: 1, iata: item.codigoIata, nombre: item.nombre, editar: '', eliminar: '' };
+
+        this.dataSource.data = data.map((item) => {
+          return { select: '', id: item.id, iata: item.codigoIata, nombre: item.nombre, editar: '', eliminar: '' };
         });
+      });
+  }
+  /**
+   * Edita el pais.
+   */
+  public editCountry(name: string, iata: string, id: number) {
+    const methodName: string = `${ListadoComponent.name}::editCountry`;
+    console.log(`${methodName}`);
+
+    this.openDialog(name, iata, id)
+      .subscribe(response => {
+        console.log(`${methodName}::afterClosed selection %o`, response);
+        const country: Pais = {
+          codigoIata: response.codigoIata,
+          id: response.id,
+          nombre: response.nombre
+        };
+
+        this.paisesService.editCountry(country);
       });
   }
 
   /**
-   * Edita el pais.
+   * Aplica el filtro ingresado.
    */
-  public editCountry(name: string, iata: string) {
-    const methodName: string = `${ListadoComponent.name}::editCountry`;
-    console.log(`${methodName}`);
-
-    this.openDialog(name, iata)
-      .subscribe(response => {
-        console.log(`${methodName}::afterClosed selection %o`, response);
-      });
+  public applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   /**
@@ -66,17 +87,34 @@ export class ListadoComponent implements OnInit {
     this.openDialog()
       .subscribe(response => {
         console.log(`${methodName}::afterClosed selection %o`, response);
+        const country: Pais = {
+          codigoIata: response.codigoIata,
+          id: 0,
+          nombre: response.nombre
+        };
+
+        this.paisesService.createContry(country);
       });
+  }
+
+  /**
+   * Agrega un pais.
+   */
+  public deleteCountry(id: number) {
+    const methodName: string = `${ListadoComponent.name}::deleteCountry`;
+    console.log(`${methodName}`);
+
+    this.paisesService.deleteCountry(id);
   }
 
   /**
    * Abre formulario para agregar un nuevo bien.
    */
-  public openDialog(name: string = '', iata: string = ''): Observable<any> {
+  public openDialog(name: string = '', iata: string = '', id: number = 0): Observable<any> {
     const methodName: string = `${ListadoComponent.name}::openDialog`;
     console.log(`${methodName}`);
     const countryForm: CountryForm = name !== '' && iata !== '' ?
-      { modify: true, ...this.countryForm, nombre: name, codigoIata: iata }
+      { modify: true, ...this.countryForm, nombre: name, codigoIata: iata, id: id }
       : { modify: false, ...this.countryForm };
 
     const dialogRef = this.dialog.open(FormularioComponent, {

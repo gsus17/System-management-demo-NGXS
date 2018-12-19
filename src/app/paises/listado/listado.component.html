@@ -8,6 +8,11 @@
     <mat-card-content>
       <cdk-virtual-scroll-viewport itemSize="50"
                                    class="virtual-viewport">
+        <mat-form-field>
+          <input matInput
+                 (keyup)="applyFilter($event.target.value)"
+                 placeholder="Filter">
+        </mat-form-field>
         <table mat-table
                [dataSource]="dataSource"
                matSort
@@ -57,7 +62,7 @@
                 *matCellDef="let element">
               <button mat-icon-button
                       color="accent"
-                      (click)="editCountry(element.nombre,element.iata)">
+                      (click)="editCountry(element.nombre,element.iata,element.id)">
                 <mat-icon class="mat-18">edit</mat-icon>
               </button></td>
           </ng-container>
