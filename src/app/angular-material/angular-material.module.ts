@@ -22,6 +22,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatRippleModule } from '@angular/material/core';
+import { CdkTableModule } from '@angular/cdk/table';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [],
@@ -49,7 +51,9 @@ import { MatRippleModule } from '@angular/material/core';
     MatNativeDateModule,
     MatDividerModule,
     MatMenuModule,
-    MatRippleModule
+    MatRippleModule,
+    CdkTableModule,
+    MatTableModule
   ],
   exports: [
     MatCardModule,
@@ -75,7 +79,9 @@ import { MatRippleModule } from '@angular/material/core';
     MatNativeDateModule,
     MatDividerModule,
     MatMenuModule,
-    MatRippleModule
+    MatRippleModule,
+    CdkTableModule,
+    MatTableModule
   ]
 })
 export class AngularMaterialModule { }
