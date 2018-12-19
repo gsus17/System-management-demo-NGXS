@@ -1,3 +1,46 @@
-<p>
-  formulario works!
-</p>
+<h1 mat-dialog-title>{{data.nombre}}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="countryForm"
+        fxLayout="column"
+        fxFlex>
+    <div fxLayout="row"
+         fxLayoutAlign="space-between center">
+      <mat-form-field fxFlex="50">
+        <input matInput
+               type="text"
+               name="nombre"
+               formControlName="nombre"
+               placeholder="Nombre"
+               [(ngModel)]="data.nombre">
+        <mat-error *ngIf="validateError('nombre') && getErrors('nombre').required">
+          Debe ingresar el nombre del pais.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="40">
+        <input matInput
+               type="text"
+               name="codigoIata"
+               formControlName="codigoIata"
+               placeholder="Codigo iata"
+               [(ngModel)]="data.codigoIata">
+        <mat-error *ngIf="validateError('codigoIata') && getErrors('codigoIata').required">
+          Debe ingresar el codigo iata.
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions
+     fxLayout="row"
+     fxLayoutAlign="end center">
+  <button mat-button
+          (click)="cancel()">Cancelar</button>
+  <button mat-button
+          [disabled]="countryForm.invalid"
+          [mat-dialog-close]="data"
+          cdkFocusInitial>
+    <span *ngIf="data.modify">Actualizar</span>
+    <span *ngIf="!data.modify">Agregar</span>
+  </button>
+</div>

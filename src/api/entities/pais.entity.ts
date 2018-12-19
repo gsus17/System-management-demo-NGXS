@@ -4,12 +4,12 @@
 export interface Pais {
 
   /**
-   * Código IATA.
-   */
-  codigoIata: string;
-
-  /**
    * Nombre del país.
    */
   nombre: string;
+
+  /**
+   * Código IATA.
+   */
+  codigoIata: string;
 }

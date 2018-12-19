@@ -57,7 +57,7 @@
                 *matCellDef="let element">
               <button mat-icon-button
                       color="accent"
-                      (click)="redirectToUpdate(element.id)">
+                      (click)="editCountry(element.nombre,element.iata)">
                 <mat-icon class="mat-18">edit</mat-icon>
               </button></td>
           </ng-container>
@@ -70,7 +70,7 @@
                 *matCellDef="let element">
               <button mat-icon-button
                       color="accent"
-                      (click)="redirectToUpdate(element.id)">
+                      (click)="deleteCountry(element.id)">
                 <mat-icon class="mat-18">delete_forever</mat-icon>
               </button></td>
           </ng-container>
@@ -89,12 +89,13 @@
            fxLayoutAlign="end center">
         <div>
           <button mat-fab
-                  (click)="addPerson()">
+                  (click)="addCountry()">
             <mat-icon>add</mat-icon>
           </button>
         </div>
       </div>
     </mat-card-content>
-    <mat-paginator [pageSizeOptions]="[10, 10, 20]" showFirstLastButtons></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons></mat-paginator>
   </mat-card>
 </div>
