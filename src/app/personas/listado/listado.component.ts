@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Persona } from 'src/api/entities/persona.entity';
 import { PersonasService } from '../personas.service';
 import { Subscription } from 'rxjs';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
 @Component({
   selector: 'app-listado',
@@ -16,6 +17,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
   private personasSubscription: Subscription = null;
 
   constructor(
+    public snackBar: MatSnackBar,
     private personasService: PersonasService,
     private router: Router) { }
 
@@ -69,12 +71,12 @@ export class ListadoComponent implements OnInit, OnDestroy {
   public deletePersona(id: string) {
     console.log(`${ListadoComponent.name}::deletePersona`);
     this.personasService.deletePersona(id)
-      .then(() => {
-        alert('Eliminada');
-      })
-      .catch(() => {
-        alert('Error');
-      });
+    .then(() => {
+      this.openSnackBar('Se ha eliminado correctamente.');
+    })
+    .catch(() => {
+      this.openSnackBar('Ha ocurrido un error.');
+    });
   }
 
   /**
@@ -84,6 +86,19 @@ export class ListadoComponent implements OnInit, OnDestroy {
     console.log(`${ListadoComponent.name}::getPersons %o`, change);
 
     this.getPersons(change.pageIndex, change.pageSize);
+  }
+
+  /**
+   * Muestra el mensaje correspondiente.
+   */
+  public openSnackBar(msg: string) {
+    const config: MatSnackBarConfig = {
+      duration: 2000,
+      horizontalPosition: 'end',
+      verticalPosition: 'top'
+    };
+
+    this.snackBar.open(msg, null, config);
   }
 }
 
