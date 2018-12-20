@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PaisesService } from '../paises.service';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { FormularioComponent } from '../formulario/formulario.component';
 import { Pais } from 'src/api/entities/pais.entity';
 import { CountryForm } from '../formulario/formulario.entity';
@@ -18,8 +18,19 @@ export class ListadoComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  /**
+   * Listado de columnas.
+   */
   public displayedColumns: string[] = ['select', 'iata', 'nombre', 'editar', 'eliminar'];
+
+  /**
+   * Data a renderizar en las columnas.
+   */
   public dataSource = new MatTableDataSource<Columns>(COLUMNS);
+
+  /**
+   * Listado de elementos seleccionados.
+   */
   public selection = new SelectionModel<Columns>(true, []);
 
   /**
@@ -28,6 +39,7 @@ export class ListadoComponent implements OnInit {
   public countryForm: Pais;
 
   constructor(
+    public snackBar: MatSnackBar,
     public dialog: MatDialog,
     private paisesService: PaisesService) { }
 
@@ -50,6 +62,7 @@ export class ListadoComponent implements OnInit {
         });
       });
   }
+
   /**
    * Edita el pais.
    */
@@ -66,7 +79,13 @@ export class ListadoComponent implements OnInit {
           nombre: response.nombre
         };
 
-        this.paisesService.editCountry(country);
+        this.paisesService.editCountry(country)
+          .then(() => {
+            this.openSnackBar('Se ha editado correctamente.');
+          })
+          .catch(() => {
+            this.openSnackBar('Ha ocurrido un error.');
+          });
       });
   }
 
@@ -93,7 +112,13 @@ export class ListadoComponent implements OnInit {
           nombre: response.nombre
         };
 
-        this.paisesService.createContry(country);
+        this.paisesService.createContry(country)
+          .then(() => {
+            this.openSnackBar('Se ha creado correctamente.');
+          })
+          .catch(() => {
+            this.openSnackBar('Ha ocurrido un error.');
+          });
       });
   }
 
@@ -104,7 +129,13 @@ export class ListadoComponent implements OnInit {
     const methodName: string = `${ListadoComponent.name}::deleteCountry`;
     console.log(`${methodName}`);
 
-    this.paisesService.deleteCountry(id);
+    this.paisesService.deleteCountry(id)
+      .then(() => {
+        this.openSnackBar('Se ha eliminado correctamente.');
+      })
+      .catch(() => {
+        this.openSnackBar('Ha ocurrido un error.');
+      });
   }
 
   /**
@@ -123,7 +154,6 @@ export class ListadoComponent implements OnInit {
     });
 
     return dialogRef.afterClosed();
-
   }
 
   /**
@@ -142,6 +172,19 @@ export class ListadoComponent implements OnInit {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  /**
+   * Muestra el mensaje correspondiente.
+   */
+  public openSnackBar(msg: string) {
+    const config: MatSnackBarConfig = {
+      duration: 2000,
+      horizontalPosition: 'end',
+      verticalPosition: 'top'
+    };
+
+    this.snackBar.open(msg, null, config);
   }
 }
 

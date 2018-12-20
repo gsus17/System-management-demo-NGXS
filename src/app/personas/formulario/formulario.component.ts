@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { BienComponent } from './bien/bien.component';
 import { Bien } from 'src/api/entities/bien.entity';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
 @Component({
   selector: 'app-formulario',
@@ -15,7 +16,6 @@ import { Bien } from 'src/api/entities/bien.entity';
   styleUrls: ['./formulario.component.sass']
 })
 export class FormularioComponent implements OnInit, OnDestroy {
-
   private subscription: Subscription;
 
   /**
@@ -41,12 +41,12 @@ export class FormularioComponent implements OnInit, OnDestroy {
   );
 
   constructor(
+    public snackBar: MatSnackBar,
     public dialog: MatDialog,
     private personasService: PersonasService,
     private route: ActivatedRoute,
     private router: Router) {
   }
-
 
   // Convenience getter for easy access to form fields.
   get form() { return this.personForm.controls; }
@@ -104,11 +104,11 @@ export class FormularioComponent implements OnInit, OnDestroy {
     console.log(`${FormularioComponent.name}::update %o`, this.formulario);
     this.personasService.updatePerson(this.formulario)
       .then(() => {
-        alert('Actualizada');
+        this.openSnackBar('Se ha actualizado la persona correctamente.');
         this.router.navigate(['master-page/personas/listado']);
       })
       .catch(() => {
-        alert('Error');
+        this.openSnackBar('Ha ocurrido un error.');
       });
   }
 
@@ -120,10 +120,11 @@ export class FormularioComponent implements OnInit, OnDestroy {
     this.personasService.addPerson(this.formulario)
       .then(() => {
         alert('Almacenada');
+        this.openSnackBar('Se ha creado la persona correctamente.');
         this.router.navigate(['master-page/personas/listado']);
       })
       .catch(() => {
-        alert('Error');
+        this.openSnackBar('Ha ocurrido un error.');
       });
   }
 
@@ -143,6 +144,9 @@ export class FormularioComponent implements OnInit, OnDestroy {
     return res;
   }
 
+  /**
+   * Determina si existen bienes relacionados.
+   */
   public hasBienes() {
     return this.formulario !== null
       && this.formulario.bienes !== null
@@ -186,6 +190,8 @@ export class FormularioComponent implements OnInit, OnDestroy {
   public deleteBien($index: number) {
     console.log(`${FormularioComponent.name}::deleteBien`);
     this.formulario.bienes.splice($index, 1);
+
+    this.openSnackBar('Se ha eliminado correctamente.');
   }
 
   /**
@@ -197,6 +203,19 @@ export class FormularioComponent implements OnInit, OnDestroy {
       .subscribe((response: Form) => {
         this.formulario = { ...response };
       });
+  }
+
+  /**
+   * Muestra el mensaje correspondiente.
+   */
+  public openSnackBar(msg: string) {
+    const config: MatSnackBarConfig = {
+      duration: 2000,
+      horizontalPosition: 'end',
+      verticalPosition: 'top'
+    };
+
+    this.snackBar.open(msg, null, config);
   }
 
   /**

@@ -47,5 +47,4 @@ export class FormularioComponent implements OnInit {
   public cancel(): void {
     this.dialogRef.close();
   }
-
 }

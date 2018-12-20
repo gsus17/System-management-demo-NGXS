@@ -25,6 +25,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [],
@@ -55,7 +56,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatRippleModule,
     CdkTableModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatSnackBarModule
   ],
   exports: [
     MatCardModule,
@@ -84,7 +86,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatRippleModule,
     CdkTableModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatSnackBarModule
   ]
 })
 export class AngularMaterialModule { }

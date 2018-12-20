@@ -88,7 +88,7 @@ export class PersonasService {
     return this.personasApiService.getPersonas$()
       .pipe(
         map(persons => {
-          const personFiltered = persons.filter(person => person.id === +id)[0];
+          const personFiltered = persons[0];
           const form: Form = {
             id: personFiltered.id === undefined ? null : personFiltered.id,
             address: personFiltered.direccion,
