@@ -24,11 +24,11 @@ export class ListadoComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.paginator = {
-      length: 20,
-      pageSize: 10,
+      length: 10,
+      pageSize: 5,
       pageIndex: 1,
       previousPageIndex: 0,
-      pageSizeOptions: [1, 5, 10, 15, 20, 25]
+      pageSizeOptions: [5, 10, 15, 20, 25]
     };
 
     this.getPersons(this.paginator.pageIndex, this.paginator.pageSize);
