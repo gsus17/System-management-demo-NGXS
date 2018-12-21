@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-master-page',
@@ -8,11 +9,13 @@ import { Router } from '@angular/router';
 })
 export class MasterPageComponent implements OnInit {
 
-  public openedSideBar: boolean = true;
+  public openedSideBar: boolean;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit() {
+    this.breakpointDetector();
   }
 
   /**
@@ -22,4 +25,19 @@ export class MasterPageComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
+  /**
+   * Detecta el cambio de pantalla.
+   */
+  private breakpointDetector() {
+
+    this.breakpointObserver.observe([Breakpoints.Small])
+      .subscribe(() => {
+        this.openedSideBar = false;
+      });
+
+    this.breakpointObserver.observe([Breakpoints.Web])
+      .subscribe(() => {
+        this.openedSideBar = true;
+      });
+  }
 }

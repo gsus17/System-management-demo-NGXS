@@ -26,6 +26,8 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [],
@@ -57,7 +59,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     CdkTableModule,
     MatTableModule,
     MatSortModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule,
+    LayoutModule
   ],
   exports: [
     MatCardModule,
@@ -87,7 +91,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     CdkTableModule,
     MatTableModule,
     MatSortModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule,
+    LayoutModule
   ]
 })
 export class AngularMaterialModule { }

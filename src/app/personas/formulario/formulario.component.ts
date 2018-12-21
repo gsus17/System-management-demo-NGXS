@@ -18,6 +18,10 @@ import { Pais } from 'src/api/entities/pais.entity';
   styleUrls: ['./formulario.component.sass']
 })
 export class FormularioComponent implements OnInit, OnDestroy {
+
+  /**
+   * subscription reference.
+   */
   private subscription: Subscription;
 
   /**
@@ -185,6 +189,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
    */
   public cancel() {
     console.log(`${FormularioComponent.name}::cancel`);
+    this.router.navigate([`/master-page/personas/listado`]);
   }
 
   /**
@@ -270,7 +275,6 @@ export class FormularioComponent implements OnInit, OnDestroy {
       editMode: editMode,
       countries: []
     };
-
 
     this.paisesService.getPaises$()
       .subscribe((countries: Pais[]) => {
