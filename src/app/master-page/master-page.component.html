@@ -19,15 +19,21 @@
       <mat-nav-list>
         <mat-list-item (click)="logout()">
           <mat-icon matListIcon>exit_to_app</mat-icon>
-          <h3 matLine i18n> Cerrar sesión </h3>
+          <span matLine
+                class="mat-caption"
+                i18n> Cerrar sesión </span>
         </mat-list-item>
         <mat-list-item routerLink="personas/listado">
           <mat-icon matListIcon>person_outline</mat-icon>
-          <h3 matLine i18n> Listado de personas </h3>
+          <span matLine
+                class="mat-caption"
+                i18n> Listado de personas </span>
         </mat-list-item>
         <mat-list-item routerLink="paises/listado">
           <mat-icon matListIcon>public</mat-icon>
-          <h3 matLine i18n> Listado de paises </h3>
+          <span matLine
+                class="mat-caption"
+                i18n> Listado de paises </span>
         </mat-list-item>
       </mat-nav-list>
 

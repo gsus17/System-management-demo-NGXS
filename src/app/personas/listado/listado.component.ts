@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Persona } from 'src/api/entities/persona.entity';
 import { PersonasServiceSingleton } from '../personas.service';
 import { Subscription } from 'rxjs';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig, MatPaginatorIntl } from '@angular/material';
 
 @Component({
   selector: 'app-listado',
@@ -19,6 +19,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
   constructor(
     public snackBar: MatSnackBar,
     private personasService: PersonasServiceSingleton,
+    private matPaginatorIntl: MatPaginatorIntl,
     private router: Router) { }
 
   ngOnInit() {
@@ -30,6 +31,8 @@ export class ListadoComponent implements OnInit, OnDestroy {
       previousPageIndex: 0,
       pageSizeOptions: [5, 10, 15, 20, 25]
     };
+
+    this.matPaginatorIntl.itemsPerPageLabel = 'Resultados por pagina.';
 
     this.getPersons(this.paginator.pageIndex, this.paginator.pageSize);
   }
@@ -71,12 +74,12 @@ export class ListadoComponent implements OnInit, OnDestroy {
   public deletePersona(id: string) {
     console.log(`${ListadoComponent.name}::deletePersona`);
     this.personasService.deletePersona(id)
-    .then(() => {
-      this.openSnackBar('Se ha eliminado correctamente.');
-    })
-    .catch(() => {
-      this.openSnackBar('Ha ocurrido un error.');
-    });
+      .then(() => {
+        this.openSnackBar('Se ha eliminado correctamente.');
+      })
+      .catch(() => {
+        this.openSnackBar('Ha ocurrido un error.');
+      });
   }
 
   /**
