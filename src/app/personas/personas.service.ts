@@ -101,13 +101,18 @@ export class PersonasServiceSingleton {
   /**
    * Devuelve el formulario correspondiente.
    */
-  public getFormPersonaById$(id: string): Observable<Form> {
+  public getFormPersonaById$(id: number): Observable<Form> {
     const methodName: string = `${PersonasServiceSingleton.name}::getFormPersonaById`;
     console.log(`${methodName}`);
     return this.personasApiService.getPersonas$()
       .pipe(
         map(persons => {
-          const personFiltered = persons[0];
+
+          const personas: Persona[] = <any>persons;
+          personas.forEach((persona, idx) => {
+            persona.id = idx;
+          });
+          const personFiltered = personas.filter((item) => item.id === id)[0];
           const form: Form = {
             id: personFiltered.id === undefined ? null : personFiltered.id,
             address: personFiltered.direccion,
@@ -121,7 +126,11 @@ export class PersonasServiceSingleton {
             gender: personFiltered.sexo,
             name: personFiltered.nombreCompleto,
             status: personFiltered.estado,
-            obs: personFiltered.obs
+            obs: personFiltered.obs,
+            nacionalidad:
+              personFiltered.nacionalidad === null
+                || personFiltered.nacionalidad === undefined
+                ? '' : personFiltered.nacionalidad,
           };
 
           return form;
@@ -280,7 +289,7 @@ export class PersonasServiceSingleton {
       recibirNotificaciones: form.enableNotify,
       regionalData: form.regionalData,
       bienes: form.bienes,
-      nacionalidad: null,
+      nacionalidad: form.nacionalidad,
       sexo: form.gender
     };
 

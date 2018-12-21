@@ -202,16 +202,18 @@
                            fxFlex
                            cellspacing="5">
                       <tr>
-                        <!-- <td>
+                        <td>
                           <mat-form-field>
-                            <mat-select placeholder="Nacionalidad">
-                              <mat-option *ngFor="let food of foods"
-                                          [value]="food.value">
-                                {{food.viewValue}}
+                            <mat-select placeholder="Nacionalidad"
+                                        formControlName="nacionalidad"
+                                        [(ngModel)]="formulario.nacionalidad">
+                              <mat-option *ngFor="let countrie of viewdata.countries"
+                                          [value]="countrie.nombre">
+                                {{countrie.nombre}}
                               </mat-option>
                             </mat-select>
                           </mat-form-field>
-                        </td> -->
+                        </td>
                         <td>
                           <mat-form-field>
                             <mat-select placeholder="Idioma"

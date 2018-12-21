@@ -16,5 +16,6 @@ export interface Form {
   status?: AccountStatus;
   regionalData?: RegionalData;
   bienes?: Bien[];
+  nacionalidad: string;
   obs?: string;
 }

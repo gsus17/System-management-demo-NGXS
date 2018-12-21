@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { BienComponent } from './bien/bien.component';
 import { Bien } from 'src/api/entities/bien.entity';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { PaisesServiceSingleton } from 'src/app/paises/paises.service';
+import { Pais } from 'src/api/entities/pais.entity';
 
 @Component({
   selector: 'app-formulario',
@@ -36,6 +38,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
       'timeFormat': new FormControl('', [Validators.required]),
       'timeZone': new FormControl('', [Validators.required]),
       'languageCode': new FormControl('', [Validators.required]),
+      'nacionalidad': new FormControl('', [Validators.required]),
       'obs': new FormControl('', [Validators.required])
     }
   );
@@ -44,6 +47,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
     public snackBar: MatSnackBar,
     public dialog: MatDialog,
     private personasService: PersonasServiceSingleton,
+    private paisesService: PaisesServiceSingleton,
     private route: ActivatedRoute,
     private router: Router) {
   }
@@ -233,6 +237,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
       name: '',
       status: null,
       bienes: [],
+      nacionalidad: '',
       regionalData: {
         dateFormat: '',
         languageCode: '',
@@ -262,7 +267,14 @@ export class FormularioComponent implements OnInit, OnDestroy {
       languageCodes: this.personasService.getLanguageCodes(),
       titleForm: editMode ? 'Edición de personas' : 'Crear persona',
       buttonActionText: editMode ? 'Actualizar' : 'Agregar',
-      editMode: editMode
+      editMode: editMode,
+      countries: []
     };
+
+
+    this.paisesService.getPaises$()
+      .subscribe((countries: Pais[]) => {
+        this.viewdata.countries = countries;
+      });
   }
 }
