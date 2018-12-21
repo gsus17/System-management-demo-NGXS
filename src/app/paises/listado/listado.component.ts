@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PaisesService } from '../paises.service';
+import { PaisesServiceSingleton } from '../paises.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { FormularioComponent } from '../formulario/formulario.component';
@@ -41,7 +41,7 @@ export class ListadoComponent implements OnInit {
   constructor(
     public snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private paisesService: PaisesService) { }
+    private paisesService: PaisesServiceSingleton) { }
 
   ngOnInit() {
 

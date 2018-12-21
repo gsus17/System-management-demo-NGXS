@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Persona } from 'src/api/entities/persona.entity';
-import { PersonasService } from '../personas.service';
+import { PersonasServiceSingleton } from '../personas.service';
 import { Subscription } from 'rxjs';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
@@ -18,7 +18,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
 
   constructor(
     public snackBar: MatSnackBar,
-    private personasService: PersonasService,
+    private personasService: PersonasServiceSingleton,
     private router: Router) { }
 
   ngOnInit() {

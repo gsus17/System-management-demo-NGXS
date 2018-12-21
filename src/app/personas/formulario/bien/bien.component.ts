@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonasBienViewData } from './bien.viewdata';
-import { PersonasService } from '../../personas.service';
+import { PersonasServiceSingleton } from '../../personas.service';
 import { Bien } from 'src/api/entities/bien.entity';
 import { FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -35,7 +35,7 @@ export class BienComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<BienComponent>,
-    private personasService: PersonasService) { }
+    private personasService: PersonasServiceSingleton) { }
 
   // Convenience getter for easy access to form fields.
   get form() { return this.bienForm.controls; }

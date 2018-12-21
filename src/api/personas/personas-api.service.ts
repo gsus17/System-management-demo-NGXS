@@ -19,16 +19,7 @@ export class PersonasApiService {
     console.log(`${PersonasApiService.name}::getPersona`);
 
     const personList: any = this.db.list('/personas');
-    return personList.valueChanges()
-      .pipe(
-        map(item => {
-          const persons: Persona[] = <any>item;
-          persons.filter((items, index) => index < pageSize);
-
-          const filtrado = this.paginate(persons, pageSize, pageIndex);
-          return filtrado;
-        })
-      );
+    return personList.valueChanges();
   }
 
   /**
@@ -44,10 +35,9 @@ export class PersonasApiService {
   /**
    * Crea una persona.
    */
-  public post(person: Persona): Promise<void> {
+  public post(person: Persona, newId: number): Promise<void> {
     console.log(`${PersonasApiService.name}::post`);
-
-    return this.db.object(`/personas/${person.id}`).set(person);
+    return this.db.object(`/personas/${newId}`).set(person);
   }
 
   /**
@@ -65,12 +55,5 @@ export class PersonasApiService {
   public deleteById(id: string): Promise<void> {
     console.log(`${PersonasApiService.name}::deleteById`);
     return this.db.database.ref('personas/').child(id).remove();
-  }
-
-  /**
-   * Devuelve el listado paginado.
-   */
-  private paginate(array, page_size, page_number): Persona[] {
-    return array.slice(page_number * page_size, (page_number + 1) * page_size);
   }
 }

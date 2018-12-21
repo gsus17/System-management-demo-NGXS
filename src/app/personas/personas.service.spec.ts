@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PersonasService } from './personas.service';
+import { PersonasServiceSingleton } from './personas.service';
 
 describe('PersonasService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: PersonasService = TestBed.get(PersonasService);
+    const service: PersonasServiceSingleton = TestBed.get(PersonasServiceSingleton);
     expect(service).toBeTruthy();
   });
 });

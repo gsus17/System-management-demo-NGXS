@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PaisesService } from './paises.service';
 import { PaisesApiModule } from 'src/api/paises/paises-api.module';
 
 @NgModule({
@@ -9,8 +8,6 @@ import { PaisesApiModule } from 'src/api/paises/paises-api.module';
     PaisesApiModule,
     CommonModule
   ],
-  providers: [
-    PaisesService
-  ]
+  providers: []
 })
 export class PaisesModule { }

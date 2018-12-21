@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { PersonasService } from '../personas.service';
+import { PersonasServiceSingleton } from '../personas.service';
 import { PersonasFormularioViewData } from './formulario.viewdata';
 import { Form } from './formulario';
 import { FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
@@ -43,7 +43,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
   constructor(
     public snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private personasService: PersonasService,
+    private personasService: PersonasServiceSingleton,
     private route: ActivatedRoute,
     private router: Router) {
   }
@@ -119,7 +119,6 @@ export class FormularioComponent implements OnInit, OnDestroy {
     console.log(`${FormularioComponent.name}::update %o`, this.formulario);
     this.personasService.addPerson(this.formulario)
       .then(() => {
-        alert('Almacenada');
         this.openSnackBar('Se ha creado la persona correctamente.');
         this.router.navigate(['master-page/personas/listado']);
       })

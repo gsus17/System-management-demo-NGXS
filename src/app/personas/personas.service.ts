@@ -8,25 +8,44 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Form } from './formulario/formulario';
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class PersonasService {
+export class PersonasServiceSingleton {
+
+  /**
+   * Tamano total del listado.
+   */
+  private dataLength: number = 0;
+
   constructor(private personasApiService: PersonasApiService) { }
 
   /**
    * Devuelve el listado de personas.
    */
   public getPersonas$(pageIndex: number, pageSize: number): Observable<Persona[]> {
-    return this.personasApiService.getPersonas$(pageIndex, pageSize);
+    return this.personasApiService.getPersonas$(pageIndex, pageSize)
+      .pipe(
+        map((items) => {
+          const personas: Persona[] = <any>items;
+          personas.forEach((persona, idx) => {
+            persona.id = idx;
+          });
+
+          this.dataLength = personas.length;
+          personas.filter((it, index) => index < pageSize);
+
+          const filtrado = this.paginate(personas, pageSize, pageIndex);
+          return filtrado;
+        })
+      );
   }
 
   /**
    * Crea una persona.
    */
   public addPerson(formulario: Form): Promise<void> {
-    console.log(`${PersonasService.name}:: createPerson`);
+    console.log(`${PersonasServiceSingleton.name}:: createPerson`);
 
     const newId = parseInt(this.generateUUID(), 10);
     const person: Persona = {
@@ -50,14 +69,14 @@ export class PersonasService {
       sexo: formulario.gender
     };
 
-    return this.personasApiService.post(person);
+    return this.personasApiService.post(person, this.dataLength + 1);
   }
 
   /**
    * Actualiza una persona.
    */
   public updatePerson(form: Form): Promise<void> {
-    console.log(`${PersonasService.name}:: updatePerson`);
+    console.log(`${PersonasServiceSingleton.name}:: updatePerson`);
     const person: Persona = this.mapFormToPerson(form);
     return this.personasApiService.put(person);
   }
@@ -66,7 +85,7 @@ export class PersonasService {
    * Elimina una persona en base a su Id.
    */
   public deletePersona(id: string): Promise<void> {
-    console.log(`${PersonasService.name}:: deletePersona`);
+    console.log(`${PersonasServiceSingleton.name}:: deletePersona`);
     return this.personasApiService.deleteById(id);
   }
 
@@ -74,7 +93,7 @@ export class PersonasService {
    * Devuelve una persona segun su id.
    */
   public getById$(id: string) {
-    const methodName: string = `${PersonasService.name}::getFormPersonaById`;
+    const methodName: string = `${PersonasServiceSingleton.name}::getFormPersonaById`;
     console.log(`${methodName}`);
     return this.personasApiService.getById$(id);
   }
@@ -83,7 +102,7 @@ export class PersonasService {
    * Devuelve el formulario correspondiente.
    */
   public getFormPersonaById$(id: string): Observable<Form> {
-    const methodName: string = `${PersonasService.name}::getFormPersonaById`;
+    const methodName: string = `${PersonasServiceSingleton.name}::getFormPersonaById`;
     console.log(`${methodName}`);
     return this.personasApiService.getPersonas$()
       .pipe(
@@ -266,5 +285,12 @@ export class PersonasService {
     };
 
     return person;
+  }
+
+  /**
+   * Devuelve el listado paginado.
+   */
+  private paginate(array, page_size, page_number): Persona[] {
+    return array.slice(page_number * page_size, (page_number + 1) * page_size);
   }
 }

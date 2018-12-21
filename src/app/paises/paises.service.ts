@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class PaisesService {
+export class PaisesServiceSingleton {
 
   /**
    * Tamano total del listado.

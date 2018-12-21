@@ -8,6 +8,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppInterceptor } from './app-interceptor';
 import { AngularFireModule, } from '@angular/fire';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { PersonasServiceSingleton } from './personas/personas.service';
+import { PaisesServiceSingleton } from './paises/paises.service';
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -31,7 +33,11 @@ const firebaseConfig = {
     AngularFireDatabaseModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },
+
+    // Fix singleton service when we working with lazy loading.
+    PersonasServiceSingleton,
+    PaisesServiceSingleton
   ],
   bootstrap: [AppComponent]
 })
