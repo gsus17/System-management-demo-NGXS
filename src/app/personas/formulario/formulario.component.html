@@ -8,15 +8,17 @@
   <div class="general-container form-container"
        fxFlexLayout="row"
        fxLayoutAlign="center center">
-    <mat-card class="card-form">
+    <mat-card class="card-form"
+              fxFlex>
       <mat-card-title i18n>
         Formulario de Personas
       </mat-card-title>
       <mat-card-content>
 
         <form [formGroup]="personForm"
+              fxFlex
               fxLayout="column">
-          <div>
+          <div fxLayout="column">
             <div fxLayout="row">
               <mat-form-field fxFlex
                               class="example-full-width">
@@ -46,40 +48,30 @@
                 </mat-error>
               </mat-form-field>
             </div>
-            <div fxLayout="row">
-              <table fxLayout="row"
-                     fxFlex
-                     cellspacing="5">
-                <tr>
-                  <td>
-                    <mat-form-field class="example-full-width">
-                      <input matInput
-                             name="ahorro"
-                             formControlName="ahorro"
-                             [(ngModel)]="formulario.ahorro"
-                             type="number"
-                             placeholder="Ahorro">
-                    </mat-form-field>
-                  </td>
-                  <td>
-                    <mat-form-field class="example-full-width">
-                      <input matInput
-                             name="ahorroPercentage"
-                             type="number"
-                             formControlName="ahorroPercentage"
-                             [(ngModel)]="formulario.ahorroPercentage"
-                             placeholder="Porcentaje">
-                    </mat-form-field>
-                  </td>
-                  <td>
-                    <mat-slide-toggle class="toggle-container"
-                                      formControlName="enableNotify"
-                                      [(ngModel)]="formulario.enableNotify"
-                                      fxFlex
-                                      i18n>Recibir notificaciones</mat-slide-toggle>
-                  </td>
-                </tr>
-              </table>
+            <div fxLayout="row"
+                 fxLayout.xs="column">
+              <mat-form-field class="example-full-width">
+                <input matInput
+                       name="ahorro"
+                       formControlName="ahorro"
+                       [(ngModel)]="formulario.ahorro"
+                       type="number"
+                       placeholder="Ahorro">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput
+                       name="ahorroPercentage"
+                       type="number"
+                       formControlName="ahorroPercentage"
+                       [(ngModel)]="formulario.ahorroPercentage"
+                       placeholder="Porcentaje">
+              </mat-form-field>
+
+              <mat-slide-toggle class="toggle-container"
+                                formControlName="enableNotify"
+                                [(ngModel)]="formulario.enableNotify"
+                                fxFlex
+                                i18n>Recibir notificaciones</mat-slide-toggle>
             </div>
             <div fxLayout="row">
               <mat-form-field fxFlex
@@ -91,56 +83,51 @@
                        placeholder="Direccion">
               </mat-form-field>
             </div>
-            <div fxLayout="row">
-              <table fxLayout="row"
-                     fxFlex
-                     cellspacing="5">
-                <tr>
-                  <td>
-                    <mat-form-field class="birthdate-container">
-                      <input matInput
-                             name="birthdate"
-                             formControlName="birthdate"
-                             [(ngModel)]="formulario.birthdate"
-                             [matDatepicker]="picker"
-                             placeholder="Fecha de nacimiento">
-                      <mat-datepicker-toggle matSuffix
-                                             [for]="picker"></mat-datepicker-toggle>
-                      <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                  </td>
-                  <td>
-                    <mat-form-field>
-                      <mat-select placeholder="Sexo"
-                                  name="gender"
-                                  formControlName="gender"
-                                  [(ngModel)]="formulario.gender">
-                        <mat-option *ngFor="let sexos of viewdata.sexos"
-                                    [value]="sexos">
-                          {{sexos}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </td>
-                  <td>
-                    <mat-form-field>
-                      <mat-select placeholder="Estado"
-                                  name="status"
-                                  formControlName="status"
-                                  [(ngModel)]="formulario.status">
-                        <mat-option *ngFor="let accountStatusList of viewdata.accountStatusList"
-                                    [value]="accountStatusList">
-                          {{accountStatusList}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </td>
-                </tr>
-              </table>
+            <div fxLayout="row"
+                 fxLayout.xs="column">
+
+              <mat-form-field class="birthdate-container">
+                <input matInput
+                       name="birthdate"
+                       formControlName="birthdate"
+                       [(ngModel)]="formulario.birthdate"
+                       [matDatepicker]="picker"
+                       placeholder="Fecha de nacimiento">
+                <mat-datepicker-toggle matSuffix
+                                       [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-select placeholder="Sexo"
+                            name="gender"
+                            formControlName="gender"
+                            [(ngModel)]="formulario.gender">
+                  <mat-option *ngFor="let sexos of viewdata.sexos"
+                              [value]="sexos">
+                    {{sexos}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-select placeholder="Estado"
+                            name="status"
+                            formControlName="status"
+                            [(ngModel)]="formulario.status">
+                  <mat-option *ngFor="let accountStatusList of viewdata.accountStatusList"
+                              [value]="accountStatusList">
+                    {{accountStatusList}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
           </div>
-          <!-- <mat-divider></mat-divider> -->
-          <div>
+
+
+
+
+          <div fxLayout="column">
             <mat-accordion>
               <mat-expansion-panel>
                 <mat-expansion-panel-header>
@@ -149,86 +136,65 @@
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div fxLayout="column">
-                  <div fxLayout="row">
-                    <table fxLayout="row"
-                           fxFlex
-                           cellspacing="5">
-                      <tr>
-                        <td>
-                          <mat-form-field>
-                            <mat-select placeholder="Formato de fecha"
-                                        name="dateFormat"
-                                        formControlName="dateFormat"
-                                        [(ngModel)]="formulario.regionalData.dateFormat">
-                              <mat-option *ngFor="let dateFormats of viewdata.dateFormats"
-                                          [value]="dateFormats">
-                                {{dateFormats}}
-                              </mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                        </td>
-                        <td>
-                          <mat-form-field>
-                            <mat-select placeholder="Formato de hora"
-                                        name="timeFormat"
-                                        formControlName="timeFormat"
-                                        [(ngModel)]="formulario.regionalData.timeFormat">
-                              <mat-option *ngFor="let timeFormats of viewdata.timeFormats"
-                                          [value]="timeFormats">
-                                {{timeFormats}}
-                              </mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                        </td>
-                        <td>
-                          <mat-form-field>
-                            <mat-select placeholder="Zona Horaria"
-                                        name="timeZone"
-                                        formControlName="timeZone"
-                                        [(ngModel)]="formulario.regionalData.timeZone">
-                              <mat-option *ngFor="let timeZones of viewdata.timeZones"
-                                          [value]="timeZones.timeZoneId">
-                                {{timeZones.timeZoneName}}
-                              </mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                        </td>
-                      </tr>
-                    </table>
+                  <div fxLayout="row" fxLayout.xs="column">
+                    <mat-form-field>
+                      <mat-select placeholder="Formato de fecha"
+                                  name="dateFormat"
+                                  formControlName="dateFormat"
+                                  [(ngModel)]="formulario.regionalData.dateFormat">
+                        <mat-option *ngFor="let dateFormats of viewdata.dateFormats"
+                                    [value]="dateFormats">
+                          {{dateFormats}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <mat-select placeholder="Formato de hora"
+                                  name="timeFormat"
+                                  formControlName="timeFormat"
+                                  [(ngModel)]="formulario.regionalData.timeFormat">
+                        <mat-option *ngFor="let timeFormats of viewdata.timeFormats"
+                                    [value]="timeFormats">
+                          {{timeFormats}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <mat-select placeholder="Zona Horaria"
+                                  name="timeZone"
+                                  formControlName="timeZone"
+                                  [(ngModel)]="formulario.regionalData.timeZone">
+                        <mat-option *ngFor="let timeZones of viewdata.timeZones"
+                                    [value]="timeZones.timeZoneId">
+                          {{timeZones.timeZoneName}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
                   </div>
 
-                  <div fxLayout="row">
-                    <table fxLayout="row"
-                           fxFlex
-                           cellspacing="5">
-                      <tr>
-                        <td>
-                          <mat-form-field>
-                            <mat-select placeholder="Nacionalidad"
-                                        formControlName="nacionalidad"
-                                        [(ngModel)]="formulario.nacionalidad">
-                              <mat-option *ngFor="let countrie of viewdata.countries"
-                                          [value]="countrie.nombre">
-                                {{countrie.nombre}}
-                              </mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                        </td>
-                        <td>
-                          <mat-form-field>
-                            <mat-select placeholder="Idioma"
-                                        name="languageCode"
-                                        formControlName="languageCode"
-                                        [(ngModel)]="formulario.regionalData.languageCode">
-                              <mat-option *ngFor="let languageCodes of viewdata.languageCodes"
-                                          [value]="languageCodes">
-                                {{languageCodes}}
-                              </mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                        </td>
-                      </tr>
-                    </table>
+                  <div fxLayout="row"
+                       fxLayout.xs="column">
+                    <mat-form-field>
+                      <mat-select placeholder="Nacionalidad"
+                                  formControlName="nacionalidad"
+                                  [(ngModel)]="formulario.nacionalidad">
+                        <mat-option *ngFor="let countrie of viewdata.countries"
+                                    [value]="countrie.nombre">
+                          {{countrie.nombre}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                      <mat-select placeholder="Idioma"
+                                  name="languageCode"
+                                  formControlName="languageCode"
+                                  [(ngModel)]="formulario.regionalData.languageCode">
+                        <mat-option *ngFor="let languageCodes of viewdata.languageCodes"
+                                    [value]="languageCodes">
+                          {{languageCodes}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
                   </div>
                 </div>
 

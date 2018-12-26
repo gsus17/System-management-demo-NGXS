@@ -35,7 +35,7 @@ export class MasterPageComponent implements OnInit {
         this.openedSideBar = false;
       });
 
-    this.breakpointObserver.observe([Breakpoints.Web])
+    this.breakpointObserver.observe([Breakpoints.Web, Breakpoints.Large, Breakpoints.XLarge])
       .subscribe(() => {
         this.openedSideBar = true;
       });
