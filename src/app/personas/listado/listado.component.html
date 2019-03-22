@@ -14,9 +14,9 @@
               <mat-expansion-panel-header>
                 <div fxFlex
                      fxLayout="row">
-                  <div fxFlex="5%"
+                  <div fxFlex="10%"
                        fxLayout="row"
-                       fxLayoutAlign="center center">
+                       fxLayoutAlign="start center">
                     <div [ngClass]="{
                       'active-status' : person.estado === 'Active',
                       'inactive-status' : person.estado === 'Inactive',
@@ -26,26 +26,31 @@
                   </div>
                   <div fxFlex="10%"
                        fxLayout="row"
-                       fxLayoutAlign="start center"> {{person.id}}</div>
+                       fxLayoutAlign="start center"
+                       fxLayoutAlign.xs="center center"> {{person.id}}</div>
                   <div fxFlex
-                       fxLayoutAlign="center start"
+                       fxLayoutAlign.sm="center start"
+                       fxLayoutAlign.xs="center center"
                        fxLayout="column">
                     <span class="mat-body-2">{{person.nombreCompleto}}</span>
                     <span class="mat-body-1">{{person.eMail}}</span>
                   </div>
                   <div fxFlex
+                       fxHide.xs="true"
+                       fxHide.sm="true"
                        fxLayoutAlign="center start"
                        fxLayout="column">
                     <span>{{person.nacionalidad}}</span>
                     <span>o</span>
                   </div>
                   <div fxFlex
+                       fxHide.xs="true"
+                       fxHide.sm="true"
                        fxLayout="row"
                        fxLayoutAlign="center center">
                     <span>{{person.fechaCreo | date}}</span>
                   </div>
                   <div class="icon-container"
-                       fxFlex="10%"
                        fxLayout="row"
                        fxLayoutAlign="space-between center">
                     <button mat-icon-button
@@ -81,7 +86,7 @@
                      class="first-section-details">
                   <div fxLayout="column"
                        fxLayoutAlign="space-between center">
-                    <div>{{person.id}}</div>
+                    <div fxHide.xs="true">{{person.id}}</div>
                     <div>{{person.estado}}</div>
                     <div fxLayout="column"
                          fxLayoutAlign="center center">
@@ -89,9 +94,9 @@
                       <span>{{person.fechaActualizo | date:'dd/MM'}}</span>
                     </div>
                   </div>
-
                 </div>
                 <div fxLayout="row"
+                     fxLayoutAlign.xs="center center"
                      fxFlex="60%">
 
                   <div fxLayout="column">
