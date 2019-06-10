@@ -10,8 +10,6 @@ $suspended-status-color: #CCCCCC;
 
 .virtual-item { padding: 1px, 0px }
 
-.first-section-details { padding-left: 16px !important;}
-
 .buttom-container { padding: 16px 20px 0px; }
 
 .active-status { border-radius: 30px; padding: 9px 0px;  width: 39px;  line-height: 20px;  text-align: center; background-color: $active-status-color; }
@@ -20,3 +18,9 @@ $suspended-status-color: #CCCCCC;
 
 .suspended-status { border-radius: 30px; padding: 9px 0px;  width: 39px;  line-height: 20px;  text-align: center; background-color: $suspended-status-color; }
 
+
+.active-status-label { border-radius: 3px; padding: 5px 10px; background-color: $active-status-color; }
+
+.inactive-status-label { border-radius: 3px; padding: 5px 10px; background-color: $inactive-status-color; }
+
+.suspended-status-label { border-radius: 3px; padding: 5px 10px; background-color: $suspended-status-color; }

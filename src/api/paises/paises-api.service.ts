@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Pais } from '../entities/pais.entity';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { Pais } from '../entities/pais.entity';
 })
 export class PaisesApiService {
 
-  constructor(public db: AngularFireDatabase) { }
+  constructor(public db: AngularFirestore) { }
 
   /**
    * Obtiene una lista de paises.
@@ -16,7 +16,7 @@ export class PaisesApiService {
   public getPaises$(): Observable<Pais[]> {
     console.log(`${PaisesApiService.name}::getPaises`);
 
-    const personList: any = this.db.list('/paises');
+    const personList: any = this.db.collection('/paises');
 
     return personList.valueChanges();
   }
@@ -24,10 +24,10 @@ export class PaisesApiService {
   /**
    * Crea una persona.
    */
-  public post(country: Pais, newId: number): Promise<void> {
+  public post(country: Pais): Promise<void> {
     console.log(`${PaisesApiService.name}::post`);
 
-    return this.db.object(`/paises/${newId}`).set(country);
+    return this.db.collection(`/paises`).doc(`${country.id}`).set(country);
   }
 
   /**
@@ -36,7 +36,7 @@ export class PaisesApiService {
   public put(country: Pais): Promise<void> {
     console.log(`${PaisesApiService.name}::put`);
 
-    return this.db.object(`/paises/${country.id}`).set(country);
+    return this.db.collection(`/paises`).doc(`${country.id}`).set(country);
   }
 
   /**
@@ -45,7 +45,7 @@ export class PaisesApiService {
   public deleteById(id: number): Promise<void> {
     console.log(`${PaisesApiService.name}::deleteById`);
     // return this.db.database.ref(`/paises/${id}`).remove();
-    return this.db.database.ref(`/paises`).child(`${id}`).remove();
-
+    return this.db.doc(`paises/${id}`)
+      .delete();
   }
 }

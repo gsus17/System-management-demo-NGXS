@@ -24,10 +24,6 @@ export class PaisesServiceSingleton {
       .pipe(
         map((items) => {
           const countries: Pais[] = <any>items;
-          countries.forEach((country, idx) => {
-            country.id = idx;
-          });
-
           this.dataLength = countries.length;
           return countries;
         })
@@ -38,7 +34,7 @@ export class PaisesServiceSingleton {
    * Crea un pais.
    */
   public createContry(country: Pais): Promise<void> {
-    return this.paisesApiService.post(country, this.dataLength + 1);
+    return this.paisesApiService.post(country);
   }
 
   /**

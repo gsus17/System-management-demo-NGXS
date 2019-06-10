@@ -5,145 +5,151 @@
     </mat-card-title>
 
     <mat-card-content>
-      <cdk-virtual-scroll-viewport itemSize="50"
-                                   class="virtual-viewport">
-        <div>
-          <mat-accordion>
-            <mat-expansion-panel *cdkVirtualFor="let person of personList"
-                                 class="virtual-item">
-              <mat-expansion-panel-header>
-                <div fxFlex
-                     fxLayout="row">
-                  <div fxFlex="10%"
-                       fxLayout="row"
-                       fxLayoutAlign="start center">
-                    <div [ngClass]="{
-                      'active-status' : person.estado === 'Active',
-                      'inactive-status' : person.estado === 'Inactive',
-                      'suspended-status' : person.estado === 'Suspended'}">
-                      {{person.estado | slice:0:1}}
-                    </div>
-                  </div>
-                  <div fxFlex="10%"
-                       fxLayout="row"
-                       fxLayoutAlign="start center"
-                       fxLayoutAlign.xs="center center"> {{person.id}}</div>
-                  <div fxFlex
-                       fxLayoutAlign.sm="center start"
-                       fxLayoutAlign.xs="center center"
-                       fxLayout="column">
-                    <span class="mat-body-2">{{person.nombreCompleto}}</span>
-                    <span class="mat-body-1">{{person.eMail}}</span>
-                  </div>
-                  <div fxFlex
-                       fxHide.xs="true"
-                       fxHide.sm="true"
-                       fxLayoutAlign="center start"
-                       fxLayout="column">
-                    <span>{{person.nacionalidad}}</span>
-                    <span>o</span>
-                  </div>
-                  <div fxFlex
-                       fxHide.xs="true"
-                       fxHide.sm="true"
-                       fxLayout="row"
-                       fxLayoutAlign="center center">
-                    <span>{{person.fechaCreo | date}}</span>
-                  </div>
-                  <div class="icon-container"
-                       fxLayout="row"
-                       fxLayoutAlign="space-between center">
-                    <button mat-icon-button
-                            matTooltip="Eliminar"
-                            (click)="deletePersona(person.id)">
-                      <mat-icon class="mat-18">delete_forever</mat-icon>
-                    </button>
-                    <button mat-icon-button
-                            matTooltip="Editar"
-                            (click)="editPerson(person.id)">
-                      <mat-icon class="mat-18">mode_edit</mat-icon>
-                    </button>
-                    <button mat-icon-button
-                            [matMenuTriggerFor]="menu">
-                      <mat-icon>more_vert</mat-icon>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                      <button mat-menu-item
-                              (click)="editPerson(person.id)"
-                              i18n>Editar</button>
-                      <button mat-menu-item
-                              (click)="deletePersona(person.id)"
-                              i18n>Eliminar</button>
-                    </mat-menu>
-                  </div>
-                </div>
-              </mat-expansion-panel-header>
-
+      <div class="virtual-viewport">
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let person of personList"
+                               class="virtual-item">
+            <mat-expansion-panel-header>
               <div fxFlex
                    fxLayout="row">
-                <div fxLayout="row"
-                     fxFlex="15%"
-                     class="first-section-details">
-                  <div fxLayout="column"
-                       fxLayoutAlign="space-between center">
-                    <div fxHide.xs="true">{{person.id}}</div>
-                    <div>{{person.estado}}</div>
-                    <div fxLayout="column"
-                         fxLayoutAlign="center center">
-                      <span class="mat-title">{{person.fechaActualizo | date:'yyyy'}}</span>
-                      <span>{{person.fechaActualizo | date:'dd/MM'}}</span>
-                    </div>
+                <div fxFlex="5%"
+                     fxLayout="row"
+                     fxLayoutAlign="start center">
+                  <div [ngClass]="{
+                    'active-status' : person.estado === 'Active',
+                    'inactive-status' : person.estado === 'Inactive',
+                    'suspended-status' : person.estado === 'Suspended'}">
+                    {{person.estado | slice:0:1}}
                   </div>
                 </div>
-                <div fxLayout="row"
+                <div fxFlex="5%"
+                     fxLayout="row"
+                     fxLayoutAlign="start center"
+                     fxLayoutAlign.xs="center center"> {{person.id}}</div>
+                <div fxFlex
+                     fxLayoutAlign.sm="center start"
                      fxLayoutAlign.xs="center center"
-                     fxFlex="60%">
+                     fxLayout="column">
+                  <span class="mat-body-2">{{person.nombreCompleto}}</span>
+                  <span class="mat-body-1">{{person.eMail}}</span>
+                </div>
+                <div fxFlex
+                     fxHide.xs="true"
+                     fxHide.sm="true"
+                     fxLayoutAlign="center start"
+                     fxLayout="column">
+                  <span>{{person.nacionalidad}}</span>
+                  <span>o</span>
+                </div>
+                <div fxFlex
+                     fxHide.xs="true"
+                     fxHide.sm="true"
+                     fxLayout="row"
+                     fxLayoutAlign="center center">
+                  <span>{{person.fechaCreo | date}}</span>
+                </div>
+                <div class="icon-container"
+                     fxLayout="row"
+                     fxLayoutAlign="space-between center">
+                  <button mat-icon-button
+                          matTooltip="Eliminar"
+                          (click)="deletePersona(person.id)">
+                    <mat-icon class="mat-18">delete_forever</mat-icon>
+                  </button>
+                  <button mat-icon-button
+                          matTooltip="Editar"
+                          (click)="editPerson(person.id)">
+                    <mat-icon class="mat-18">mode_edit</mat-icon>
+                  </button>
+                  <button mat-icon-button
+                          [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item
+                            (click)="editPerson(person.id)"
+                            i18n>Editar</button>
+                    <button mat-menu-item
+                            (click)="deletePersona(person.id)"
+                            i18n>Eliminar</button>
+                  </mat-menu>
+                </div>
+              </div>
+            </mat-expansion-panel-header>
 
-                  <div fxLayout="column">
-                    <div fxLayout="column">
-                      <span class="mat-caption label-caption"
-                            i18n>
-                        Nombre
-                      </span>
-                      <span>
-                        {{person.nombreCompleto}}
-                      </span>
-                    </div>
-                    <div fxLayout="column">
-                      <span class="mat-caption label-caption"
-                            i18n>
-                        Email
-                      </span>
-                      <span>
-                        {{person.eMail}}
-                      </span>
-                    </div>
-                    <div fxLayout="column">
-                      <span class="mat-caption label-caption"
-                            i18n>
-                        Observaciones
-                      </span>
-                      <span>
-                        {{person.obs}}
-                      </span>
-                    </div>
+            <div fxFlex
+                 class="expansion-content"
+                 fxLayout="row">
+              <div fxLayout="row"
+                   fxFlex="10%"
+                   class="first-section-details">
+                <div fxLayout="column"
+                     fxLayoutAlign="space-between center">
+                  <div fxHide.xs="true">{{person.id}}</div>
+                  <!-- <div>{{person.estado}}</div> -->
+
+                  <div [ngClass]="{
+                    'active-status-label' : person.estado === 'Active',
+                    'inactive-status-label' : person.estado === 'Inactive',
+                    'suspended-status-label' : person.estado === 'Suspended'}">
+                    {{person.estado}}
                   </div>
 
-                </div>
-                <div fxLayout="row"
-                     fxFlex="20%">
-                  <div fxLayout="column">
-                    <div class="mat-caption label-caption"
-                         i18n>Ahorro</div>
-                    <div class="mat-body-2">${{person.totalAhorro}}(ARS)</div>
+                  <div fxLayout="column"
+                       fxLayoutAlign="center center">
+                    <span class="mat-title">{{person.fechaActualizo | date:'yyyy'}}</span>
+                    <span>{{person.fechaActualizo | date:'dd/MM'}}</span>
                   </div>
                 </div>
               </div>
-            </mat-expansion-panel>
-          </mat-accordion>
-        </div>
+              <div fxLayout="row"
+                   fxLayoutAlign.xs="center center"
+                   fxFlex="60%">
 
-      </cdk-virtual-scroll-viewport>
+                <div fxLayout="column">
+                  <div fxLayout="column">
+                    <span class="mat-caption label-caption"
+                          i18n>
+                      Nombre
+                    </span>
+                    <span>
+                      {{person.nombreCompleto}}
+                    </span>
+                  </div>
+                  <div fxLayout="column">
+                    <span class="mat-caption label-caption"
+                          i18n>
+                      Email
+                    </span>
+                    <span>
+                      {{person.eMail}}
+                    </span>
+                  </div>
+                  <div fxLayout="column">
+                    <span class="mat-caption label-caption"
+                          i18n>
+                      Observaciones
+                    </span>
+                    <span>
+                      {{person.obs}}
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+              <div fxLayout="row"
+                   fxFlex="20%">
+                <div fxLayout="column">
+                  <div class="mat-caption label-caption"
+                       i18n>Ahorro</div>
+                  <div class="mat-body-2">${{person.totalAhorro}}(ARS)</div>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+
       <div fxLayout="row"
            class="buttom-container"
            fxLayoutAlign="end center">

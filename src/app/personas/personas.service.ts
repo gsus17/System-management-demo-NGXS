@@ -7,6 +7,7 @@ import { PersonasApiService } from 'src/api/personas/personas-api.service';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Form } from './formulario/formulario';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,9 @@ export class PersonasServiceSingleton {
    */
   private dataLength: number = 0;
 
-  constructor(private personasApiService: PersonasApiService) { }
+  constructor(
+    private personasApiService: PersonasApiService,
+    private db: AngularFirestore) { }
 
   /**
    * Devuelve el listado de personas.
@@ -28,17 +31,26 @@ export class PersonasServiceSingleton {
       .pipe(
         map((items) => {
           const personas: Persona[] = <any>items;
-          personas.forEach((persona, idx) => {
-            persona.id = idx;
-          });
+          // personas.forEach((persona, idx) => {
+          //   persona.id = idx;
+          // });
 
           this.dataLength = personas.length;
           personas.filter((it, index) => index < pageSize);
 
-          const filtrado = this.paginate(personas, pageSize, pageIndex);
-          return filtrado;
+          // const filtrado = this.paginate(personas, pageSize, pageIndex);
+          // return filtrado;
+          return personas;
         })
       );
+  }
+
+
+  /**
+   * createId
+   */
+  public createId(): string {
+    return this.db.createId();
   }
 
   /**
@@ -47,16 +59,15 @@ export class PersonasServiceSingleton {
   public addPerson(formulario: Form): Promise<void> {
     console.log(`${PersonasServiceSingleton.name}:: createPerson`);
 
-    const newId = parseInt(this.generateUUID(), 10);
     const person: Persona = {
-      id: newId,
+      id: this.dataLength + 1,
       nombreCompleto: formulario.name,
       eMail: formulario.email,
       fechaCreo: new Date().toDateString(),
       fechaActualizo: new Date().toDateString(),
       totalAhorro: 0,
       porcAhorro: 0,
-      obs: '',
+      obs: formulario.obs,
       direccion: formulario.address,
       lat: 0,
       lon: 0,
@@ -65,11 +76,11 @@ export class PersonasServiceSingleton {
       recibirNotificaciones: formulario.enableNotify,
       regionalData: formulario.regionalData,
       bienes: null,
-      nacionalidad: null,
+      nacionalidad: formulario.nacionalidad,
       sexo: formulario.gender
     };
 
-    return this.personasApiService.post(person, this.dataLength + 1);
+    return this.personasApiService.post(person);
   }
 
   /**
@@ -85,7 +96,7 @@ export class PersonasServiceSingleton {
    * Elimina una persona en base a su Id.
    */
   public deletePersona(id: string): Promise<void> {
-    console.log(`${PersonasServiceSingleton.name}:: deletePersona`);
+    console.log(`${PersonasServiceSingleton.name}:: deletePersona id %o`, id);
     return this.personasApiService.deleteById(id);
   }
 
@@ -109,9 +120,9 @@ export class PersonasServiceSingleton {
         map(persons => {
 
           const personas: Persona[] = <any>persons;
-          personas.forEach((persona, idx) => {
-            persona.id = idx;
-          });
+          // personas.forEach((persona, idx) => {
+          //   persona.id = idx;
+          // });
           const personFiltered = personas.filter((item) => item.id === id)[0];
           const form: Form = {
             id: personFiltered.id === undefined ? null : personFiltered.id,

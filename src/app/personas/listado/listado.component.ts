@@ -25,12 +25,6 @@ export class ListadoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    const time = 5;
-    const timer$ = interval(1000);
-    timer$.pipe(
-      map((v) => (time - 1) - v))
-      .subscribe((v) => console.log('Countdown', v));
-
     this.paginator = {
       length: 10,
       pageSize: 5,

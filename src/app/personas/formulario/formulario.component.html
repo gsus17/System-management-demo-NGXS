@@ -256,17 +256,20 @@
             </mat-accordion>
           </section>
 
-          <section class="comments-container">
-            <mat-form-field fxFlex>
-              <mat-label i18n>Observaciones</mat-label>
-              <textarea matInput
-                        cdkTextareaAutosize
-                        cdkAutosizeMinRows="2"
-                        name="obs"
-                        formControlName="obs"
-                        [(ngModel)]="formulario.obs"
-                        cdkAutosizeMaxRows="5"></textarea>
-            </mat-form-field>
+          <section fxLayout="column">
+            <div fxLayout="row"
+                 class="comments-container">
+              <mat-form-field fxFlex>
+                <mat-label i18n>Observaciones</mat-label>
+                <textarea matInput
+                          cdkTextareaAutosize
+                          cdkAutosizeMinRows="2"
+                          name="obs"
+                          formControlName="obs"
+                          [(ngModel)]="formulario.obs"
+                          cdkAutosizeMaxRows="5"></textarea>
+              </mat-form-field>
+            </div>
           </section>
 
           <div fxFlexLayout="row"

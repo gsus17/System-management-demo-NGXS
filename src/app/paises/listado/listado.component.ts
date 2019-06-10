@@ -6,6 +6,7 @@ import { FormularioComponent } from '../formulario/formulario.component';
 import { Pais } from 'src/api/entities/pais.entity';
 import { CountryForm } from '../formulario/formulario.entity';
 import { Observable } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 const COLUMNS: Columns[] = [];
 
@@ -41,11 +42,19 @@ export class ListadoComponent implements OnInit {
   constructor(
     public snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private paisesService: PaisesServiceSingleton) { }
+    private paisesService: PaisesServiceSingleton,
+    private db: AngularFirestore) { }
 
   ngOnInit() {
 
     this.getCountries();
+  }
+
+  /**
+   * createId
+   */
+  public createId(): string {
+    return this.db.createId();
   }
 
   /**
@@ -66,7 +75,7 @@ export class ListadoComponent implements OnInit {
   /**
    * Edita el pais.
    */
-  public editCountry(name: string, iata: string, id: number) {
+  public editCountry(name: string, iata: string, id: string) {
     const methodName: string = `${ListadoComponent.name}::editCountry`;
     console.log(`${methodName}`);
 
@@ -108,7 +117,7 @@ export class ListadoComponent implements OnInit {
         console.log(`${methodName}::afterClosed selection %o`, response);
         const country: Pais = {
           codigoIata: response.codigoIata,
-          id: 0,
+          id: this.createId(),
           nombre: response.nombre
         };
 
@@ -141,7 +150,7 @@ export class ListadoComponent implements OnInit {
   /**
    * Abre formulario para agregar un nuevo bien.
    */
-  public openDialog(name: string = '', iata: string = '', id: number = 0): Observable<any> {
+  public openDialog(name: string = '', iata: string = '', id: string = '0'): Observable<any> {
     const methodName: string = `${ListadoComponent.name}::openDialog`;
     console.log(`${methodName}`);
     const countryForm: CountryForm = name !== '' && iata !== '' ?

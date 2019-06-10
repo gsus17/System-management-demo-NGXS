@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Persona } from '../entities/persona.entity';
 import { Observable } from 'rxjs';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 export class PersonasApiService {
 
 
-  constructor(public db: AngularFireDatabase) { }
+  constructor(private db: AngularFirestore) { }
 
   /**
    * Obtiene una lista de personas.
@@ -18,7 +18,7 @@ export class PersonasApiService {
   public getPersonas$(pageIndex: number = 1, pageSize: number = 1): Observable<Persona[]> {
     console.log(`${PersonasApiService.name}::getPersona`);
 
-    const personList: any = this.db.list('/personas');
+    const personList: any = this.db.collection('/personas');
     return personList.valueChanges();
   }
 
@@ -28,16 +28,16 @@ export class PersonasApiService {
   public getById$(id: string): Observable<Persona> {
     console.log(`${PersonasApiService.name}::getById`);
 
-    const personList = this.db.list(`/personas/${id}`);
+    const personList = this.db.collection(`/personas/${id}`);
     return <any>personList.valueChanges();
   }
 
   /**
    * Crea una persona.
    */
-  public post(person: Persona, newId: number): Promise<void> {
+  public post(person: Persona): Promise<void> {
     console.log(`${PersonasApiService.name}::post`);
-    return this.db.object(`/personas/${newId}`).set(person);
+    return this.db.collection(`/personas`).doc(`${person.id}`).set(person);
   }
 
   /**
@@ -46,14 +46,15 @@ export class PersonasApiService {
   public put(person: Persona): Promise<void> {
     console.log(`${PersonasApiService.name}::put`);
 
-    return this.db.object(`/personas/${person.id}`).set(person);
+    return this.db.collection(`/personas`).doc(`${person.id}`).update(person);
   }
 
   /**
    * Elimina una persona.
    */
   public deleteById(id: string): Promise<void> {
-    console.log(`${PersonasApiService.name}::deleteById`);
-    return this.db.database.ref('personas/').child(id).remove();
+    console.log(`${PersonasApiService.name}::deleteById id %o`, id);
+    return this.db.doc(`personas/${id}`)
+      .delete();
   }
 }
