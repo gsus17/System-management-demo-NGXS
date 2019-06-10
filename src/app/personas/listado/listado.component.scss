@@ -18,6 +18,16 @@ $suspended-status-color: #CCCCCC;
 
 .suspended-status { border-radius: 30px; padding: 9px 0px;  width: 39px;  line-height: 20px;  text-align: center; background-color: $suspended-status-color; }
 
+.first-section-details{
+  margin-right: 30px;
+  background-color: #eaeaeaba;
+  border-radius: 8px;
+}
+
+.label-person-id{
+  font-size: 20px;
+  padding: 8px 0 8px 14px;
+}
 
 .active-status-label { border-radius: 3px; padding: 5px 10px; background-color: $active-status-color; }
 

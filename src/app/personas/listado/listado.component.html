@@ -81,14 +81,19 @@
                  class="expansion-content"
                  fxLayout="row">
               <div fxLayout="row"
-                   fxFlex="10%"
+                   fxFlex="8%"
                    class="first-section-details">
                 <div fxLayout="column"
-                     fxLayoutAlign="space-between center">
-                  <div fxHide.xs="true">{{person.id}}</div>
+                     fxFlex>
+                  <div fxLayout="row"
+                       fxHide.xs="true">
+                    <span class="label-person-id">{{person.id}}</span>
+                  </div>
                   <!-- <div>{{person.estado}}</div> -->
 
-                  <div [ngClass]="{
+                  <div fxLayout="row"
+                       fxFlex="70%"
+                       [ngClass]="{
                     'active-status-label' : person.estado === 'Active',
                     'inactive-status-label' : person.estado === 'Inactive',
                     'suspended-status-label' : person.estado === 'Suspended'}">
@@ -97,16 +102,22 @@
 
                   <div fxLayout="column"
                        fxLayoutAlign="center center">
-                    <span class="mat-title">{{person.fechaActualizo | date:'yyyy'}}</span>
-                    <span>{{person.fechaActualizo | date:'dd/MM'}}</span>
+                    <div fxLayout="row">
+                      <span class="mat-title">{{person.fechaActualizo | date:'yyyy'}}</span>
+                    </div>
+                    <div fxLayout="row">
+                      <span>{{person.fechaActualizo | date : 'dd MMM'}}</span>
+                    </div>
+
                   </div>
                 </div>
               </div>
               <div fxLayout="row"
                    fxLayoutAlign.xs="center center"
-                   fxFlex="60%">
+                   fxFlex="64%">
 
-                <div fxLayout="column">
+                <div fxLayout="column"
+                     fxLayoutAlign="space-between start">
                   <div fxLayout="column">
                     <span class="mat-caption label-caption"
                           i18n>
@@ -126,10 +137,15 @@
                     </span>
                   </div>
                   <div fxLayout="column">
-                    <span class="mat-caption label-caption"
-                          i18n>
-                      Observaciones
-                    </span>
+                    <div fxLayout="row"
+                         fxLayoutAlign="start center">
+                      <mat-icon class="at-icons">speaker_notes</mat-icon>
+
+                      <span class="mat-caption label-caption"
+                            i18n>
+                        Observaciones
+                      </span>
+                    </div>
                     <span>
                       {{person.obs}}
                     </span>
@@ -142,7 +158,7 @@
                 <div fxLayout="column">
                   <div class="mat-caption label-caption"
                        i18n>Ahorro</div>
-                  <div class="mat-body-2">${{person.totalAhorro}}(ARS)</div>
+                  <div class="mat-title">${{person.totalAhorro}}(ARS)</div>
                 </div>
               </div>
             </div>
