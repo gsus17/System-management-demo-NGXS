@@ -31,16 +31,15 @@ export class PersonasServiceSingleton {
       .pipe(
         map((items) => {
           const personas: Persona[] = <any>items;
-          // personas.forEach((persona, idx) => {
-          //   persona.id = idx;
-          // });
+          personas.forEach((persona, idx) => {
+            persona.id = idx;
+          });
 
           this.dataLength = personas.length;
           personas.filter((it, index) => index < pageSize);
 
-          // const filtrado = this.paginate(personas, pageSize, pageIndex);
-          // return filtrado;
-          return personas;
+          const filtrado = this.paginate(personas, pageSize, pageIndex);
+          return filtrado;
         })
       );
   }
