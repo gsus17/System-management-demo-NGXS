@@ -2,13 +2,14 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Persona } from 'src/api/entities/persona.entity';
 import { PersonasServiceSingleton } from '../personas.service';
-import { Subscription } from 'rxjs';
+import { Subscription, interval } from 'rxjs';
 import { MatSnackBar, MatSnackBarConfig, MatPaginatorIntl } from '@angular/material';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-listado',
   templateUrl: './listado.component.html',
-  styleUrls: ['./listado.component.sass']
+  styleUrls: ['./listado.component.scss']
 })
 export class ListadoComponent implements OnInit, OnDestroy {
 
@@ -23,6 +24,12 @@ export class ListadoComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit() {
+
+    const time = 5;
+    const timer$ = interval(1000);
+    timer$.pipe(
+      map((v) => (time - 1) - v))
+      .subscribe((v) => console.log('Countdown', v));
 
     this.paginator = {
       length: 10,

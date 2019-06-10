@@ -15,7 +15,7 @@ import { Pais } from 'src/api/entities/pais.entity';
 @Component({
   selector: 'app-formulario',
   templateUrl: './formulario.component.html',
-  styleUrls: ['./formulario.component.sass']
+  styleUrls: ['./formulario.component.scss']
 })
 export class FormularioComponent implements OnInit, OnDestroy {
 

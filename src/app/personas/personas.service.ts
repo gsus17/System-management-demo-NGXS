@@ -205,12 +205,14 @@ export class PersonasServiceSingleton {
       dstOffset: '-02:00',
       rawOffset: '-03:00'
     };
+
     const timeZoneUS: TimeZone = {
       timeZoneId: '3',
       timeZoneName: 'US/Alaska',
       dstOffset: '-08:00',
       rawOffset: '-09:00'
     };
+
     const ret: TimeZone[] = [
       timeZoneBA,
       timeZoneBR,

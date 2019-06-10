@@ -18,7 +18,7 @@
         <form [formGroup]="personForm"
               fxFlex
               fxLayout="column">
-          <div fxLayout="column">
+          <section fxLayout="column">
             <div fxLayout="row">
               <mat-form-field fxFlex
                               class="example-full-width">
@@ -122,12 +122,9 @@
                 </mat-select>
               </mat-form-field>
             </div>
-          </div>
+          </section>
 
-
-
-
-          <div fxLayout="column">
+          <section fxLayout="column">
             <mat-accordion>
               <mat-expansion-panel>
                 <mat-expansion-panel-header>
@@ -135,8 +132,9 @@
                     Datos regionales
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-                <div fxLayout="column">
-                  <div fxLayout="row" fxLayout.xs="column">
+                <section fxLayout="column">
+                  <div fxLayout="row"
+                       fxLayout.xs="column">
                     <mat-form-field>
                       <mat-select placeholder="Formato de fecha"
                                   name="dateFormat"
@@ -196,7 +194,7 @@
                       </mat-select>
                     </mat-form-field>
                   </div>
-                </div>
+                </section>
 
               </mat-expansion-panel>
               <mat-expansion-panel>
@@ -256,9 +254,9 @@
                 </div>
               </mat-expansion-panel>
             </mat-accordion>
-          </div>
+          </section>
 
-          <div class="comments-container">
+          <section class="comments-container">
             <mat-form-field fxFlex>
               <mat-label i18n>Observaciones</mat-label>
               <textarea matInput
@@ -269,7 +267,7 @@
                         [(ngModel)]="formulario.obs"
                         cdkAutosizeMaxRows="5"></textarea>
             </mat-form-field>
-          </div>
+          </section>
 
           <div fxFlexLayout="row"
                fxLayoutAlign="end center">

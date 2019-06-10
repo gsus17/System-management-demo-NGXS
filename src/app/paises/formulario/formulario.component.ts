@@ -6,7 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 @Component({
   selector: 'app-formulario',
   templateUrl: './formulario.component.html',
-  styleUrls: ['./formulario.component.sass']
+  styleUrls: ['./formulario.component.scss']
 })
 export class FormularioComponent implements OnInit {
 

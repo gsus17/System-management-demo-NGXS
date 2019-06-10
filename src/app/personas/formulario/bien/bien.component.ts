@@ -8,7 +8,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-bien',
   templateUrl: './bien.component.html',
-  styleUrls: ['./bien.component.sass']
+  styleUrls: ['./bien.component.scss']
 })
 export class BienComponent implements OnInit {
 

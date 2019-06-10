@@ -12,7 +12,7 @@ const COLUMNS: Columns[] = [];
 @Component({
   selector: 'app-listado',
   templateUrl: './listado.component.html',
-  styleUrls: ['./listado.component.sass']
+  styleUrls: ['./listado.component.scss']
 })
 export class ListadoComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
