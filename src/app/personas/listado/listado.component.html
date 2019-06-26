@@ -1,6 +1,7 @@
 <div class="general-container">
   <mat-card>
-    <mat-card-title i18n>
+    <mat-card-title i18n
+                    class="person-list-title">
       Listado de Personas
     </mat-card-title>
 
@@ -31,22 +32,22 @@
                      fxLayoutAlign.xs="center center"
                      fxLayout="column">
                   <span class="mat-body-2">{{person.nombreCompleto}}</span>
-                  <span class="mat-body-1">{{person.eMail}}</span>
+                  <span class="mat-caption">{{person.eMail}}</span>
                 </div>
                 <div fxFlex
                      fxHide.xs="true"
                      fxHide.sm="true"
                      fxLayoutAlign="center start"
                      fxLayout="column">
-                  <span>{{person.nacionalidad}}</span>
-                  <span>o</span>
+                  <span class="mat-body-2">{{person.nacionalidad}}</span>
+                  <span class="mat-caption">{{person.sexo}}</span>
                 </div>
                 <div fxFlex
                      fxHide.xs="true"
                      fxHide.sm="true"
                      fxLayout="row"
                      fxLayoutAlign="center center">
-                  <span>{{person.fechaCreo | date}}</span>
+                  <span class="mat-caption">{{person.fechaCreo | date: 'yyyy-MM-dd'}}</span>
                 </div>
                 <div class="icon-container"
                      fxLayout="row"
@@ -89,7 +90,6 @@
                        fxHide.xs="true">
                     <span class="label-person-id">{{person.id}}</span>
                   </div>
-                  <!-- <div>{{person.estado}}</div> -->
 
                   <div fxLayout="row"
                        fxFlex="70%"
@@ -123,7 +123,7 @@
                           i18n>
                       Nombre
                     </span>
-                    <span>
+                    <span class="mat-caption">
                       {{person.nombreCompleto}}
                     </span>
                   </div>
@@ -132,7 +132,7 @@
                           i18n>
                       Email
                     </span>
-                    <span>
+                    <span class="mat-caption">
                       {{person.eMail}}
                     </span>
                   </div>
@@ -146,7 +146,7 @@
                         Observaciones
                       </span>
                     </div>
-                    <span>
+                    <span class="mat-caption">
                       {{person.obs}}
                     </span>
                   </div>
@@ -158,7 +158,10 @@
                 <div fxLayout="column">
                   <div class="mat-caption label-caption"
                        i18n>Ahorro</div>
-                  <div class="mat-title">${{person.totalAhorro}}(ARS)</div>
+                  <div fxLayout="row">
+                    <span class="mat-title">{{person.totalAhorro | currency}}</span>
+                    <span class="mat-caption">(ARS)</span>
+                  </div>
                 </div>
               </div>
             </div>

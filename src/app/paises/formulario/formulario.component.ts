@@ -8,7 +8,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   templateUrl: './formulario.component.html',
   styleUrls: ['./formulario.component.scss']
 })
-export class FormularioComponent implements OnInit {
+export class FormularioCountryComponent implements OnInit {
 
   /**
    * Validation Form control.
@@ -19,7 +19,7 @@ export class FormularioComponent implements OnInit {
       'codigoIata': new FormControl('', [Validators.required])
     }
   );
-  constructor(public dialogRef: MatDialogRef<FormularioComponent>,
+  constructor(public dialogRef: MatDialogRef<FormularioCountryComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Pais) { }
 
   ngOnInit() {

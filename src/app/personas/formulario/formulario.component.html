@@ -20,6 +20,7 @@
               fxLayout="column">
           <section fxLayout="column">
             <div fxLayout="row">
+
               <mat-form-field fxFlex
                               class="example-full-width">
                 <input matInput
@@ -27,7 +28,7 @@
                        formControlName="name"
                        [(ngModel)]="formulario.name"
                        placeholder="Nombre Completo">
-                <mat-hint align="start"><strong i18n>Con el siguiente formato Apellido, Nombre/s.</strong> </mat-hint>
+                <mat-hint align="start"><span i18n>Con el siguiente formato Apellido, Nombre/s.</span> </mat-hint>
                 <mat-error *ngIf="validateError('name') && getErrors('name').required"
                            i18n>
                   Debe ingresar el nombre completo.
@@ -48,31 +49,39 @@
                 </mat-error>
               </mat-form-field>
             </div>
-            <div fxLayout="row"
-                 fxLayout.xs="column">
-              <mat-form-field class="example-full-width">
-                <input matInput
-                       name="ahorro"
-                       formControlName="ahorro"
-                       [(ngModel)]="formulario.ahorro"
-                       type="number"
-                       placeholder="Ahorro">
-              </mat-form-field>
-              <mat-form-field class="example-full-width">
-                <input matInput
-                       name="ahorroPercentage"
-                       type="number"
-                       formControlName="ahorroPercentage"
-                       [(ngModel)]="formulario.ahorroPercentage"
-                       placeholder="Porcentaje">
-              </mat-form-field>
 
-              <mat-slide-toggle class="toggle-container"
-                                formControlName="enableNotify"
-                                [(ngModel)]="formulario.enableNotify"
-                                fxFlex
-                                i18n>Recibir notificaciones</mat-slide-toggle>
+            <div fxLayout="column"
+                 class="custom-container">
+              <div fxLayout="row"
+                   fxLayout.xs="column">
+                <mat-form-field class="example-full-width">
+                  <input matInput
+                         name="ahorro"
+                         formControlName="ahorro"
+                         [(ngModel)]="formulario.ahorro"
+                         type="number"
+                         placeholder="Ahorro">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput
+                         name="ahorroPercentage"
+                         type="number"
+                         formControlName="ahorroPercentage"
+                         [(ngModel)]="formulario.ahorroPercentage"
+                         placeholder="Porcentaje">
+                </mat-form-field>
+
+                <mat-slide-toggle class="toggle-container"
+                                  formControlName="enableNotify"
+                                  [(ngModel)]="formulario.enableNotify"
+                                  fxFlex
+                                  i18n>Recibir notificaciones</mat-slide-toggle>
+              </div>
+              <span class="custom-hint not-separated">Ingrese el total de ahorro y el porcentaje en relación a su
+                ingreso mensual.
+              </span>
             </div>
+
             <div fxLayout="row">
               <mat-form-field fxFlex
                               class="example-full-width">
@@ -125,7 +134,7 @@
           </section>
 
           <section fxLayout="column">
-            <mat-accordion>
+            <mat-accordion [multi]="true">
               <mat-expansion-panel>
                 <mat-expansion-panel-header>
                   <mat-panel-title i18n>
@@ -172,16 +181,24 @@
 
                   <div fxLayout="row"
                        fxLayout.xs="column">
-                    <mat-form-field>
-                      <mat-select placeholder="Nacionalidad"
-                                  formControlName="nacionalidad"
-                                  [(ngModel)]="formulario.nacionalidad">
-                        <mat-option *ngFor="let countrie of viewdata.countries"
-                                    [value]="countrie.nombre">
-                          {{countrie.nombre}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
+                    <div fxLayout="row"
+                         fxFlex="39">
+                      <mat-form-field fxFlex>
+                        <mat-select placeholder="Nacionalidad"
+                                    formControlName="nacionalidad"
+                                    [(ngModel)]="formulario.nacionalidad">
+                          <mat-option *ngFor="let countrie of viewdata.countries"
+                                      [value]="countrie.nombre">
+                            {{countrie.nombre}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <button class="not-separated"
+                              mat-icon-button
+                              (click)="addCountry($index)">
+                        <mat-icon>add_circle_outline</mat-icon>
+                      </button>
+                    </div>
                     <mat-form-field>
                       <mat-select placeholder="Idioma"
                                   name="languageCode"
@@ -257,17 +274,18 @@
           </section>
 
           <section fxLayout="column">
-            <div fxLayout="row"
-                 class="comments-container">
+            <div fxLayout="row">
               <mat-form-field fxFlex>
                 <mat-label i18n>Observaciones</mat-label>
                 <textarea matInput
                           cdkTextareaAutosize
                           cdkAutosizeMinRows="2"
                           name="obs"
+                          maxlength="255"
                           formControlName="obs"
                           [(ngModel)]="formulario.obs"
                           cdkAutosizeMaxRows="5"></textarea>
+                <mat-hint align="end">{{formulario.obs.length}} / 255</mat-hint>
               </mat-form-field>
             </div>
           </section>

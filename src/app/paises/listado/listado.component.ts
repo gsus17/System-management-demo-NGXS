@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { PaisesServiceSingleton } from '../paises.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatSnackBar, MatSnackBarConfig } from '@angular/material';
-import { FormularioComponent } from '../formulario/formulario.component';
+import { FormularioCountryComponent } from '../formulario/formulario.component';
 import { Pais } from 'src/api/entities/pais.entity';
 import { CountryForm } from '../formulario/formulario.entity';
 import { Observable } from 'rxjs';
@@ -157,7 +157,7 @@ export class ListadoComponent implements OnInit {
       { modify: true, ...this.countryForm, nombre: name, codigoIata: iata, id: id }
       : { modify: false, ...this.countryForm };
 
-    const dialogRef = this.dialog.open(FormularioComponent, {
+    const dialogRef = this.dialog.open(FormularioCountryComponent, {
       width: '500px',
       data: countryForm
     });

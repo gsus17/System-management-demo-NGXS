@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Pais } from 'src/api/entities/pais.entity';
 import { PaisesApiService } from 'src/api/paises/paises-api.service';
 import { map } from 'rxjs/operators';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,16 @@ export class PaisesServiceSingleton {
    */
   private dataLength: number = 0;
 
-  constructor(private paisesApiService: PaisesApiService) { }
+  constructor(
+    private paisesApiService: PaisesApiService,
+    private db: AngularFirestore) { }
+
+  /**
+   * createId
+   */
+  public createId(): string {
+    return this.db.createId();
+  }
 
   /**
    * Devuelve el listado de personas.

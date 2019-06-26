@@ -1,21 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-master-page',
   templateUrl: './master-page.component.html',
   styleUrls: ['./master-page.component.scss']
 })
-export class MasterPageComponent implements OnInit {
+export class MasterPageComponent implements OnInit, OnDestroy {
 
   public openedSideBar: boolean;
+  public viewportSmallSubscription: Subscription = null;
+  public viewportWebSubscription: Subscription = null;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit() {
     this.breakpointDetector();
+  }
+
+  ngOnDestroy() {
+    this.viewportSmallSubscription.unsubscribe();
+    this.viewportWebSubscription.unsubscribe();
   }
 
   /**
@@ -30,12 +39,12 @@ export class MasterPageComponent implements OnInit {
    */
   private breakpointDetector() {
 
-    this.breakpointObserver.observe([Breakpoints.Small])
+    this.viewportSmallSubscription = this.breakpointObserver.observe([Breakpoints.Small])
       .subscribe(() => {
         this.openedSideBar = false;
       });
 
-    this.breakpointObserver.observe([Breakpoints.Web, Breakpoints.Large, Breakpoints.XLarge])
+    this.viewportWebSubscription = this.breakpointObserver.observe([Breakpoints.Web])
       .subscribe(() => {
         this.openedSideBar = true;
       });

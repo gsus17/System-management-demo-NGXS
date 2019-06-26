@@ -64,7 +64,7 @@ export class PersonasServiceSingleton {
       eMail: formulario.email,
       fechaCreo: new Date().toDateString(),
       fechaActualizo: new Date().toDateString(),
-      totalAhorro: 0,
+      totalAhorro: formulario.ahorro,
       porcAhorro: 0,
       obs: formulario.obs,
       direccion: formulario.address,
@@ -311,8 +311,10 @@ export class PersonasServiceSingleton {
   /**
    * Devuelve el listado paginado.
    */
-  private paginate(array, page_size, page_number): Persona[] {
+  private paginate(array, page_size, pageIndex): Persona[] {
     --page_size;
-    return array.slice(page_number * page_size, (page_number + 1) * page_size);
+    const start = pageIndex * page_size;
+    const end = (pageIndex + 1) * page_size;
+    return array.slice(start, end);
   }
 }

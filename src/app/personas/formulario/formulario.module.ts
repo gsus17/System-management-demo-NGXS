@@ -7,6 +7,7 @@ import { AngularMaterialModule } from 'src/app/angular-material/angular-material
 import { PersonasModule } from '../personas.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BienComponent } from './bien/bien.component';
+import { PaisesModule } from 'src/app/paises/paises.module';
 
 @NgModule({
   declarations: [FormularioComponent, BienComponent],
@@ -15,6 +16,7 @@ import { BienComponent } from './bien/bien.component';
     CommonModule,
     FormularioRoutingModule,
     AngularMaterialModule,
+    PaisesModule,
     PersonasModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' })
   ]

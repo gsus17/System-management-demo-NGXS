@@ -4,13 +4,15 @@ import { PersonasFormularioViewData } from './formulario.viewdata';
 import { Form } from './formulario';
 import { FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { BienComponent } from './bien/bien.component';
 import { Bien } from 'src/api/entities/bien.entity';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { PaisesServiceSingleton } from 'src/app/paises/paises.service';
 import { Pais } from 'src/api/entities/pais.entity';
+import { CountryForm } from 'src/app/paises/formulario/formulario.entity';
+import { FormularioCountryComponent } from 'src/app/paises/formulario/formulario.component';
 
 @Component({
   selector: 'app-formulario',
@@ -46,6 +48,11 @@ export class FormularioComponent implements OnInit, OnDestroy {
       'obs': new FormControl('', [Validators.required])
     }
   );
+
+  /**
+   * Datos para almacenar un bien.
+   */
+  public countryForm: Pais;
 
   constructor(
     public snackBar: MatSnackBar,
@@ -203,6 +210,57 @@ export class FormularioComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Abre formulario para agregar un nuevo bien.
+   */
+  public openCountryDialog(name: string = '', iata: string = '', id: string = '0'): Observable<any> {
+    const methodName: string = `${FormularioComponent.name}::openCountryDialog`;
+    console.log(`${methodName}`);
+    const countryForm: CountryForm = name !== '' && iata !== '' ?
+      { modify: true, ...this.countryForm, nombre: name, codigoIata: iata, id: id }
+      : { modify: false, ...this.countryForm };
+
+    const dialogRef = this.dialog.open(FormularioCountryComponent, {
+      width: '500px',
+      data: countryForm
+    });
+
+    return dialogRef.afterClosed();
+  }
+
+  /**
+   * createId
+   */
+  public createId(): string {
+    return this.paisesService.createId();
+  }
+
+  /**
+   * Agrega un pais.
+   */
+  public addCountry() {
+    const methodName: string = `${FormularioComponent.name}::addCountry`;
+    console.log(`${methodName}`);
+
+    this.openCountryDialog()
+      .subscribe(response => {
+        console.log(`${methodName}::afterClosed selection %o`, response);
+        const country: Pais = {
+          codigoIata: response.codigoIata,
+          id: this.createId(),
+          nombre: response.nombre
+        };
+
+        this.paisesService.createContry(country)
+          .then(() => {
+            this.openSnackBar('Se ha creado correctamente.');
+          })
+          .catch(() => {
+            this.openSnackBar('Ha ocurrido un error.');
+          });
+      });
+  }
+
+  /**
    * Inicializa el modelo.
    */
   private initDataForm(id) {
@@ -233,6 +291,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
     this.formulario = {
       id: null,
       address: '',
+      obs: '',
       ahorro: 0,
       ahorroPercentage: 0,
       birthdate: new Date(),

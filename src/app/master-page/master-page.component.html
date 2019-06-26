@@ -14,23 +14,24 @@
     <mat-drawer #drawer
                 class="contents"
                 [(opened)]="openedSideBar"
-                mode="side">
+                mode="side"
+                class="left-drawer-container">
       <mat-nav-list>
         <mat-list-item (click)="logout()">
-          <mat-icon matListIcon>exit_to_app</mat-icon>
+          <mat-icon matListIcon class="menu-icons">exit_to_app</mat-icon>
           <span matLine
                 class="left-panel-items"
                 i18n> Cerrar sesión </span>
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item routerLink="personas/listado">
-          <mat-icon matListIcon>person_outline</mat-icon>
+          <mat-icon matListIcon class="menu-icons">person_outline</mat-icon>
           <span matLine
                 class="left-panel-items"
                 i18n> Listado de personas </span>
         </mat-list-item>
         <mat-list-item routerLink="paises/listado">
-          <mat-icon matListIcon>public</mat-icon>
+          <mat-icon matListIcon class="menu-icons">public</mat-icon>
           <span matLine
                 class="left-panel-items"
                 i18n> Listado de paises </span>

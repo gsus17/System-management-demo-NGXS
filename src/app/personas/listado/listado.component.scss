@@ -1,6 +1,5 @@
-$active-status-color: #93C47D;
-$inactive-status-color: #FFE599;
-$suspended-status-color: #CCCCCC;
+
+@import '../../variables.scss';
 
 .icon-container { padding-right: 30px;}
 
@@ -34,3 +33,9 @@ $suspended-status-color: #CCCCCC;
 .inactive-status-label { border-radius: 3px; padding: 5px 10px; background-color: $inactive-status-color; }
 
 .suspended-status-label { border-radius: 3px; padding: 5px 10px; background-color: $suspended-status-color; }
+
+mat-expansion-panel-header mat-icon { color: $icons-color !important;}
+
+.person-list-title{
+  padding-bottom: 16px !important;
+}

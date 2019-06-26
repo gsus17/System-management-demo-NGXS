@@ -1,4 +1,4 @@
-.login-content { width: 500px!important;  height: 290px !important;}
+.login-content { width: 500px!important;  height: auto !important;}
 
 .fxMargin { margin: 16px;}
 
@@ -10,4 +10,8 @@
 
 .principal-label {
   margin-bottom: 0 !important;
+}
+
+.password-recovery-container{
+  margin: 16px 0 0 0;
 }

@@ -28,7 +28,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
     this.paginator = {
       length: 10,
       pageSize: 5,
-      pageIndex: 1,
+      pageIndex: 0,
       previousPageIndex: 0,
       pageSizeOptions: [5, 10, 15, 20, 25]
     };

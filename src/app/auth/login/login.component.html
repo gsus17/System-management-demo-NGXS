@@ -52,6 +52,7 @@
         <mat-error *ngIf="form.password.invalid"
                    i18n>El password es requerido.</mat-error>
       </mat-form-field>
+
       <div class="selection-section"
            fxLayout="column">
 
@@ -66,6 +67,13 @@
                   i18n>Ingresar</button>
         </div>
 
+        <div fxLayout="row"
+             fxFlex
+             fxLayoutAlign="end center"
+             class="password-recovery-container">
+          <button mat-button
+                  i18n>Recuperar Contraseña</button>
+        </div>
       </div>
 
     </form>
