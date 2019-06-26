@@ -60,5 +60,4 @@ export class PaisesServiceSingleton {
   public deleteCountry(id: number): Promise<void> {
     return this.paisesApiService.deleteById(id);
   }
-
 }

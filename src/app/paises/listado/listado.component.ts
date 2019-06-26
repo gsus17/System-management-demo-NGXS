@@ -45,8 +45,7 @@ export class ListadoComponent implements OnInit {
     private paisesService: PaisesServiceSingleton,
     private db: AngularFirestore) { }
 
-  ngOnInit() {
-
+  public ngOnInit() {
     this.getCountries();
   }
 

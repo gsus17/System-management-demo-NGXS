@@ -24,7 +24,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
   /**
    * subscription reference.
    */
-  private subscription: Subscription;
+  private subscriptionRouteParams: Subscription;
 
   /**
    * Validation Form control.
@@ -81,11 +81,11 @@ export class FormularioComponent implements OnInit, OnDestroy {
    */
   public bienForm: Bien;
 
-  ngOnInit() {
+  public ngOnInit() {
     this.initDefaultForm();
     this.buildViewData();
 
-    this.subscription = this.route.params
+    this.subscriptionRouteParams = this.route.params
       .subscribe(params => {
         const id = +params['id']; // (+) converts string 'id' to a number
         if (id) {
@@ -94,9 +94,9 @@ export class FormularioComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     // Unsubscribe.
-    this.subscription.unsubscribe();
+    this.subscriptionRouteParams.unsubscribe();
   }
 
   /**
@@ -261,19 +261,8 @@ export class FormularioComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Inicializa el modelo.
-   */
-  private initDataForm(id) {
-
-    this.personasService.getFormPersonaById$(id)
-      .subscribe((response: Form) => {
-        this.formulario = { ...response };
-      });
-  }
-
-  /**
-   * Muestra el mensaje correspondiente.
-   */
+  * Muestra el mensaje correspondiente.
+  */
   public openSnackBar(msg: string) {
     const config: MatSnackBarConfig = {
       duration: 2000,
@@ -282,6 +271,17 @@ export class FormularioComponent implements OnInit, OnDestroy {
     };
 
     this.snackBar.open(msg, null, config);
+  }
+
+  /**
+   * Inicializa el modelo.
+   */
+  private initDataForm(id) {
+
+    this.personasService.getFormPersonaById$(id)
+      .subscribe((response: Form) => {
+        this.formulario = { ...response };
+      });
   }
 
   /**

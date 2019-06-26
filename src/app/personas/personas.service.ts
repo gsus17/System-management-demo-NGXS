@@ -44,7 +44,6 @@ export class PersonasServiceSingleton {
       );
   }
 
-
   /**
    * createId
    */
@@ -117,11 +116,7 @@ export class PersonasServiceSingleton {
     return this.personasApiService.getPersonas$()
       .pipe(
         map(persons => {
-
           const personas: Persona[] = <any>persons;
-          // personas.forEach((persona, idx) => {
-          //   persona.id = idx;
-          // });
           const personFiltered = personas.filter((item) => item.id === id)[0];
           const form: Form = {
             id: personFiltered.id === undefined ? null : personFiltered.id,
@@ -185,7 +180,6 @@ export class PersonasServiceSingleton {
     return ret;
   }
 
-
   /**
    * Devuelve una lista de formatos de hora existentes.
    */
@@ -241,6 +235,7 @@ export class PersonasServiceSingleton {
       'en',
       'pt'
     ];
+
     return ret;
   }
 

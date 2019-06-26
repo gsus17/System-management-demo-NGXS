@@ -17,11 +17,6 @@ export interface PersonasFormularioViewData {
   inProgress: boolean;
 
   /**
-   * Estado del formulario.
-   */
-  // formState?: FormStates;
-
-  /**
    * True si el formulario se encuentra bloqueado. False de lo contrario.
    */
   isLocked: boolean;
@@ -60,11 +55,6 @@ export interface PersonasFormularioViewData {
    * Lista de formatos de TimeZones.
    */
   timeZones?: TimeZone[];
-
-  /**
-   * Lista de países
-   */
-  // nationalities?: Pais[];
 
   /**
    * Lista de idiomas

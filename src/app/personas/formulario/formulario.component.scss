@@ -37,17 +37,14 @@ form {
       & > * {
         padding-left: 0 !important;
         padding-right: 0 !important;
-        // background-color: red;
       }
 
       & > *:not(:first-child):not(.not-separated) {
         padding-left: 12px !important;
-        // background-color: blue;
       }
 
       & > *:not(:last-child):not(.not-separated) {
         padding-right: 12px !important;
-        // background-color: yellow;
       }
     }
   }

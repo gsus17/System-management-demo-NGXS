@@ -2,9 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Persona } from 'src/api/entities/persona.entity';
 import { PersonasServiceSingleton } from '../personas.service';
-import { Subscription, interval } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { MatSnackBar, MatSnackBarConfig, MatPaginatorIntl } from '@angular/material';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-listado',
