@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { Persona } from 'src/api/entities/persona.entity';
 import { PersonasServiceSingleton } from '../personas.service';
 import { Subscription } from 'rxjs';
-import { MatSnackBar, MatSnackBarConfig, MatPaginatorIntl } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig, MatPaginatorIntl, MatDialog } from '@angular/material';
+import { DialogDeleteComponent } from 'src/app/dialog-delete/dialog-delete.component';
 
 @Component({
   selector: 'app-listado',
@@ -20,7 +21,8 @@ export class ListadoComponent implements OnInit, OnDestroy {
     public snackBar: MatSnackBar,
     private personasService: PersonasServiceSingleton,
     private matPaginatorIntl: MatPaginatorIntl,
-    private router: Router) { }
+    private router: Router,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -69,16 +71,49 @@ export class ListadoComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Open the dialog to delete a person.
+   */
+  private openDeletePersonDialog(): Promise<any> {
+    const methodName = `${ListadoComponent.name}::openImageNameDialog`;
+    console.log(`${methodName}`);
+
+    const promise = new Promise((resolve, reject) => {
+      const dialogRef = this.dialog.open(DialogDeleteComponent, {
+        data: { message: '¿Esta seguro que desea eliminar a esta persona?', response: false }
+      });
+
+      dialogRef.afterClosed()
+        .subscribe(result => {
+          console.log(`${methodName}::The dialog was closed`);
+          if (result) {
+            resolve();
+          } else {
+            reject();
+          }
+        });
+    });
+
+    return promise;
+  }
+
+  /**
    * Edit a concret person.
    */
   public deletePersona(id: number) {
     console.log(`${ListadoComponent.name}::deletePersona`);
-    this.personasService.deletePersona(id)
+
+    this.openDeletePersonDialog()
       .then(() => {
-        this.openSnackBar('Se ha eliminado correctamente.');
+        this.personasService.deletePersona(id)
+          .then(() => {
+            this.openSnackBar('Se ha eliminado correctamente.');
+          })
+          .catch(() => {
+            this.openSnackBar('Ha ocurrido un error.');
+          });
       })
       .catch(() => {
-        this.openSnackBar('Ha ocurrido un error.');
+        //
       });
   }
 

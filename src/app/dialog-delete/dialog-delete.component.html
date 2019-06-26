@@ -1,0 +1,12 @@
+<div mat-dialog-content>
+  {{data.message}}
+</div>
+<div mat-dialog-actions
+     fxLayout="row"
+     fxLayoutAlign="space-between center">
+  <button mat-button
+          (click)="onNoClick()">Cancelar</button>
+  <button mat-button
+          (click)="onClick()"
+          cdkFocusInitial>Eliminar</button>
+</div>

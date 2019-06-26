@@ -10,6 +10,8 @@ import { AngularFireModule, } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { PersonasServiceSingleton } from './personas/personas.service';
 import { PaisesServiceSingleton } from './paises/paises.service';
+import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
+import { AngularMaterialModule } from './angular-material/angular-material.module';
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -23,11 +25,14 @@ const firebaseConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DialogDeleteComponent
   ],
+  entryComponents: [DialogDeleteComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    AngularMaterialModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule

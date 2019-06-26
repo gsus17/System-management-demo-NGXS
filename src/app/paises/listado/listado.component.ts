@@ -7,6 +7,7 @@ import { Pais } from 'src/api/entities/pais.entity';
 import { CountryForm } from '../formulario/formulario.entity';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { DialogDeleteComponent } from 'src/app/dialog-delete/dialog-delete.component';
 
 const COLUMNS: Columns[] = [];
 
@@ -137,12 +138,18 @@ export class ListadoComponent implements OnInit {
     const methodName: string = `${ListadoComponent.name}::deleteCountry`;
     console.log(`${methodName}`);
 
-    this.paisesService.deleteCountry(id)
+    this.openDeletePersonDialog()
       .then(() => {
-        this.openSnackBar('Se ha eliminado correctamente.');
+        this.paisesService.deleteCountry(id)
+          .then(() => {
+            this.openSnackBar('Se ha eliminado correctamente.');
+          })
+          .catch(() => {
+            this.openSnackBar('Ha ocurrido un error.');
+          });
       })
       .catch(() => {
-        this.openSnackBar('Ha ocurrido un error.');
+        //
       });
   }
 
@@ -193,6 +200,32 @@ export class ListadoComponent implements OnInit {
     };
 
     this.snackBar.open(msg, null, config);
+  }
+
+  /**
+   * Open the dialog to delete a country.
+   */
+  private openDeletePersonDialog(): Promise<any> {
+    const methodName = `${ListadoComponent.name}::openImageNameDialog`;
+    console.log(`${methodName}`);
+
+    const promise = new Promise((resolve, reject) => {
+      const dialogRef = this.dialog.open(DialogDeleteComponent, {
+        data: { message: '¿Esta seguro que desea eliminar este pais?', response: false }
+      });
+
+      dialogRef.afterClosed()
+        .subscribe(result => {
+          console.log(`${methodName}::The dialog was closed`);
+          if (result) {
+            resolve();
+          } else {
+            reject();
+          }
+        });
+    });
+
+    return promise;
   }
 }
 
