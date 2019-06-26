@@ -167,6 +167,22 @@
             </div>
           </mat-expansion-panel>
         </mat-accordion>
+
+        <div class="no-results-container"
+             *ngIf="!personList.length > 0"
+             fxFlex
+             fxLayout="column"
+             fxLayoutAlign="center center">
+
+          <img class="no-results-img"
+               src="../assets/img/no-results-persona.png">
+          <div fxLayout="row"
+               fxLayoutAlign="center center">
+
+            <span class="msg-no-results"
+                  fxFlex="70">No hay personas cargadas que apliquen al filtro.</span>
+          </div>
+        </div>
       </div>
 
       <div fxLayout="row"
@@ -181,6 +197,7 @@
         </div>
       </div>
     </mat-card-content>
+
     <mat-paginator [length]="paginator.length"
                    [pageSize]="paginator.pageSize"
                    [pageSizeOptions]="paginator.pageSizeOptions"

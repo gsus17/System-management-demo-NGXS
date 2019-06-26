@@ -4,8 +4,22 @@ th { text-align: left; }
 
 .virtual-viewport { height: 635px; }
 
-table { padding: 16px; }
+.table-container {
+  height: 600px !important;
+  overflow: auto;
+}
+
 
 th.mat-sort-header-sorted { color: black; }
 
 .buttom-container { padding: 16px 20px 0px; }
+
+.no-results-container {
+  .no-results-img {
+    margin-bottom: 16px;
+  }
+
+  .msg-no-results {
+    text-align: center;
+  }
+}

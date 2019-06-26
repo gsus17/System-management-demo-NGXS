@@ -6,90 +6,110 @@
     </mat-card-title>
 
     <mat-card-content>
-      <cdk-virtual-scroll-viewport itemSize="50"
-                                   class="virtual-viewport">
-        <mat-form-field>
+      <div class="virtual-viewport"
+           fxLayout="column">
+        <mat-form-field *ngIf="dataSource.data.length > 0">
           <input matInput
                  (keyup)="applyFilter($event.target.value)"
                  placeholder="Buscar">
         </mat-form-field>
-        <table mat-table
-               [dataSource]="dataSource"
-               matSort
-               class="mat-elevation-z8">
+        <div class="table-container"
+             *ngIf="dataSource.data.length > 0">
+          <table fxFlex
+                 mat-table
+                 [dataSource]="dataSource"
+                 matSort
+                 class="mat-elevation-z2">
 
-          <!-- Checkbox Column -->
-          <ng-container matColumnDef="select">
-            <th mat-header-cell
-                *matHeaderCellDef>
-              <mat-checkbox (change)="$event ? masterToggle() : null"
-                            [checked]="selection.hasValue() && isAllSelected()"
-                            [indeterminate]="selection.hasValue() && !isAllSelected()">
-              </mat-checkbox>
-            </th>
-            <td mat-cell
-                *matCellDef="let row">
-              <mat-checkbox (click)="$event.stopPropagation()"
-                            (change)="$event ? selection.toggle(row) : null"
-                            [checked]="selection.isSelected(row)">
-              </mat-checkbox>
-            </td>
-          </ng-container>
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+              <th mat-header-cell
+                  *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                              [checked]="selection.hasValue() && isAllSelected()"
+                              [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+              </th>
+              <td mat-cell
+                  *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()"
+                              (change)="$event ? selection.toggle(row) : null"
+                              [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+              </td>
+            </ng-container>
 
-          <!-- Iata Column -->
-          <ng-container matColumnDef="iata">
-            <th mat-header-cell
-                *matHeaderCellDef
-                mat-sort-header> Iata </th>
-            <td mat-cell
-                *matCellDef="let element"> {{element.iata}} </td>
-          </ng-container>
+            <!-- Iata Column -->
+            <ng-container matColumnDef="iata">
+              <th mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header> Iata </th>
+              <td mat-cell
+                  *matCellDef="let element"> {{element.iata}} </td>
+            </ng-container>
 
-          <!-- Name Column -->
-          <ng-container matColumnDef="nombre">
-            <th mat-header-cell
-                *matHeaderCellDef
-                mat-sort-header> Nombre </th>
-            <td mat-cell
-                *matCellDef="let element"> {{element.nombre}} </td>
-          </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="nombre">
+              <th mat-header-cell
+                  *matHeaderCellDef
+                  mat-sort-header> Nombre </th>
+              <td mat-cell
+                  *matCellDef="let element"> {{element.nombre}} </td>
+            </ng-container>
 
-          <!-- Edit Column -->
-          <ng-container matColumnDef="editar">
-            <th mat-header-cell
-                *matHeaderCellDef> Editar </th>
-            <td mat-cell
-                *matCellDef="let element">
-              <button mat-icon-button
-                      matTooltip="Editar"
-                      color="accent"
-                      (click)="editCountry(element.nombre,element.iata,element.id)">
-                <mat-icon class="mat-18">edit</mat-icon>
-              </button></td>
-          </ng-container>
+            <!-- Edit Column -->
+            <ng-container matColumnDef="editar">
+              <th mat-header-cell
+                  *matHeaderCellDef> Editar </th>
+              <td mat-cell
+                  *matCellDef="let element">
+                <button mat-icon-button
+                        matTooltip="Editar"
+                        color="accent"
+                        (click)="editCountry(element.nombre,element.iata,element.id)">
+                  <mat-icon class="mat-18">edit</mat-icon>
+                </button></td>
+            </ng-container>
 
-          <!-- Delete Column -->
-          <ng-container matColumnDef="eliminar">
-            <th mat-header-cell
-                *matHeaderCellDef> Eliminar </th>
-            <td mat-cell
-                *matCellDef="let element">
-              <button mat-icon-button
-                      matTooltip="Eliminar"
-                      color="accent"
-                      (click)="deleteCountry(element.id)">
-                <mat-icon class="mat-18">delete_forever</mat-icon>
-              </button></td>
-          </ng-container>
+            <!-- Delete Column -->
+            <ng-container matColumnDef="eliminar">
+              <th mat-header-cell
+                  *matHeaderCellDef> Eliminar </th>
+              <td mat-cell
+                  *matCellDef="let element">
+                <button mat-icon-button
+                        matTooltip="Eliminar"
+                        color="accent"
+                        (click)="deleteCountry(element.id)">
+                  <mat-icon class="mat-18">delete_forever</mat-icon>
+                </button></td>
+            </ng-container>
 
-          <tr mat-header-row
-              *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-          <tr mat-row
-              *matRowDef="let row; columns: displayedColumns;"
-              (click)="selection.toggle(row)">
-          </tr>
-        </table>
-      </cdk-virtual-scroll-viewport>
+            <tr mat-header-row
+                *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row
+                *matRowDef="let row; columns: displayedColumns;"
+                (click)="selection.toggle(row)">
+            </tr>
+          </table>
+        </div>
+
+        <div class="no-results-container"
+             *ngIf="!dataSource.data.length > 0"
+             fxFlex
+             fxLayout="column"
+             fxLayoutAlign="center center">
+
+          <img class="no-results-img"
+               src="../assets/img/no-results-persona.png">
+          <div fxLayout="row"
+               fxLayoutAlign="center center">
+
+            <span class="msg-no-results"
+                  fxFlex="70">No hay paises cargados.</span>
+          </div>
+        </div>
+      </div>
 
       <div fxLayout="row"
            class="buttom-container"
