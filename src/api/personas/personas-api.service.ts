@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Persona } from '../entities/persona.entity';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -52,7 +51,7 @@ export class PersonasApiService {
   /**
    * Elimina una persona.
    */
-  public deleteById(id: string): Promise<void> {
+  public deleteById(id: number): Promise<void> {
     console.log(`${PersonasApiService.name}::deleteById id %o`, id);
     return this.db.doc(`personas/${id}`)
       .delete();

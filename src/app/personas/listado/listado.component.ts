@@ -71,7 +71,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
   /**
    * Edit a concret person.
    */
-  public deletePersona(id: string) {
+  public deletePersona(id: number) {
     console.log(`${ListadoComponent.name}::deletePersona`);
     this.personasService.deletePersona(id)
       .then(() => {

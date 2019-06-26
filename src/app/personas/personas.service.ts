@@ -14,10 +14,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class PersonasServiceSingleton {
 
-  /**
-   * Tamano total del listado.
-   */
-  private dataLength: number = 0;
+  private idGenerated: number[] = [];
 
   constructor(
     private personasApiService: PersonasApiService,
@@ -31,11 +28,14 @@ export class PersonasServiceSingleton {
       .pipe(
         map((items) => {
           const personas: Persona[] = <any>items;
-          personas.forEach((persona, idx) => {
-            persona.id = idx;
-          });
 
-          this.dataLength = personas.length;
+          if (personas.length > 0) {
+            this.idGenerated = [];
+            personas.forEach((persona, idx) => {
+              this.idGenerated.push(persona.id);
+            });
+          }
+
           personas.filter((it, index) => index < pageSize);
 
           const filtrado = this.paginate(personas, pageSize, pageIndex);
@@ -58,7 +58,7 @@ export class PersonasServiceSingleton {
     console.log(`${PersonasServiceSingleton.name}:: createPerson`);
 
     const person: Persona = {
-      id: this.dataLength + 1,
+      id: this.generatePersonId(),
       nombreCompleto: formulario.name,
       eMail: formulario.email,
       fechaCreo: new Date().toDateString(),
@@ -93,8 +93,9 @@ export class PersonasServiceSingleton {
   /**
    * Elimina una persona en base a su Id.
    */
-  public deletePersona(id: string): Promise<void> {
+  public deletePersona(id: number): Promise<void> {
     console.log(`${PersonasServiceSingleton.name}:: deletePersona id %o`, id);
+    this.idGenerated = this.idGenerated.filter((item) => item !== id);
     return this.personasApiService.deleteById(id);
   }
 
@@ -301,6 +302,20 @@ export class PersonasServiceSingleton {
     };
 
     return person;
+  }
+
+  /**
+   * Genera un id.
+   */
+  private generatePersonId(): number {
+    let newId: number = 0;
+
+    while (this.idGenerated.indexOf(newId) < 0) {
+      newId = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
+      this.idGenerated.push(newId);
+    }
+
+    return newId;
   }
 
   /**
