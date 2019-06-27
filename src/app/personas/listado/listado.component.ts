@@ -37,11 +37,13 @@ export class ListadoComponent implements OnInit, OnDestroy {
     };
 
     this.matPaginatorIntl.itemsPerPageLabel = 'Resultados por pagina.';
-
     this.getPersons(this.paginator.pageIndex, this.paginator.pageSize);
   }
 
-  ngOnDestroy() {
+  /**
+   * Desuscribe todas las referencias a los observables.
+   */
+  public ngOnDestroy() {
     // Unsubscribe.
     this.personasSubscription.unsubscribe();
   }
@@ -50,7 +52,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
    * Obtiene el listado de personas.
    */
   public getPersons(pageIndex: number, pageSize: number) {
-    this.personasSubscription = this.personasService.getPersonas$(pageIndex, pageSize)
+    this.personasSubscription = this.personasService.getPersonList$(pageIndex, pageSize)
       .subscribe((listado: Persona[]) => {
         this.personList = listado;
       });
@@ -106,7 +108,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
 
     this.openDeletePersonDialog()
       .then(() => {
-        this.personasService.deletePersona(id)
+        this.personasService.deletePersonById(id)
           .then(() => {
             this.openSnackBar('Se ha eliminado correctamente.');
           })
@@ -124,12 +126,11 @@ export class ListadoComponent implements OnInit, OnDestroy {
    */
   public changePaginator(change: Paginator) {
     console.log(`${ListadoComponent.name}::getPersons %o`, change);
-
     this.getPersons(change.pageIndex, change.pageSize);
   }
 
   /**
-   * Muestra el mensaje correspondiente.
+   * Renderiza el componente toast mostrando el mensaje correspondiente.
    */
   public openSnackBar(msg: string) {
     const config: MatSnackBarConfig = {

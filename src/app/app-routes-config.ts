@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { MasterPageComponent } from './master-page/master-page.component';
 
+// Configuracion de rutas de la aplicacion implementando lazy loading.
 export const routes: Routes = [
   {
     path: 'login',

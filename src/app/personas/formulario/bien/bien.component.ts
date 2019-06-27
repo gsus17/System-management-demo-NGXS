@@ -40,7 +40,10 @@ export class BienComponent implements OnInit {
   // Convenience getter for easy access to form fields.
   get form() { return this.bienForm.controls; }
 
-  ngOnInit() {
+  /**
+   * Inicializa el componente.
+   */
+  public ngOnInit() {
 
     this.viewdata = {
       categories: this.personasService.getCategoriesBienes()

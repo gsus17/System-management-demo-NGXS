@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { PaisesServiceSingleton } from '../paises.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,7 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FormularioCountryComponent } from '../formulario/formulario.component';
 import { Pais } from 'src/api/entities/pais.entity';
 import { CountryForm } from '../formulario/formulario.entity';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { DialogDeleteComponent } from 'src/app/dialog-delete/dialog-delete.component';
 
@@ -20,7 +20,7 @@ const COLUMNS: Columns[] = [];
   templateUrl: './listado.component.html',
   styleUrls: ['./listado.component.scss']
 })
-export class ListadoComponent implements OnInit {
+export class ListadoComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -44,14 +44,29 @@ export class ListadoComponent implements OnInit {
    */
   public countryForm: Pais;
 
+  /**
+   * Subscription reference.
+   */
+  private subscriptionPaisesService: Subscription;
+
   constructor(
     public snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private paisesService: PaisesServiceSingleton,
+    private paisesService$: PaisesServiceSingleton,
     private db: AngularFirestore) { }
 
+  /**
+   * Inicializa el componente.
+   */
   public ngOnInit() {
     this.getCountries();
+  }
+
+  /**
+   * Desuscribe las referencias a los observables.
+   */
+  public ngOnDestroy() {
+    this.subscriptionPaisesService.unsubscribe();
   }
 
   /**
@@ -65,7 +80,7 @@ export class ListadoComponent implements OnInit {
    * Devuelve el listado de personas.
    */
   public getCountries(): void {
-    this.paisesService.getPaises$()
+    this.subscriptionPaisesService = this.paisesService$.getPaises$()
       .subscribe((data) => {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -86,19 +101,21 @@ export class ListadoComponent implements OnInit {
     this.openDialog(name, iata, id)
       .subscribe(response => {
         console.log(`${methodName}::afterClosed selection %o`, response);
-        const country: Pais = {
-          codigoIata: response.codigoIata,
-          id: response.id,
-          nombre: response.nombre
-        };
+        if (response) {
+          const country: Pais = {
+            codigoIata: response.codigoIata,
+            id: response.id,
+            nombre: response.nombre
+          };
 
-        this.paisesService.editCountry(country)
-          .then(() => {
-            this.openSnackBar('Se ha editado correctamente.');
-          })
-          .catch(() => {
-            this.openSnackBar('Ha ocurrido un error.');
-          });
+          this.paisesService$.editCountry(country)
+            .then(() => {
+              this.openSnackBar('Se ha editado correctamente.');
+            })
+            .catch(() => {
+              this.openSnackBar('Ha ocurrido un error.');
+            });
+        }
       });
   }
 
@@ -125,7 +142,7 @@ export class ListadoComponent implements OnInit {
           nombre: response.nombre
         };
 
-        this.paisesService.createContry(country)
+        this.paisesService$.createContry(country)
           .then(() => {
             this.openSnackBar('Se ha creado correctamente.');
           })
@@ -144,7 +161,7 @@ export class ListadoComponent implements OnInit {
 
     this.openDeletePersonDialog()
       .then(() => {
-        this.paisesService.deleteCountry(id)
+        this.paisesService$.deleteCountry(id)
           .then(() => {
             this.openSnackBar('Se ha eliminado correctamente.');
           })
@@ -163,6 +180,7 @@ export class ListadoComponent implements OnInit {
   public openDialog(name: string = '', iata: string = '', id: string = '0'): Observable<any> {
     const methodName: string = `${ListadoComponent.name}::openDialog`;
     console.log(`${methodName}`);
+
     const countryForm: CountryForm = name !== '' && iata !== '' ?
       { modify: true, ...this.countryForm, nombre: name, codigoIata: iata, id: id }
       : { modify: false, ...this.countryForm };

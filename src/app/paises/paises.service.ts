@@ -10,11 +10,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class PaisesServiceSingleton {
 
-  /**
-   * Tamano total del listado.
-   */
-  private dataLength: number = 0;
-
   constructor(
     private paisesApiService: PaisesApiService,
     private db: AngularFirestore) { }
@@ -34,7 +29,6 @@ export class PaisesServiceSingleton {
       .pipe(
         map((items) => {
           const countries: Pais[] = <any>items;
-          this.dataLength = countries.length;
           return countries;
         })
       );

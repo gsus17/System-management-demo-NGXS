@@ -5,6 +5,5 @@ import { Pais } from 'src/api/entities/pais.entity';
  * @export
  */
 export interface CountryForm extends Pais {
-
   modify: boolean;
 }

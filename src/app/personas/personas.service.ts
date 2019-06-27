@@ -14,6 +14,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class PersonasServiceSingleton {
 
+  /**
+   * Listado de id generados.
+   */
   private idGenerated: number[] = [];
 
   constructor(
@@ -23,12 +26,13 @@ export class PersonasServiceSingleton {
   /**
    * Devuelve el listado de personas.
    */
-  public getPersonas$(pageIndex: number, pageSize: number): Observable<Persona[]> {
+  public getPersonList$(pageIndex: number, pageSize: number): Observable<Persona[]> {
     return this.personasApiService.getPersonas$(pageIndex, pageSize)
       .pipe(
         map((items) => {
           const personas: Persona[] = <any>items;
 
+          // Almacena localmente los id actualmente ya utilizados en el caso de ya poseer datos en la base de datos.
           if (personas.length > 0) {
             this.idGenerated = [];
             personas.forEach((persona, idx) => {
@@ -36,7 +40,7 @@ export class PersonasServiceSingleton {
             });
           }
 
-          personas.filter((it, index) => index < pageSize);
+          // personas.filter((it, index) => index < pageSize);
 
           const filtrado = this.paginate(personas, pageSize, pageIndex);
           return filtrado;
@@ -45,9 +49,9 @@ export class PersonasServiceSingleton {
   }
 
   /**
-   * createId
+   * Devuelve un id generado por el servicio de firebase firestore.
    */
-  public createId(): string {
+  public createIdByFirestore(): string {
     return this.db.createId();
   }
 
@@ -93,7 +97,7 @@ export class PersonasServiceSingleton {
   /**
    * Elimina una persona en base a su Id.
    */
-  public deletePersona(id: number): Promise<void> {
+  public deletePersonById(id: number): Promise<void> {
     console.log(`${PersonasServiceSingleton.name}:: deletePersona id %o`, id);
     this.idGenerated = this.idGenerated.filter((item) => item !== id);
     return this.personasApiService.deleteById(id);
@@ -102,7 +106,7 @@ export class PersonasServiceSingleton {
   /**
    * Devuelve una persona segun su id.
    */
-  public getById$(id: string) {
+  public getPersonById$(id: string) {
     const methodName: string = `${PersonasServiceSingleton.name}::getFormPersonaById`;
     console.log(`${methodName}`);
     return this.personasApiService.getById$(id);
@@ -112,8 +116,9 @@ export class PersonasServiceSingleton {
    * Devuelve el formulario correspondiente.
    */
   public getFormPersonaById$(id: number): Observable<Form> {
-    const methodName: string = `${PersonasServiceSingleton.name}::getFormPersonaById`;
+    const methodName: string = `${PersonasServiceSingleton.name}::getFormPersonaById$`;
     console.log(`${methodName}`);
+
     return this.personasApiService.getPersonas$()
       .pipe(
         map(persons => {
@@ -250,13 +255,14 @@ export class PersonasServiceSingleton {
       'De uso',
       'Otro'
     ];
+
     return ret;
   }
 
   /**
-   * Genera UUID.
+   * Genera UUID para los bienes correspondiente al nuevo usuario.
    */
-  public generateUUID(): string {
+  public generateUUIDToPersonProperty(): string {
     // Public Domain/MIT
 
     let d: number = new Date().getTime();

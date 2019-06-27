@@ -3,6 +3,9 @@ import { AccountStatus } from 'src/api/entities/account-status.entity';
 import { RegionalData } from 'src/api/entities/regional-data.entity';
 import { Bien } from 'src/api/entities/bien.entity';
 
+/**
+ * Interfaz correspondiente a un formulario.
+ */
 export interface Form {
   id: number;
   name?: string;

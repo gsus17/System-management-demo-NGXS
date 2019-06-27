@@ -22,9 +22,24 @@ import { FormularioCountryComponent } from 'src/app/paises/formulario/formulario
 export class FormularioComponent implements OnInit, OnDestroy {
 
   /**
-   * subscription reference.
+   * Subscription reference.
    */
   private subscriptionRouteParams: Subscription;
+
+  /**
+   * Subscription reference.
+   */
+  private subscriptionGetPaises: Subscription;
+
+  /**
+   * Subscription reference.
+   */
+  private subscriptionGetFormPersonaById: Subscription;
+
+  /**
+   * Subscription reference List.
+   */
+  private subscriptionReferences: Subscription[] = [];
 
   /**
    * Validation Form control.
@@ -67,7 +82,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
   get form() { return this.personForm.controls; }
 
   /**
-   * Esto es un formulario.
+   * Formulario.
    */
   public formulario: Form;
 
@@ -81,6 +96,9 @@ export class FormularioComponent implements OnInit, OnDestroy {
    */
   public bienForm: Bien;
 
+  /**
+   * Inicializa el componente.
+   */
   public ngOnInit() {
     this.initDefaultForm();
     this.buildViewData();
@@ -92,11 +110,19 @@ export class FormularioComponent implements OnInit, OnDestroy {
           this.initDataForm(id);
         }
       });
+
+    this.subscriptionReferences.push(this.subscriptionRouteParams);
   }
 
+  /**
+   * Desuscribe las referencias a los observables.
+   */
   public ngOnDestroy() {
     // Unsubscribe.
-    this.subscriptionRouteParams.unsubscribe();
+    this.subscriptionReferences
+      .forEach((subs) => {
+        subs.unsubscribe();
+      });
   }
 
   /**
@@ -175,19 +201,24 @@ export class FormularioComponent implements OnInit, OnDestroy {
     const methodName: string = `${FormularioComponent.name}::openDialog`;
     console.log(`${methodName}`);
 
-    const dialogRef = this.dialog.open(BienComponent, {
-      width: '500px',
-      data: { bienForm: this.bienForm }
-    });
+    const dialogRef = this.dialog.open(
+      BienComponent,
+      {
+        width: '500px',
+        data: { bienForm: this.bienForm }
+      });
 
     dialogRef.afterClosed()
       .subscribe(response => {
         console.log(`${methodName}::afterClosed selection %o`, response);
-        this.bienForm = {
-          ...response,
-          id: this.personasService.generateUUID()
-        };
-        this.formulario.bienes.push(this.bienForm);
+        if (response) {
+          this.bienForm = {
+            ...response,
+            id: this.personasService.generateUUIDToPersonProperty()
+          };
+
+          this.formulario.bienes.push(this.bienForm);
+        }
       });
   }
 
@@ -277,11 +308,12 @@ export class FormularioComponent implements OnInit, OnDestroy {
    * Inicializa el modelo.
    */
   private initDataForm(id) {
-
-    this.personasService.getFormPersonaById$(id)
+    this.subscriptionGetFormPersonaById = this.personasService.getFormPersonaById$(id)
       .subscribe((response: Form) => {
         this.formulario = { ...response };
       });
+
+    this.subscriptionReferences.push(this.subscriptionGetFormPersonaById);
   }
 
   /**
@@ -335,9 +367,11 @@ export class FormularioComponent implements OnInit, OnDestroy {
       countries: []
     };
 
-    this.paisesService.getPaises$()
+    this.subscriptionGetPaises = this.paisesService.getPaises$()
       .subscribe((countries: Pais[]) => {
         this.viewdata.countries = countries;
       });
+
+    this.subscriptionReferences.push(this.subscriptionGetPaises);
   }
 }
