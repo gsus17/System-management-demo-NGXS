@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { Persona } from 'src/api/entities/persona.entity';
 import { PersonasServiceSingleton } from '../personas.service';
 import { Subscription } from 'rxjs';
-import { MatSnackBar, MatSnackBarConfig, MatPaginatorIntl, MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { DialogDeleteComponent } from 'src/app/dialog-delete/dialog-delete.component';
 
 @Component({

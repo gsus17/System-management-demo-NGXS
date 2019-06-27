@@ -8,7 +8,7 @@ import { Subscription, Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { BienComponent } from './bien/bien.component';
 import { Bien } from 'src/api/entities/bien.entity';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { PaisesServiceSingleton } from 'src/app/paises/paises.service';
 import { Pais } from 'src/api/entities/pais.entity';
 import { CountryForm } from 'src/app/paises/formulario/formulario.entity';

@@ -1,7 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PaisesServiceSingleton } from '../paises.service';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { FormularioCountryComponent } from '../formulario/formulario.component';
 import { Pais } from 'src/api/entities/pais.entity';
 import { CountryForm } from '../formulario/formulario.entity';
@@ -17,8 +21,8 @@ const COLUMNS: Columns[] = [];
   styleUrls: ['./listado.component.scss']
 })
 export class ListadoComponent implements OnInit {
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   /**
    * Listado de columnas.

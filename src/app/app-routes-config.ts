@@ -4,7 +4,7 @@ import { MasterPageComponent } from './master-page/master-page.component';
 export const routes: Routes = [
   {
     path: 'login',
-    loadChildren: './auth/login/login.module#LoginModule'
+    loadChildren: () => import('./auth/login/login.module').then(m => m.LoginModule)
   },
   {
     path: 'master-page',
@@ -12,19 +12,19 @@ export const routes: Routes = [
     children: [
       {
         path: 'personas/listado',
-        loadChildren: './personas/listado/listado.module#ListadoModule'
+        loadChildren: () => import('./personas/listado/listado.module').then(m => m.ListadoModule)
       },
       {
         path: 'personas/add',
-        loadChildren: './personas/formulario/formulario.module#FormularioModule',
+        loadChildren: () => import('./personas/formulario/formulario.module').then(m => m.FormularioModule),
       },
       {
         path: 'personas/formulario/:id',
-        loadChildren: './personas/formulario/formulario.module#FormularioModule',
+        loadChildren: () => import('./personas/formulario/formulario.module').then(m => m.FormularioModule),
       },
       {
         path: 'paises/listado',
-        loadChildren: './paises/listado/listado.module#ListadoModule'
+        loadChildren: () => import('./paises/listado/listado.module').then(m => m.ListadoModule)
       }
     ]
   },

@@ -7,7 +7,8 @@
 
     <mat-card-content>
       <div class="virtual-viewport">
-        <mat-accordion>
+        <mat-accordion fxFlex
+                       *ngIf="personList.length > 0">
           <mat-expansion-panel *ngFor="let person of personList"
                                class="virtual-item">
             <mat-expansion-panel-header>

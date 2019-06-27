@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppInterceptor } from './app-interceptor';
 import { AngularFireModule, } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
 import { PersonasServiceSingleton } from './personas/personas.service';
 import { PaisesServiceSingleton } from './paises/paises.service';
 import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
@@ -39,6 +39,7 @@ const firebaseConfig = {
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },
+    { provide: FirestoreSettingsToken, useValue: {} },
 
     // Fix singleton service when we working with lazy loading.
     PersonasServiceSingleton,
