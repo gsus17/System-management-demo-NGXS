@@ -333,7 +333,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
       name: '',
       status: null,
       bienes: [],
-      nacionalidad: '',
+      nacionalidad: null,
       regionalData: {
         dateFormat: '',
         languageCode: '',

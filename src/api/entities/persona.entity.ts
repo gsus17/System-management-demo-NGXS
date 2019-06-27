@@ -4,6 +4,7 @@ import { AccountStatus } from './account-status.entity';
 import { RegionalData } from './regional-data.entity';
 import { Bien } from './bien.entity';
 import { Sexo } from './sexo.entity';
+import { Pais } from './pais.entity';
 
 /**
  * Datos de una Persona.
@@ -96,7 +97,7 @@ export interface Persona {
     /**
      * País de nacimiento.
      */
-    nacionalidad: string;
+    nacionalidad: Pais;
 
     /**
      * País de nacimiento.

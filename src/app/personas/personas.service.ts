@@ -77,7 +77,7 @@ export class PersonasServiceSingleton {
       fechaNacimiento: formulario.birthdate.toDateString(),
       recibirNotificaciones: formulario.enableNotify,
       regionalData: formulario.regionalData,
-      bienes: null,
+      bienes: formulario.bienes,
       nacionalidad: formulario.nacionalidad,
       sexo: formulario.gender
     };
@@ -141,7 +141,7 @@ export class PersonasServiceSingleton {
             nacionalidad:
               personFiltered.nacionalidad === null
                 || personFiltered.nacionalidad === undefined
-                ? '' : personFiltered.nacionalidad,
+                ? null : personFiltered.nacionalidad,
           };
 
           return form;

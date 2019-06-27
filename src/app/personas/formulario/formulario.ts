@@ -2,6 +2,7 @@ import { Sexo } from 'src/api/entities/sexo.entity';
 import { AccountStatus } from 'src/api/entities/account-status.entity';
 import { RegionalData } from 'src/api/entities/regional-data.entity';
 import { Bien } from 'src/api/entities/bien.entity';
+import { Pais } from 'src/api/entities/pais.entity';
 
 /**
  * Interfaz correspondiente a un formulario.
@@ -19,6 +20,6 @@ export interface Form {
   status?: AccountStatus;
   regionalData?: RegionalData;
   bienes?: Bien[];
-  nacionalidad: string;
+  nacionalidad: Pais;
   obs?: string;
 }
