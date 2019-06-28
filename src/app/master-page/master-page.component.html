@@ -9,9 +9,9 @@
         <mat-icon>menu</mat-icon>
       </button>
 
-      <div *ngIf="showDynamicSubHeader"
+      <div *ngIf="showDynamicSubHeader && masterPage$ | async as mp"
            class="sub-header"
-           [@panelInOut]>{{dynamicSubHeader}}</div>
+           [@panelInOut]>{{mp.subHeader}}</div>
     </mat-toolbar>
   </div>
   <mat-drawer-container fxFlex

@@ -16,7 +16,7 @@ const masterPageReducer = createReducer(
   initialState,
   on(MasterPageActions.changeDynamicSubHeader, (state, action) => ({ ...state, changeDynamicSubHeader: action.dynamicSubHeader })),
   on(MasterPageActions.changeSubHeader, (state, action) => ({ ...state, subHeader: action.subHeader, changeDynamicSubHeader: true })),
-  on(MasterPageActions.reseat, state => ({ ...state, subHeader: '', changeDynamicSubHeader: false }))
+  on(MasterPageActions.reset, state => ({ ...state, subHeader: '', changeDynamicSubHeader: false }))
 );
 
 // Devuelve la referencia del reducer.

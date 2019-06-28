@@ -11,15 +11,15 @@ import { trigger, transition, style, animate } from '@angular/animations';
   styleUrls: ['./master-page.component.scss'],
   animations: [
     trigger('panelInOut', [
-        transition('void => *', [
-            style({transform: 'translateY(100%)'}),
-            animate(150)
-        ]),
-        transition('* => void', [
-            animate(150, style({transform: 'translateY(100%)'}))
-        ])
+      transition('void => *', [
+        style({ transform: 'translateY(100%)' }),
+        animate(150)
+      ]),
+      transition('* => void', [
+        animate(150, style({ transform: 'translateY(100%)' }))
+      ])
     ])
-]
+  ]
 })
 export class MasterPageComponent implements OnInit, OnDestroy {
 
@@ -30,13 +30,19 @@ export class MasterPageComponent implements OnInit, OnDestroy {
   public masterPage$: Observable<string>;
   private activateDynamicSubHeader: boolean = false;
   private showDynamicSubHeader: boolean = false;
-  private dynamicSubHeader: string = '';
   constructor(
     private router: Router,
     private breakpointObserver: BreakpointObserver,
     private store: Store<{}>) {
     this.masterPage$ = this.store.pipe(select('masterPage'));
     this.storeChangeDetector();
+  }
+
+  /**
+   * Inicializa el componente.
+   */
+  public ngOnInit() {
+    this.breakpointDetector();
   }
 
   /**
@@ -59,21 +65,16 @@ export class MasterPageComponent implements OnInit, OnDestroy {
     this.masterPageNgrxSubscription = this.masterPage$
       .subscribe((response: any) => {
         this.activateDynamicSubHeader = response.changeDynamicSubHeader;
-        this.dynamicSubHeader = response.subHeader;
+        if (!this.activateDynamicSubHeader) {
+          this.showDynamicSubHeader = false;
+        }
       });
-  }
-
-  /**
-   * Inicializa el componente.
-   */
-  public ngOnInit() {
-    this.breakpointDetector();
   }
 
   /**
   * Desuscribe las referencias a los observables.
   */
-  public ngOnDestroy() {
+  ngOnDestroy() {
     this.viewportSmallSubscription.unsubscribe();
     this.viewportWebSubscription.unsubscribe();
     this.masterPageNgrxSubscription.unsubscribe();
