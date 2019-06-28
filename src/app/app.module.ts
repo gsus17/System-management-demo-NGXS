@@ -12,6 +12,8 @@ import { PersonasServiceSingleton } from './personas/personas.service';
 import { PaisesServiceSingleton } from './paises/paises.service';
 import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -35,7 +37,11 @@ const firebaseConfig = {
     AngularMaterialModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 10
+    })
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },
