@@ -2,7 +2,7 @@
      fxFlex>
   <mat-card>
     <mat-card-title>
-      {{'COUNTRY_LIST_TITLE' | translate}}
+      {{'COUNTRY.LIST_TITLE' | translate}}
     </mat-card-title>
 
     <mat-card-content>
@@ -11,7 +11,7 @@
         <mat-form-field *ngIf="dataSource.data.length > 0">
           <input matInput
                  (keyup)="applyFilter($event.target.value)"
-                 placeholder="{{'COUNTRY_SEARCH_PLACEHOLDER' | translate}}">
+                 placeholder="{{'COUNTRY.SEARCH_PLACEHOLDER' | translate}}">
         </mat-form-field>
         <div class="table-container"
              *ngIf="dataSource.data.length > 0">
@@ -43,7 +43,7 @@
             <ng-container matColumnDef="iata">
               <th mat-header-cell
                   *matHeaderCellDef
-                  mat-sort-header> {{'COUNTRY_IATA_TABLE_LABLE' | translate}} </th>
+                  mat-sort-header> {{'COUNTRY.IATA_TABLE_LABLE' | translate}} </th>
               <td mat-cell
                   *matCellDef="let element"> {{element.iata}} </td>
             </ng-container>
@@ -52,7 +52,7 @@
             <ng-container matColumnDef="nombre">
               <th mat-header-cell
                   *matHeaderCellDef
-                  mat-sort-header> {{'COUNTRY_NAME_TABLE_LABLE' | translate}} </th>
+                  mat-sort-header> {{'COUNTRY.NAME_TABLE_LABLE' | translate}} </th>
               <td mat-cell
                   *matCellDef="let element"> {{element.nombre}} </td>
             </ng-container>
@@ -60,11 +60,11 @@
             <!-- Edit Column -->
             <ng-container matColumnDef="editar">
               <th mat-header-cell
-                  *matHeaderCellDef> {{'COUNTRY_EDIT_BUTTON_LABLE' | translate}} </th>
+                  *matHeaderCellDef> {{'COUNTRY.EDIT_BUTTON_LABLE' | translate}} </th>
               <td mat-cell
                   *matCellDef="let element">
                 <button mat-icon-button
-                        matTooltip="{{'COUNTRY_EDIT_BUTTON_LABLE' | translate}}"
+                        matTooltip="{{'COUNTRY.EDIT_BUTTON_LABLE' | translate}}"
                         color="accent"
                         (click)="editCountry(element.nombre,element.iata,element.id)">
                   <mat-icon class="mat-18">edit</mat-icon>
@@ -74,11 +74,11 @@
             <!-- Delete Column -->
             <ng-container matColumnDef="eliminar">
               <th mat-header-cell
-                  *matHeaderCellDef> {{'COUNTRY_DELETE_BUTTON_LABLE' | translate}} </th>
+                  *matHeaderCellDef> {{'COUNTRY.DELETE_BUTTON_LABLE' | translate}} </th>
               <td mat-cell
                   *matCellDef="let element">
                 <button mat-icon-button
-                        matTooltip="{{'COUNTRY_DELETE_BUTTON_LABLE' | translate}}"
+                        matTooltip="{{'COUNTRY.DELETE_BUTTON_LABLE' | translate}}"
                         color="accent"
                         (click)="deleteCountry(element.id)">
                   <mat-icon class="mat-18">delete_forever</mat-icon>
@@ -106,7 +106,7 @@
                fxLayoutAlign="center center">
 
             <span class="msg-no-results"
-                  fxFlex="70">{{'COUNTRY_EMPTY_MESSAGE' | translate}}</span>
+                  fxFlex="70">{{'COUNTRY.EMPTY_MESSAGE' | translate}}</span>
           </div>
         </div>
       </div>
@@ -116,7 +116,7 @@
            fxLayoutAlign="end center">
         <div>
           <button mat-fab
-                  matTooltip="{{'COUNTRY_ADD_BUTTON' | translate}}"
+                  matTooltip="{{'COUNTRY.ADD_BUTTON' | translate}}"
                   (click)="addCountry()">
             <mat-icon>add</mat-icon>
           </button>

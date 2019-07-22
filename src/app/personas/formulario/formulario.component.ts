@@ -373,11 +373,11 @@ export class FormularioComponent implements OnInit, OnDestroy {
       timeZones: this.personasService.getTimeZones(),
       languageCodes: this.personasService.getLanguageCodes(),
       titleForm: editMode ?
-        'PERSON_FORM_SUBTITLE_EDIT' :
-        'PERSON_FORM_SUBTITLE_ADD',
+        'PERSON_FORM.SUBTITLE_EDIT' :
+        'PERSON_FORM.SUBTITLE_ADD',
       buttonActionText: editMode ?
-        'PERSON_FORM_UPDATE_BUTTON' :
-        'PERSON_FORM_ADD_BUTTON',
+        'PERSON_FORM.UPDATE_BUTTON' :
+        'PERSON_FORM.ADD_BUTTON',
       editMode: editMode,
       countries: []
     };
