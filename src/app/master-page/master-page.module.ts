@@ -7,12 +7,14 @@ import { AngularMaterialModule } from '../angular-material/angular-material.modu
 
 import { StoreModule } from '@ngrx/store';
 import * as MasterPageNgrx from './ngrx/master-page.reducer';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [MasterPageComponent],
   imports: [
     AngularMaterialModule,
     CommonModule,
+    TranslateModule,
     MasterPageRoutingModule,
     // Se registra el reducer correspondiente a MasterPage.
     StoreModule.forFeature('masterPage', MasterPageNgrx.reducer)

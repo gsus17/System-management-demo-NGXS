@@ -1,8 +1,7 @@
 <div class="general-container">
   <mat-card>
-    <mat-card-title i18n
-                    class="person-list-title">
-      Listado de Personas
+    <mat-card-title class="person-list-title">
+      {{"PERSON_LIST_TITLE" | translate}}
     </mat-card-title>
 
     <mat-card-content>
@@ -54,12 +53,12 @@
                      fxLayout="row"
                      fxLayoutAlign="space-between center">
                   <button mat-icon-button
-                          matTooltip="Eliminar"
+                          matTooltip="{{'PERSON_LIST_MENU_DELETE' | translate}}"
                           (click)="deletePersona(person.id)">
                     <mat-icon class="mat-18">delete_forever</mat-icon>
                   </button>
                   <button mat-icon-button
-                          matTooltip="Editar"
+                          matTooltip="{{'PERSON_LIST_MENU_EDIT' | translate}}"
                           (click)="editPerson(person.id)">
                     <mat-icon class="mat-18">mode_edit</mat-icon>
                   </button>
@@ -70,10 +69,10 @@
                   <mat-menu #menu="matMenu">
                     <button mat-menu-item
                             (click)="editPerson(person.id)"
-                            i18n>Editar</button>
+                            i18n>{{"PERSON_LIST_MENU_EDIT" | translate}}</button>
                     <button mat-menu-item
                             (click)="deletePersona(person.id)"
-                            i18n>Eliminar</button>
+                            i18n>{{"PERSON_LIST_MENU_DELETE" | translate}}</button>
                   </mat-menu>
                 </div>
               </div>
@@ -122,7 +121,7 @@
                   <div fxLayout="column">
                     <span class="mat-caption label-caption"
                           i18n>
-                      Nombre
+                      {{"PERSON_LIST_DETAIL_NAME" | translate}}
                     </span>
                     <span class="mat-caption">
                       {{person.nombreCompleto}}
@@ -131,7 +130,7 @@
                   <div fxLayout="column">
                     <span class="mat-caption label-caption"
                           i18n>
-                      Email
+                      {{"PERSON_LIST_DETAIL_EMAIL" | translate}}
                     </span>
                     <span class="mat-caption">
                       {{person.eMail}}
@@ -144,7 +143,7 @@
 
                       <span class="mat-caption label-caption"
                             i18n>
-                        Observaciones
+                        {{"PERSON_LIST_DETAIL_COMMENTS" | translate}}
                       </span>
                     </div>
                     <span class="mat-caption">
@@ -158,10 +157,10 @@
                    fxFlex="20%">
                 <div fxLayout="column">
                   <div class="mat-caption label-caption"
-                       i18n>Ahorro</div>
+                       i18n>{{"PERSON_LIST_DETAIL_AHORRO" | translate}}</div>
                   <div fxLayout="row">
                     <span class="mat-title">{{person.totalAhorro | currency}}</span>
-                    <span class="mat-caption">(ARS)</span>
+                    <span class="mat-caption">{{"PERSON_LIST_DETAIL_CURRENCY" | translate}}</span>
                   </div>
                 </div>
               </div>
@@ -181,7 +180,7 @@
                fxLayoutAlign="center center">
 
             <span class="msg-no-results"
-                  fxFlex="70">No hay personas cargadas que apliquen al filtro.</span>
+                  fxFlex="70">{{"PERSON_LIST_DETAIL_NOT_RESULT" | translate}}</span>
           </div>
         </div>
       </div>

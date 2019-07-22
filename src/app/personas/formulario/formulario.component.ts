@@ -15,6 +15,7 @@ import { CountryForm } from 'src/app/paises/formulario/formulario.entity';
 import { FormularioCountryComponent } from 'src/app/paises/formulario/formulario.component';
 import { Store } from '@ngrx/store';
 import * as MasterPageActions from '../../master-page/ngrx/master-page.actions';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-formulario',
@@ -78,6 +79,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
     private paisesService: PaisesServiceSingleton,
     private route: ActivatedRoute,
     private router: Router,
+    private translateService: TranslateService,
     private store: Store<{}>) {
   }
 
@@ -370,8 +372,12 @@ export class FormularioComponent implements OnInit, OnDestroy {
       timeFormats: this.personasService.getTimeFormats(),
       timeZones: this.personasService.getTimeZones(),
       languageCodes: this.personasService.getLanguageCodes(),
-      titleForm: editMode ? 'Edición de personas' : 'Crear persona',
-      buttonActionText: editMode ? 'Actualizar' : 'Agregar',
+      titleForm: editMode ?
+        'PERSON_FORM_SUBTITLE_EDIT' :
+        'PERSON_FORM_SUBTITLE_ADD',
+      buttonActionText: editMode ?
+        'PERSON_FORM_UPDATE_BUTTON' :
+        'PERSON_FORM_ADD_BUTTON',
       editMode: editMode,
       countries: []
     };

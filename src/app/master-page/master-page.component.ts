@@ -4,6 +4,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Store, select } from '@ngrx/store';
 import { Subscription, Observable } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { AppI18nService } from '../app-i18n.service';
 
 @Component({
   selector: 'app-master-page',
@@ -30,9 +31,12 @@ export class MasterPageComponent implements OnInit, OnDestroy {
   public masterPage$: Observable<string>;
   private activateDynamicSubHeader: boolean = false;
   private showDynamicSubHeader: boolean = false;
+  private languageList: string[] = [];
+
   constructor(
     private router: Router,
     private breakpointObserver: BreakpointObserver,
+    private appI18nService: AppI18nService,
     private store: Store<{}>) {
     this.masterPage$ = this.store.pipe(select('masterPage'));
     this.storeChangeDetector();
@@ -42,6 +46,8 @@ export class MasterPageComponent implements OnInit, OnDestroy {
    * Inicializa el componente.
    */
   public ngOnInit() {
+
+    this.languageList = this.appI18nService.getLanguages();
     this.breakpointDetector();
   }
 
@@ -78,6 +84,13 @@ export class MasterPageComponent implements OnInit, OnDestroy {
     this.viewportSmallSubscription.unsubscribe();
     this.viewportWebSubscription.unsubscribe();
     this.masterPageNgrxSubscription.unsubscribe();
+  }
+
+  /**
+   * Change the current language.
+   */
+  public changeLanguage(language: string): void {
+    this.appI18nService.use(language);
   }
 
   /**

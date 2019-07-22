@@ -24,7 +24,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
     private personasService: PersonasServiceSingleton,
     private matPaginatorIntl: MatPaginatorIntl,
     private router: Router,
-    public dialog: MatDialog) { }
+    private dialog: MatDialog) { }
 
   ngOnInit() {
 

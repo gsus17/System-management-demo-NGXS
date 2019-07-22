@@ -3,7 +3,7 @@
      fxLayoutAlign="center center">
 
   <mat-toolbar color="primary">
-    <span class="mat-title">{{viewdata.titleForm}}</span>
+    <span class="mat-title">{{viewdata.titleForm | translate}}</span>
   </mat-toolbar>
   <div class="general-container form-container"
        fxFlexLayout="row"
@@ -11,7 +11,7 @@
     <mat-card class="card-form"
               fxFlex>
       <mat-card-title i18n>
-        Formulario de Personas
+        {{'PERSON_FORM_TITLE' | translate}}
       </mat-card-title>
       <mat-card-content>
 
@@ -27,11 +27,13 @@
                        name="name"
                        formControlName="name"
                        [(ngModel)]="formulario.name"
-                       placeholder="Nombre Completo">
-                <mat-hint align="start"><span i18n>Con el siguiente formato Apellido, Nombre/s.</span> </mat-hint>
+                       placeholder="{{'PERSON_FORM_COMPLETED_USER_LABEL' | translate}}">
+                <mat-hint align="start">
+                  <span i18n>{{'PERSON_FORM_USER_HINT' | translate}}</span>
+                </mat-hint>
                 <mat-error *ngIf="validateError('name') && getErrors('name').required"
                            i18n>
-                  Debe ingresar el nombre completo.
+                  {{'PERSON_FORM_USER_ERROR' | translate}}
                 </mat-error>
               </mat-form-field>
             </div>
@@ -42,10 +44,10 @@
                        name="email"
                        formControlName="email"
                        [(ngModel)]="formulario.email"
-                       placeholder="Correo electronico">
+                       placeholder="{{'PERSON_FORM_EMAIL_PLACEHOLDER' | translate}}">
                 <mat-error *ngIf="validateError('email') && getErrors('email').required"
                            i18n>
-                  Debe ingresar el correo electrónico.
+                  {{'PERSON_FORM_EMAIL_ERROR' | translate}}
                 </mat-error>
               </mat-form-field>
             </div>
@@ -60,7 +62,7 @@
                          formControlName="ahorro"
                          [(ngModel)]="formulario.ahorro"
                          type="number"
-                         placeholder="Ahorro">
+                         placeholder="{{'PERSON_FORM_AHORRO_PLACEHOLDER' | translate}}">
                 </mat-form-field>
                 <mat-form-field class="example-full-width">
                   <input matInput
@@ -68,20 +70,19 @@
                          type="number"
                          formControlName="ahorroPercentage"
                          [(ngModel)]="formulario.ahorroPercentage"
-                         placeholder="Porcentaje">
+                         placeholder="{{'PERSON_FORM_PERCENTAGE_PLACEHOLDER' | translate}}">
                 </mat-form-field>
 
                 <mat-slide-toggle class="toggle-container"
                                   formControlName="enableNotify"
                                   [(ngModel)]="formulario.enableNotify"
                                   fxFlex
-                                  i18n>Recibir notificaciones</mat-slide-toggle>
+                                  i18n>{{'PERSON_FORM_NOTIFICATION_LABEL' | translate}}</mat-slide-toggle>
               </div>
               <span fxShow.xs="false"
                     fxShow.sm="false"
                     fxShow.md="false"
-                    class="custom-hint not-separated">Ingrese el total de ahorro y el porcentaje en relación a su
-                ingreso mensual.
+                    class="custom-hint not-separated"> {{'PERSON_FORM_AHORRO_AND_PERCENTAGE_HINT' | translate}}
               </span>
             </div>
 
@@ -92,7 +93,7 @@
                        name="address"
                        formControlName="address"
                        [(ngModel)]="formulario.address"
-                       placeholder="Direccion">
+                       placeholder="{{'PERSON_FORM_ADDRESS_PLACEHOLDER' | translate}}">
               </mat-form-field>
             </div>
             <div fxLayout="row"
@@ -104,7 +105,7 @@
                        formControlName="birthdate"
                        [(ngModel)]="formulario.birthdate"
                        [matDatepicker]="picker"
-                       placeholder="Fecha de nacimiento">
+                       placeholder="{{'PERSON_FORM_BIRTHDAY_PLACEHOLDER' | translate}}">
                 <mat-datepicker-toggle matSuffix
                                        [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
@@ -123,7 +124,7 @@
               </mat-form-field>
 
               <mat-form-field>
-                <mat-select placeholder="Estado"
+                <mat-select placeholder="{{'PERSON_FORM_STATUS_PLACEHOLDER' | translate}}"
                             name="status"
                             formControlName="status"
                             [(ngModel)]="formulario.status">
@@ -141,14 +142,14 @@
               <mat-expansion-panel>
                 <mat-expansion-panel-header>
                   <mat-panel-title i18n>
-                    Datos regionales
+                    {{'PERSON_FORM_REGIONAL_DATA_PLACEHOLDER' | translate}}
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <section fxLayout="column">
                   <div fxLayout="row"
                        fxLayout.xs="column">
                     <mat-form-field>
-                      <mat-select placeholder="Formato de fecha"
+                      <mat-select placeholder="{{'PERSON_FORM_DATE_FORMAT_PLACEHOLDER' | translate}}"
                                   name="dateFormat"
                                   formControlName="dateFormat"
                                   [(ngModel)]="formulario.regionalData.dateFormat">
@@ -159,7 +160,7 @@
                       </mat-select>
                     </mat-form-field>
                     <mat-form-field>
-                      <mat-select placeholder="Formato de hora"
+                      <mat-select placeholder="{{'PERSON_FORM_HOUR_FORMAT_PLACEHOLDER' | translate}}"
                                   name="timeFormat"
                                   formControlName="timeFormat"
                                   [(ngModel)]="formulario.regionalData.timeFormat">
@@ -170,7 +171,7 @@
                       </mat-select>
                     </mat-form-field>
                     <mat-form-field>
-                      <mat-select placeholder="Zona Horaria"
+                      <mat-select placeholder="{{'PERSON_FORM_ZONE_PLACEHOLDER' | translate}}"
                                   name="timeZone"
                                   formControlName="timeZone"
                                   [(ngModel)]="formulario.regionalData.timeZone">
@@ -187,7 +188,7 @@
                     <div fxLayout="row"
                          fxFlex="39">
                       <mat-form-field fxFlex>
-                        <mat-select placeholder="Nacionalidad"
+                        <mat-select placeholder="{{'PERSON_FORM_NATIONALITY_PLACEHOLDER' | translate}}"
                                     formControlName="nacionalidad"
                                     [(ngModel)]="formulario.nacionalidad">
                           <mat-option *ngFor="let countrie of viewdata.countries"
@@ -203,7 +204,7 @@
                       </button>
                     </div>
                     <mat-form-field>
-                      <mat-select placeholder="Idioma"
+                      <mat-select placeholder="{{'PERSON_FORM_LANGUAGE_PLACEHOLDER' | translate}}"
                                   name="languageCode"
                                   formControlName="languageCode"
                                   [(ngModel)]="formulario.regionalData.languageCode">
@@ -220,7 +221,7 @@
               <mat-expansion-panel>
                 <mat-expansion-panel-header>
                   <mat-panel-title i18n>
-                    Bienes
+                    {{'PERSON_FORM_PROPERIES_TITLE' | translate}}
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <mat-card>
@@ -256,7 +257,7 @@
                     </mat-list>
 
                     <span *ngIf="!hasBienes()"
-                          i18n>No hay bienes cargados.</span>
+                          i18n>{{'PERSON_FORM_PROPERIES_EMPTY' | translate}}</span>
 
                   </mat-card-content>
                 </mat-card>
@@ -267,7 +268,7 @@
                             (click)="openDialog()">
                       <mat-icon>add_circle_outline</mat-icon>
                       <span class="agregar-bien-label"
-                            i18n>Agregar bien</span>
+                            i18n>{{'PERSON_FORM_PROPERIES_ADD' | translate}}</span>
                     </button>
                   </div>
                 </div>
@@ -278,7 +279,7 @@
           <section fxLayout="column">
             <div fxLayout="row">
               <mat-form-field fxFlex>
-                <mat-label i18n>Observaciones</mat-label>
+                <mat-label i18n>{{'PERSON_FORM_COMMENTS_LABEL' | translate}}</mat-label>
                 <textarea matInput
                           cdkTextareaAutosize
                           cdkAutosizeMinRows="2"
@@ -297,13 +298,13 @@
             <div class="button-container">
               <button mat-raised-button
                       (click)="cancel()"
-                      i18n>Cancelar</button>
+                      i18n>{{'PERSON_FORM_CANCEL_BUTTON' | translate}}</button>
             </div>
             <div class="button-container">
               <button mat-raised-button
                       [disabled]="personForm.invalid"
                       (click)="action()"
-                      color="primary">{{viewdata.buttonActionText}}</button>
+                      color="primary">{{viewdata.buttonActionText | translate}}</button>
             </div>
           </div>
         </form>

@@ -12,6 +12,24 @@
       <div *ngIf="showDynamicSubHeader && masterPage$ | async as mp"
            class="sub-header"
            [@panelInOut]>{{mp.subHeader}}</div>
+
+      <div fxLayoutAlign="end center"
+           fxFlex>
+        <button mat-icon-button
+                [matMenuTriggerFor]="menu"
+                aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item
+                  *ngFor="let language of languageList"
+                  (click)="changeLanguage(language)">
+            <mat-icon>language</mat-icon>
+            <span>{{language}}</span>
+          </button>
+        </mat-menu>
+      </div>
+
     </mat-toolbar>
   </div>
   <mat-drawer-container fxFlex
@@ -27,7 +45,7 @@
                     class="menu-icons">exit_to_app</mat-icon>
           <span matLine
                 class="left-panel-items"
-                i18n> Cerrar sesión </span>
+                i18n> {{"MASTER_PAGE_LOGOUT" | translate}} </span>
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item routerLink="personas/listado">
@@ -35,14 +53,14 @@
                     class="menu-icons">person_outline</mat-icon>
           <span matLine
                 class="left-panel-items"
-                i18n> Listado de personas </span>
+                i18n> {{"MASTER_PAGE_PERSON_LIST" | translate}} </span>
         </mat-list-item>
         <mat-list-item routerLink="paises/listado">
           <mat-icon matListIcon
                     class="menu-icons">public</mat-icon>
           <span matLine
                 class="left-panel-items"
-                i18n> Listado de paises </span>
+                i18n> {{"MASTER_PAGE_COUNTRY_LIST" | translate}}</span>
         </mat-list-item>
       </mat-nav-list>
     </mat-drawer>

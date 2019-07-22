@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Agregar bien</h1>
+<h1 mat-dialog-title> {{'DIALOG_PROPERTIES_TITLE' | translate}}</h1>
 <div mat-dialog-content>
   <form [formGroup]="bienForm"
         fxLayout="column"
@@ -9,17 +9,17 @@
                type="text"
                name="descripcion"
                formControlName="descripcion"
-               placeholder="Descripcion"
+               placeholder=" {{'DIALOG_PROPERTIES_DESCRIPTION_LABEL' | translate}}"
                [(ngModel)]="formulario.descripcion">
         <mat-error *ngIf="validateError('descripcion') && getErrors('descripcion').required">
-          Debe ingresar la descripción para el bien.
+          {{'DIALOG_PROPERTIES_DESCRIPTION_VALIDATION' | translate}}
         </mat-error>
       </mat-form-field>
     </div>
     <div fxLayout="row"
          fxLayoutAlign="space-between center">
       <mat-form-field>
-        <mat-select placeholder="Categoria"
+        <mat-select placeholder="{{'DIALOG_PROPERTIES_CATEGORY_LABEL' | translate}}"
                     name="categories"
                     formControlName="categories"
                     [(ngModel)]="formulario.tipo">
@@ -29,7 +29,7 @@
           </mat-option>
         </mat-select>
         <mat-error *ngIf="validateError('categories') && getErrors('categories').required">
-          Seleccione una categoría.
+          {{'DIALOG_PROPERTIES_CATEGORY_VALIDATION' | translate}}
         </mat-error>
       </mat-form-field>
 
@@ -38,7 +38,7 @@
                type="number"
                name="valor"
                formControlName="valor"
-               placeholder="Valor"
+               placeholder="{{'DIALOG_PROPERTIES_VALUE_LABEL' | translate}}"
                [(ngModel)]="formulario.valor">
       </mat-form-field>
     </div>
@@ -48,9 +48,9 @@
      fxLayout="row"
      fxLayoutAlign="end center">
   <button mat-button
-          (click)="cancel()">Cancelar</button>
+          (click)="cancel()"> {{'DIALOG_BUTTON_CANCEL' | translate}}</button>
   <button mat-button
           [disabled]="bienForm.invalid"
           [mat-dialog-close]="formulario"
-          cdkFocusInitial>Agregar</button>
+          cdkFocusInitial> {{'DIALOG_BUTTON_ADD' | translate}}</button>
 </div>

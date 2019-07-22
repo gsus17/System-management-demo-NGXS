@@ -1,12 +1,12 @@
 <div mat-dialog-content>
-  {{data.message}}
+  {{data.message | translate}}
 </div>
 <div mat-dialog-actions
      fxLayout="row"
      fxLayoutAlign="space-between center">
   <button mat-button
-          (click)="onNoClick()">Cancelar</button>
+          (click)="onNoClick()">{{'DIALOG_BUTTON_CANCEL' | translate}}</button>
   <button mat-button
           (click)="onClick()"
-          cdkFocusInitial>Eliminar</button>
+          cdkFocusInitial>{{'DIALOG_BUTTON_DELETE' | translate}}</button>
 </div>

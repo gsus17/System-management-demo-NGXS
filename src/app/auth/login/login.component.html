@@ -7,11 +7,11 @@
     <div fxLayout="column"
          fxLayoutAlign="center center">
       <span class="mat-title"
-            i18n>Personas</span>
+            i18n>{{'LOGIN_TITLE' | translate}}</span>
       <span class="mat-title principal-label"
-            i18n>Sistemas de gestión de personas</span>
+            i18n>{{'LOGIN_SUBTITLE' | translate}}</span>
       <span class="mat-title"
-            i18n> (para training y aplicación de estándares)</span>
+            i18n> {{'LOGIN_SECOND_SUBTITLE' | translate}}</span>
     </div>
   </div>
 
@@ -24,22 +24,22 @@
     </div>
 
     <mat-card-subtitle>
-      <span i18n>Ingrese sus credenciales para ingresar.</span>
+      <span i18n>{{'LOGIN_FORM_TITLE' | translate}}</span>
     </mat-card-subtitle>
 
     <form class="example-form"
           [formGroup]="authForm"
           fxLayout="column">
       <mat-form-field>
-        <mat-label i18n>Usuario</mat-label>
+        <mat-label i18n>{{'LOGIN_FORM_USER' | translate}}</mat-label>
         <input matInput
                name="user"
                formControlName="user"
                [(ngModel)]="credentials.user"
                type="text"
-               placeholder="Usuario">
+               placeholder="{{'LOGIN_FORM_USER' | translate}}">
         <mat-error *ngIf="form.user.invalid"
-                   i18n>El usuario invalido.</mat-error>
+                   i18n>{{'LOGIN_FORM_USER_ERROR' | translate}}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
@@ -48,9 +48,9 @@
                type="password"
                formControlName="password"
                [(ngModel)]="credentials.password"
-               placeholder="Contraseña">
+               placeholder="{{'LOGIN_FORM_PASSWORD' | translate}}">
         <mat-error *ngIf="form.password.invalid"
-                   i18n>El password es requerido.</mat-error>
+                   i18n>{{'LOGIN_FORM_PASSWORD_ERROR' | translate}}</mat-error>
       </mat-form-field>
 
       <div class="selection-section"
@@ -59,12 +59,12 @@
         <div fxLayout="row"
              fxFlex
              fxLayoutAlign="space-between center">
-          <mat-checkbox i18n>No cerrar sesión al salir.</mat-checkbox>
+          <mat-checkbox i18n>{{'LOGIN_FORM_KEEP_SESSION' | translate}}</mat-checkbox>
           <button mat-raised-button
                   (click)="login()"
                   [disabled]="authForm.invalid"
                   color="primary"
-                  i18n>Ingresar</button>
+                  i18n>{{'LOGIN_FORM_BUTTON' | translate}}</button>
         </div>
 
         <div fxLayout="row"
@@ -72,7 +72,7 @@
              fxLayoutAlign="end center"
              class="password-recovery-container">
           <button mat-button
-                  i18n>Recuperar Contraseña</button>
+                  i18n>{{'LOGIN_FORM_RECOVERY_BUTTON' | translate}}</button>
         </div>
       </div>
 

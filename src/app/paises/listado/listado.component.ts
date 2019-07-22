@@ -233,7 +233,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
 
     const promise = new Promise((resolve, reject) => {
       const dialogRef = this.dialog.open(DialogDeleteComponent, {
-        data: { message: '¿Esta seguro que desea eliminar este pais?', response: false }
+        data: { message: 'COUNTRY_DELETE_DIALOG_MESSAGE', response: false }
       });
 
       dialogRef.afterClosed()

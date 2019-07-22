@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Paises</h1>
+<h1 mat-dialog-title>{{'COUNTRY_FORM_TITLE' | translate}}</h1>
 <div mat-dialog-content>
   <form [formGroup]="countryForm"
         fxLayout="column"
@@ -14,7 +14,7 @@
                placeholder="Nombre"
                [(ngModel)]="data.nombre">
         <mat-error *ngIf="validateError('nombre') && getErrors('nombre').required">
-          Debe ingresar el nombre del pais.
+          {{'COUNTRY_NAME_VALIDATION' | translate}}
         </mat-error>
       </mat-form-field>
 
@@ -26,7 +26,7 @@
                placeholder="Codigo iata"
                [(ngModel)]="data.codigoIata">
         <mat-error *ngIf="validateError('codigoIata') && getErrors('codigoIata').required">
-          Debe ingresar el codigo iata.
+          {{'COUNTRY_IATA_VALIDATION' | translate}}
         </mat-error>
       </mat-form-field>
     </div>
@@ -36,12 +36,12 @@
      fxLayout="row"
      fxLayoutAlign="end center">
   <button mat-button
-          (click)="cancel()">Cancelar</button>
+          (click)="cancel()">{{'DIALOG_BUTTON_CANCEL' | translate}}</button>
   <button mat-button
           [disabled]="countryForm.invalid"
           [mat-dialog-close]="data"
           cdkFocusInitial>
-    <span *ngIf="data.modify">Actualizar</span>
-    <span *ngIf="!data.modify">Agregar</span>
+    <span *ngIf="data.modify">{{'DIALOG_BUTTON_UPDATE' | translate}}</span>
+    <span *ngIf="!data.modify">{{'DIALOG_BUTTON_ADD' | translate}}</span>
   </button>
 </div>

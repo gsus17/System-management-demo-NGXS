@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppInterceptor } from './app-interceptor';
 import { AngularFireModule, } from '@angular/fire';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
 import { PersonasServiceSingleton } from './personas/personas.service';
 import { PaisesServiceSingleton } from './paises/paises.service';
@@ -14,6 +15,15 @@ import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AppI18nService } from './app-i18n.service';
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -39,11 +49,20 @@ const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
     StoreModule.forRoot({}),
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     StoreDevtoolsModule.instrument({
       maxAge: 10
     })
   ],
   providers: [
+    AppI18nService,
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },
     { provide: FirestoreSettingsToken, useValue: {} },
 
