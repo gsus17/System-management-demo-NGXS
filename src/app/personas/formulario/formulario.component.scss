@@ -26,7 +26,7 @@ color: $hint-color !important;
 
 // Estilos para formularios.
 form {
-  & > at-expandable-section {
+  & > .mat-expansion-panel-content {
     padding: 0 16px 16px !important;
   }
 
@@ -41,7 +41,6 @@ form {
     padding: 0 0 0 16px !important;
   }
 
-  & > at-expandable-section,
   & > section {
     div {
       & > * {
@@ -111,6 +110,29 @@ form {
     padding-left: 0 !important;
     font-size: 12px;
     position: absolute;
-    bottom: 0px;
+    bottom: 6px;
    }
+}
+
+
+// Mediaquery para formulario de una sola columna en xs.
+@media (max-width: 599px) {
+  form {
+    & > section {
+      div {
+        & > * {
+          padding-left: 0 !important;
+          padding-right: 0 !important;
+        }
+
+        & > *:not(:first-child):not(.not-separated) {
+          padding-left: 0px !important;
+        }
+
+        & > *:not(:last-child):not(.not-separated) {
+          padding-right: 0px !important;
+        }
+      }
+    }
+  }
 }

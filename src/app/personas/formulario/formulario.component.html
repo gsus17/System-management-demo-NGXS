@@ -52,38 +52,62 @@
               </mat-form-field>
             </div>
 
-            <div fxLayout="column"
-                 class="custom-container">
-              <div fxLayout="row"
-                   fxLayout.xs="column">
-                <mat-form-field class="example-full-width">
-                  <input matInput
-                         name="ahorro"
-                         formControlName="ahorro"
-                         [(ngModel)]="formulario.ahorro"
-                         type="number"
-                         placeholder="{{'PERSON_FORM.AHORRO_PLACEHOLDER' | translate}}">
-                </mat-form-field>
-                <mat-form-field class="example-full-width">
-                  <input matInput
-                         name="ahorroPercentage"
-                         type="number"
-                         formControlName="ahorroPercentage"
-                         [(ngModel)]="formulario.ahorroPercentage"
-                         placeholder="{{'PERSON_FORM.PERCENTAGE_PLACEHOLDER' | translate}}">
-                </mat-form-field>
 
+            <div fxLayout="row"
+                 fxLayout.xs="column">
+              <div fxLayout="column"
+                   class="custom-container"
+                   fxFlex="50"
+                   fxFlex.xs="100">
+                <div fxLayout="row"
+                     fxLayout.xs="column"
+                     fxLayoutAlign="space-between center"
+                     fxLayoutAlign.xs="start stretch">
+
+                  <div fxLayout="row"
+                       fxFlex="50"
+                       fxFlex.xs="100">
+                    <mat-form-field fxFlex>
+                      <input matInput
+                             name="ahorro"
+                             formControlName="ahorro"
+                             [(ngModel)]="formulario.ahorro"
+                             type="number"
+                             placeholder="{{'PERSON_FORM.AHORRO_PLACEHOLDER' | translate}}">
+                    </mat-form-field>
+                  </div>
+
+                  <div fxLayout="row"
+                       fxFlex="50"
+                       fxFlex.xs="100">
+                    <mat-form-field fxFlex>
+                      <input matInput
+                             name="ahorroPercentage"
+                             type="number"
+                             formControlName="ahorroPercentage"
+                             [(ngModel)]="formulario.ahorroPercentage"
+                             placeholder="{{'PERSON_FORM.PERCENTAGE_PLACEHOLDER' | translate}}">
+                    </mat-form-field>
+                  </div>
+
+                </div>
+
+                <span fxShow.xs="false"
+                      fxShow.sm="false"
+                      fxShow.md="false"
+                      class="custom-hint not-separated"> {{'PERSON_FORM.AHORRO_AND_PERCENTAGE_HINT' | translate}}
+                </span>
+              </div>
+
+              <div fxLayout="row"
+                   fxLayoutAlign="start center"
+                   fxFlex>
                 <mat-slide-toggle class="toggle-container"
                                   formControlName="enableNotify"
                                   [(ngModel)]="formulario.enableNotify"
                                   fxFlex
                                   i18n>{{'PERSON_FORM.NOTIFICATION_LABEL' | translate}}</mat-slide-toggle>
               </div>
-              <span fxShow.xs="false"
-                    fxShow.sm="false"
-                    fxShow.md="false"
-                    class="custom-hint not-separated"> {{'PERSON_FORM.AHORRO_AND_PERCENTAGE_HINT' | translate}}
-              </span>
             </div>
 
             <div fxLayout="row">
@@ -96,97 +120,149 @@
                        placeholder="{{'PERSON_FORM.ADDRESS_PLACEHOLDER' | translate}}">
               </mat-form-field>
             </div>
+
             <div fxLayout="row"
                  fxLayout.xs="column">
+              <div fxLayout="column"
+                   fxFlex="50"
+                   fxFlex.xs="100">
+                <div fxLayout="row"
+                     fxLayout.xs="column"
+                     fxLayoutAlign="space-between center"
+                     fxLayoutAlign.xs="start stretch">
 
-              <mat-form-field class="birthdate-container">
-                <input matInput
-                       name="birthdate"
-                       formControlName="birthdate"
-                       [(ngModel)]="formulario.birthdate"
-                       [matDatepicker]="picker"
-                       placeholder="{{'PERSON_FORM.BIRTHDAY_PLACEHOLDER' | translate}}">
-                <mat-datepicker-toggle matSuffix
-                                       [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
+                  <div fxLayout="row"
+                       fxFlex="50"
+                       fxFlex.xs="100">
+                    <mat-form-field class="birthdate-container"
+                                    fxFlex>
+                      <input matInput
+                             name="birthdate"
+                             formControlName="birthdate"
+                             [(ngModel)]="formulario.birthdate"
+                             [matDatepicker]="picker"
+                             placeholder="{{'PERSON_FORM.BIRTHDAY_PLACEHOLDER' | translate}}">
+                      <mat-datepicker-toggle matSuffix
+                                             [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div fxLayout="row"
+                       fxFlex="50"
+                       fxFlex.xs="100">
+                    <mat-form-field fxFlex>
+                      <mat-select placeholder="{{'PERSON_FORM.SEX_PLACEHOLDER' | translate}}"
+                                  name="gender"
+                                  formControlName="gender"
+                                  [(ngModel)]="formulario.gender">
+                        <mat-option *ngFor="let sexos of viewdata.sexos"
+                                    [value]="sexos">
+                          {{sexos}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
 
-              <mat-form-field>
-                <mat-select placeholder="{{'PERSON_FORM.SEX_PLACEHOLDER' | translate}}"
-                            name="gender"
-                            formControlName="gender"
-                            [(ngModel)]="formulario.gender">
-                  <mat-option *ngFor="let sexos of viewdata.sexos"
-                              [value]="sexos">
-                    {{sexos}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+                </div>
+              </div>
 
-              <mat-form-field>
-                <mat-select placeholder="{{'PERSON_FORM.STATUS_PLACEHOLDER' | translate}}"
-                            name="status"
-                            formControlName="status"
-                            [(ngModel)]="formulario.status">
-                  <mat-option *ngFor="let accountStatusList of viewdata.accountStatusList"
-                              [value]="accountStatusList">
-                    {{accountStatusList}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+              <div fxLayout="row"
+                   fxLayoutAlign="start center"
+                   fxFlex>
+                <mat-form-field fxFlex>
+                  <mat-select placeholder="{{'PERSON_FORM.STATUS_PLACEHOLDER' | translate}}"
+                              name="status"
+                              formControlName="status"
+                              [(ngModel)]="formulario.status">
+                    <mat-option *ngFor="let accountStatusList of viewdata.accountStatusList"
+                                [value]="accountStatusList">
+                      {{accountStatusList}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
             </div>
           </section>
 
           <section fxLayout="column">
             <mat-accordion [multi]="true">
-              <mat-expansion-panel>
+              <mat-expansion-panel [expanded]="true">
                 <mat-expansion-panel-header>
-                  <mat-panel-title i18n>
+                  <mat-panel-title i18n
+                                   class="mat-body-strong">
                     {{'PERSON_FORM.REGIONAL_DATA_PLACEHOLDER' | translate}}
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <section fxLayout="column">
                   <div fxLayout="row"
                        fxLayout.xs="column">
-                    <mat-form-field>
-                      <mat-select placeholder="{{'PERSON_FORM.DATE_FORMAT_PLACEHOLDER' | translate}}"
-                                  name="dateFormat"
-                                  formControlName="dateFormat"
-                                  [(ngModel)]="formulario.regionalData.dateFormat">
-                        <mat-option *ngFor="let dateFormats of viewdata.dateFormats"
-                                    [value]="dateFormats">
-                          {{dateFormats}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                    <mat-form-field>
-                      <mat-select placeholder="{{'PERSON_FORM.HOUR_FORMAT_PLACEHOLDER' | translate}}"
-                                  name="timeFormat"
-                                  formControlName="timeFormat"
-                                  [(ngModel)]="formulario.regionalData.timeFormat">
-                        <mat-option *ngFor="let timeFormats of viewdata.timeFormats"
-                                    [value]="timeFormats">
-                          {{timeFormats}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                    <mat-form-field>
-                      <mat-select placeholder="{{'PERSON_FORM.ZONE_PLACEHOLDER' | translate}}"
-                                  name="timeZone"
-                                  formControlName="timeZone"
-                                  [(ngModel)]="formulario.regionalData.timeZone">
-                        <mat-option *ngFor="let timeZones of viewdata.timeZones"
-                                    [value]="timeZones.timeZoneId">
-                          {{timeZones.timeZoneName}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
+                    <div fxLayout="column"
+                         fxFlex="50"
+                         fxFlex.xs="100">
+                      <div fxLayout="row"
+                           class="expansion-custom-container"
+                           fxLayout.xs="column"
+                           fxLayoutAlign="space-between center"
+                           fxLayoutAlign.xs="start stretch">
+
+                        <div fxLayout="row"
+                             fxFlex="50"
+                             fxFlex.xs="100">
+                          <mat-form-field fxFlex>
+                            <mat-select placeholder="{{'PERSON_FORM.DATE_FORMAT_PLACEHOLDER' | translate}}"
+                                        name="dateFormat"
+                                        formControlName="dateFormat"
+                                        [(ngModel)]="formulario.regionalData.dateFormat">
+                              <mat-option *ngFor="let dateFormats of viewdata.dateFormats"
+                                          [value]="dateFormats">
+                                {{dateFormats}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row"
+                             fxFlex="50"
+                             fxFlex.xs="100">
+                          <mat-form-field fxFlex>
+                            <mat-select placeholder="{{'PERSON_FORM.HOUR_FORMAT_PLACEHOLDER' | translate}}"
+                                        name="timeFormat"
+                                        formControlName="timeFormat"
+                                        [(ngModel)]="formulario.regionalData.timeFormat">
+                              <mat-option *ngFor="let timeFormats of viewdata.timeFormats"
+                                          [value]="timeFormats">
+                                {{timeFormats}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div fxLayout="row"
+                         fxLayoutAlign="start center"
+                         fxFlex>
+                      <mat-form-field fxFlex>
+                        <mat-select placeholder="{{'PERSON_FORM.ZONE_PLACEHOLDER' | translate}}"
+                                    name="timeZone"
+                                    formControlName="timeZone"
+                                    [(ngModel)]="formulario.regionalData.timeZone">
+                          <mat-option *ngFor="let timeZones of viewdata.timeZones"
+                                      [value]="timeZones.timeZoneId">
+                            {{timeZones.timeZoneName}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
                   </div>
 
                   <div fxLayout="row"
-                       fxLayout.xs="column">
+                       fxLayout.xs="column"
+                       fxLayoutAlign.xs="start stretch">
                     <div fxLayout="row"
-                         fxFlex="39">
+                         fxFlex="50"
+                         fxFlex.xs="100">
                       <mat-form-field fxFlex>
                         <mat-select placeholder="{{'PERSON_FORM.NATIONALITY_PLACEHOLDER' | translate}}"
                                     formControlName="nacionalidad"
@@ -197,79 +273,80 @@
                           </mat-option>
                         </mat-select>
                       </mat-form-field>
-                      <button class="not-separated"
-                              mat-icon-button
-                              (click)="addCountry($index)">
-                        <mat-icon>add_circle_outline</mat-icon>
-                      </button>
                     </div>
-                    <mat-form-field>
-                      <mat-select placeholder="{{'PERSON_FORM.LANGUAGE_PLACEHOLDER' | translate}}"
-                                  name="languageCode"
-                                  formControlName="languageCode"
-                                  [(ngModel)]="formulario.regionalData.languageCode">
-                        <mat-option *ngFor="let languageCodes of viewdata.languageCodes"
-                                    [value]="languageCodes">
-                          {{languageCodes}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
+
+                    <div fxLayout="row"
+                         fxFlex="15"
+                         fxFlex.xs="100">
+                      <mat-form-field fxFlex>
+                        <mat-select placeholder="{{'PERSON_FORM.LANGUAGE_PLACEHOLDER' | translate}}"
+                                    name="languageCode"
+                                    formControlName="languageCode"
+                                    [(ngModel)]="formulario.regionalData.languageCode">
+                          <mat-option *ngFor="let languageCodes of viewdata.languageCodes"
+                                      [value]="languageCodes">
+                            {{languageCodes}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
                   </div>
                 </section>
 
               </mat-expansion-panel>
-              <mat-expansion-panel>
+              <mat-expansion-panel [expanded]="true">
                 <mat-expansion-panel-header>
-                  <mat-panel-title i18n>
+                  <mat-panel-title i18n
+                                   class="mat-body-strong">
                     {{'PERSON_FORM.PROPERIES_TITLE' | translate}}
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-card>
-                  <mat-card-content>
-                    <mat-list *ngIf="hasBienes()"
-                              fxLayout="column"
-                              fxFlex
-                              fxLayoutAlign="space-between center">
-                      <mat-list-item *ngFor="let bien of formulario.bienes; $index as i"
-                                     fxFlex>
+                <div fxLayout="column">
+                  <mat-list dense
+                            [disableRipple]="false"
+                            *ngIf="hasBienes()"
+                            fxLayout="column"
+                            fxFlex
+                            fxLayoutAlign="space-between center">
+                    <mat-list-item *ngFor="let bien of formulario.bienes; $index as i"
+                                   fxFlex>
+                      <div fxLayout="row"
+                           fxLayoutAlign="start center"
+                           fxFlex>
                         <div fxLayout="row"
-                             fxLayoutAlign="start center"
-                             fxFlex>
-                          <div fxLayout="row"
-                               fxFlex="30%"
-                               fxLayoutAlign="center center">{{bien.descripcion}}</div>
-                          <div fxLayout="row"
-                               fxFlex="30%"
-                               fxLayoutAlign="center center">{{bien.tipo}}</div>
-                          <div fxLayout="row"
-                               fxFlex="30%"
-                               fxLayoutAlign="center center">{{bien.valor | currency}}</div>
-                          <div fxLayout="row"
-                               fxFlex="10%"
-                               fxLayoutAlign="center center">
-                            <button mat-icon-button
-                                    (click)="deleteBien($index)">
-                              <mat-icon>delete_forever</mat-icon>
-                            </button>
-                          </div>
+                             fxFlex="30%"
+                             fxLayoutAlign="center center">{{bien.descripcion}}</div>
+                        <div fxLayout="row"
+                             fxFlex="30%"
+                             fxLayoutAlign="center center">{{bien.tipo}}</div>
+                        <div fxLayout="row"
+                             fxFlex="30%"
+                             fxLayoutAlign="center center">{{bien.valor | currency}}</div>
+                        <div fxLayout="row"
+                             fxFlex="10%"
+                             fxLayoutAlign="center center">
+                          <button mat-icon-button
+                                  (click)="deleteBien($index)">
+                            <mat-icon>delete_forever</mat-icon>
+                          </button>
                         </div>
-                      </mat-list-item>
-                    </mat-list>
+                      </div>
+                      <mat-divider></mat-divider>
+                    </mat-list-item>
+                  </mat-list>
 
-                    <span *ngIf="!hasBienes()"
-                          i18n>{{'PERSON_FORM.PROPERIES_EMPTY' | translate}}</span>
-
-                  </mat-card-content>
-                </mat-card>
-                <div class="agregar-bien-container">
-                  <div fxLayout="row"
-                       fxLayoutAlign="start center">
-                    <button mat-button
-                            (click)="openDialog()">
-                      <mat-icon>add_circle_outline</mat-icon>
-                      <span class="agregar-bien-label"
-                            i18n>{{'PERSON_FORM.PROPERIES_ADD' | translate}}</span>
-                    </button>
+                  <span *ngIf="!hasBienes()"
+                        i18n>{{'PERSON_FORM.PROPERIES_EMPTY' | translate}}</span>
+                  <div class="agregar-bien-container">
+                    <div fxLayout="row"
+                         fxLayoutAlign="start center">
+                      <button mat-button
+                              (click)="openDialog()">
+                        <mat-icon>add_circle_outline</mat-icon>
+                        <span class="agregar-bien-label"
+                              i18n>{{'PERSON_FORM.PROPERIES_ADD' | translate}}</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </mat-expansion-panel>
