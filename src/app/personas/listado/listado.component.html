@@ -14,6 +14,9 @@
               <div fxFlex
                    fxLayout="row">
                 <div fxFlex="5%"
+                     fxFlex.xs="10%"
+                     fxFlex.sm="10%"
+                     fxFlex.md="5%"
                      fxLayout="row"
                      fxLayoutAlign="start center">
                   <div [ngClass]="{
@@ -24,12 +27,15 @@
                   </div>
                 </div>
                 <div fxFlex="5%"
+                     fxFlex.xs="10%"
+                     fxFlex.sm="10%"
+                     fxFlex.md="5%"
                      fxLayout="row"
                      fxLayoutAlign="start center"
                      fxLayoutAlign.xs="center center"> {{person.id}}</div>
                 <div fxFlex
                      fxLayoutAlign.sm="center start"
-                     fxLayoutAlign.xs="center center"
+                     fxLayoutAlign.xs="start start"
                      fxLayout="column">
                   <span class="mat-body-2">{{person.nombreCompleto}}</span>
                   <span class="mat-caption">{{person.eMail}}</span>
@@ -82,7 +88,7 @@
                  class="expansion-content"
                  fxLayout="row">
               <div fxLayout="row"
-                   fxFlex="8%"
+                   fxFlex
                    class="first-section-details">
                 <div fxLayout="column"
                      fxFlex>
@@ -112,55 +118,57 @@
                   </div>
                 </div>
               </div>
-              <div fxLayout="row"
-                   fxLayoutAlign.xs="center center"
-                   fxFlex="64%">
+              <div fxFlex="90">
+                <div fxLayout="row"
+                     fxLayoutAlign.xs="start center"
+                     fxFlex>
 
-                <div fxLayout="column"
-                     fxLayoutAlign="space-between start">
-                  <div fxLayout="column">
-                    <span class="mat-caption label-caption"
-                          i18n>
-                      {{"PERSON_LIST.DETAIL_NAME" | translate}}
-                    </span>
-                    <span class="mat-caption">
-                      {{person.nombreCompleto}}
-                    </span>
-                  </div>
-                  <div fxLayout="column">
-                    <span class="mat-caption label-caption"
-                          i18n>
-                      {{"PERSON_LIST.DETAIL_EMAIL" | translate}}
-                    </span>
-                    <span class="mat-caption">
-                      {{person.eMail}}
-                    </span>
-                  </div>
-                  <div fxLayout="column">
-                    <div fxLayout="row"
-                         fxLayoutAlign="start center">
-                      <mat-icon class="at-icons">speaker_notes</mat-icon>
-
+                  <div fxLayout="column"
+                       fxLayoutAlign="space-between start">
+                    <div fxLayout="column">
                       <span class="mat-caption label-caption"
                             i18n>
-                        {{"PERSON_LIST.DETAIL_COMMENTS" | translate}}
+                        {{"PERSON_LIST.DETAIL_NAME" | translate}}
+                      </span>
+                      <span class="mat-caption">
+                        {{person.nombreCompleto}}
                       </span>
                     </div>
-                    <span class="mat-caption">
-                      {{person.obs}}
-                    </span>
-                  </div>
-                </div>
+                    <div fxLayout="column">
+                      <span class="mat-caption label-caption"
+                            i18n>
+                        {{"PERSON_LIST.DETAIL_EMAIL" | translate}}
+                      </span>
+                      <span class="mat-caption">
+                        {{person.eMail}}
+                      </span>
+                    </div>
+                    <div fxLayout="column">
+                      <div fxLayout="row"
+                           fxLayoutAlign="start center">
+                        <mat-icon class="at-icons">speaker_notes</mat-icon>
 
-              </div>
-              <div fxLayout="row"
-                   fxFlex="20%">
-                <div fxLayout="column">
-                  <div class="mat-caption label-caption"
-                       i18n>{{"PERSON_LIST.DETAIL_AHORRO" | translate}}</div>
-                  <div fxLayout="row">
-                    <span class="mat-title">{{person.totalAhorro | currency}}</span>
-                    <span class="mat-caption">{{"PERSON_LIST.DETAIL_CURRENCY" | translate}}</span>
+                        <span class="mat-caption label-caption"
+                              i18n>
+                          {{"PERSON_LIST.DETAIL_COMMENTS" | translate}}
+                        </span>
+                      </div>
+                      <span class="mat-caption">
+                        {{person.obs}}
+                      </span>
+                    </div>
+                  </div>
+
+                </div>
+                <div fxLayout="row"
+                     fxFlex="30%">
+                  <div fxLayout="column">
+                    <div class="mat-caption label-caption"
+                         i18n>{{"PERSON_LIST.DETAIL_AHORRO" | translate}}</div>
+                    <div fxLayout="row">
+                      <span class="mat-title">{{person.totalAhorro | currency}}</span>
+                      <span class="mat-caption">{{"PERSON_LIST.DETAIL_CURRENCY" | translate}}</span>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -5,6 +5,7 @@ import { Store, select } from '@ngrx/store';
 import { Subscription, Observable } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { AppI18nService } from '../app-i18n.service';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-master-page',
@@ -25,6 +26,7 @@ import { AppI18nService } from '../app-i18n.service';
 export class MasterPageComponent implements OnInit, OnDestroy {
 
   public openedSideBar: boolean;
+  public openedSideBarMode: string = 'side';
   public viewportSmallSubscription: Subscription = null;
   public viewportWebSubscription: Subscription = null;
   public masterPageNgrxSubscription: Subscription = null;
@@ -101,18 +103,43 @@ export class MasterPageComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Redirecciona al listado de personas.
+   */
+  public goToPersonList(drawer: MatDrawer) {
+    this.router.navigate(['master-page/personas/listado']);
+    if (this.openedSideBarMode === 'over') {
+      drawer.close();
+    }
+  }
+
+  /**
+   * Redirecciona al listado de paises.
+   */
+  public goToCountryList(drawer: MatDrawer) {
+    this.router.navigate(['master-page/paises/listado']);
+    if (this.openedSideBarMode === 'over') {
+      drawer.close();
+    }
+  }
+
+  /**
    * Detecta el cambio de pantalla.
    */
   private breakpointDetector() {
 
-    this.viewportSmallSubscription = this.breakpointObserver.observe([Breakpoints.Small])
+    this.viewportSmallSubscription = this.breakpointObserver.observe([
+      Breakpoints.Small,
+      Breakpoints.XSmall
+    ])
       .subscribe(() => {
         this.openedSideBar = false;
+        this.openedSideBarMode = 'over';
       });
 
     this.viewportWebSubscription = this.breakpointObserver.observe([Breakpoints.Web])
       .subscribe(() => {
         this.openedSideBar = true;
+        this.openedSideBarMode = 'side';
       });
   }
 }
