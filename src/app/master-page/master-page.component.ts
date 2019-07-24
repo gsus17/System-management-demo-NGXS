@@ -30,9 +30,9 @@ export class MasterPageComponent implements OnInit, OnDestroy, AfterContentInit 
   public viewportWebSubscription: Subscription = null;
   public masterPageNgrxSubscription: Subscription = null;
   public masterPage$: Observable<string>;
+  public showDynamicSubHeader: boolean = false;
+  public languageList: string[] = [];
   private activateDynamicSubHeader: boolean = false;
-  private showDynamicSubHeader: boolean = false;
-  private languageList: string[] = [];
 
   constructor(
     private router: Router,

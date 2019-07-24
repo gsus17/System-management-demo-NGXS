@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { Pais } from 'src/api/entities/pais.entity';
 import { ValidationErrors, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CountryForm } from './formulario.entity';
 
 @Component({
   selector: 'app-formulario',
@@ -20,7 +20,7 @@ export class FormularioCountryComponent implements OnInit {
     }
   );
   constructor(public dialogRef: MatDialogRef<FormularioCountryComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Pais) { }
+    @Inject(MAT_DIALOG_DATA) public data: CountryForm) { }
 
   ngOnInit() {
   }
