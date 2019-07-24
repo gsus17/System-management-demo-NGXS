@@ -1,14 +1,28 @@
 <div class="general-container">
   <mat-card>
-    <mat-card-title class="person-list-title">
-      {{"PERSON_LIST.TITLE" | translate}}
-    </mat-card-title>
+    <div fxLayout="row"
+         fxLayoutAlign="space-between center">
+      <mat-card-title>
+        <span> {{"PERSON_LIST.TITLE" | translate}}</span>
+      </mat-card-title>
+
+      <mat-form-field>
+        <mat-label>{{'PERSON_LIST.STATUS_OPTION_LABEL' | translate}}</mat-label>
+        <mat-select [(ngModel)]="statusSelected.value"
+                    (selectionChange)="filter()">
+          <mat-option *ngFor="let status of statusList"
+                      [value]="status.value">
+            {{status.keyTranslate | translate}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
     <mat-card-content>
       <div class="virtual-viewport">
         <mat-accordion fxFlex
-                       *ngIf="personList.length > 0">
-          <mat-expansion-panel *ngFor="let person of personList"
+                       *ngIf="listToRender.length > 0">
+          <mat-expansion-panel *ngFor="let person of listToRender"
                                class="virtual-item">
             <mat-expansion-panel-header>
               <div fxFlex
@@ -177,7 +191,7 @@
         </mat-accordion>
 
         <div class="no-results-container"
-             *ngIf="!personList.length > 0"
+             *ngIf="!listToRender.length > 0"
              fxFlex
              fxLayout="column"
              fxLayoutAlign="center center">

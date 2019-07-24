@@ -38,7 +38,12 @@
     "DETAIL_COMMENTS": "Nombre",
     "DETAIL_AHORRO": "Ahorro",
     "DETAIL_CURRENCY": "(ARS)",
-    "DETAIL_NOT_RESULT": "No hay personas cargadas que apliquen al filtro."
+    "DETAIL_NOT_RESULT": "No hay personas cargadas que apliquen al filtro.",
+    "STATUS_OPTION_LABEL":"Estado",
+    "STATUS_OPTION_ACTIVE":"Activo",
+    "STATUS_OPTION_SUSPENDED":"Suspendido",
+    "STATUS_OPTION_INACTIVE":"Inactivo",
+    "STATUS_OPTION_ALL": "Todos"
   },
   "PERSON_FORM": {
     "SUBTITLE_EDIT": "Edición de personas",

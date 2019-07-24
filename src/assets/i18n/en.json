@@ -38,7 +38,12 @@
     "DETAIL_COMMENTS": "Comments",
     "DETAIL_AHORRO": "Saving",
     "DETAIL_CURRENCY": "(ARS)",
-    "DETAIL_NOT_RESULT": "There are no people charged that apply to the filter."
+    "DETAIL_NOT_RESULT": "There are no people charged that apply to the filter.",
+    "STATUS_OPTION_LABEL":"Status",
+    "STATUS_OPTION_ACTIVE": "Active",
+    "STATUS_OPTION_SUSPENDED": "Suspended",
+    "STATUS_OPTION_INACTIVE": "Inactive",
+    "STATUS_OPTION_ALL": "All"
   },
   "PERSON_FORM": {
     "SUBTITLE_EDIT": "Editing people",
@@ -69,7 +74,7 @@
     "CANCEL_BUTTON": "Cancel",
     "UPDATE_BUTTON": "Update",
     "ADD_BUTTON": "Add",
-    "SEX_PLACEHOLDER":"Sex"
+    "SEX_PLACEHOLDER": "Sex"
   },
   "COUNTRY": {
     "LIST_TITLE": "List of Countries",
