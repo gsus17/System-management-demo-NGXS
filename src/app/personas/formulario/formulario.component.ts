@@ -246,8 +246,8 @@ export class FormularioComponent implements OnInit, OnDestroy {
    */
   public deleteBien($index: number) {
     console.log(`${FormularioComponent.name}::deleteBien`);
-    this.formulario.bienes.splice($index, 1);
 
+    this.formulario.bienes.splice($index, 1);
     this.openSnackBar('Se ha eliminado correctamente.');
   }
 
@@ -257,6 +257,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
   public openCountryDialog(name: string = '', iata: string = '', id: string = '0'): Observable<any> {
     const methodName: string = `${FormularioComponent.name}::openCountryDialog`;
     console.log(`${methodName}`);
+
     const countryForm: CountryForm = name !== '' && iata !== '' ?
       { modify: true, ...this.countryForm, nombre: name, codigoIata: iata, id: id }
       : { modify: false, ...this.countryForm };
@@ -358,6 +359,8 @@ export class FormularioComponent implements OnInit, OnDestroy {
    * Construye el viewdata.
    */
   private buildViewData() {
+    console.log(`${FormularioComponent.name}::buildViewData`);
+
     const id = +this.route.snapshot.paramMap.get('id');
     const editMode: boolean = id ? true : false;
 

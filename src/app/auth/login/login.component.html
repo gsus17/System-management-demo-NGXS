@@ -1,15 +1,27 @@
 <div fxFlexFill
-     class="container"
      fxLayout="column"
+     class="containers"
      fxLayoutAlign="center center">
 
-  <div fxLayout="column">
-    <div fxLayout="column"
+  <div fxLayout="column"
+       fxLayoutAlign="center center">
+    <div fxFlex
+         fxLayout="row"
          fxLayoutAlign="center center">
       <span class="mat-title"
             i18n>{{'LOGIN.TITLE' | translate}}</span>
+    </div>
+    <div fxHide.xs="true"
+         fxFlex
+         fxLayout="row"
+         fxLayoutAlign="center center">
       <span class="mat-title principal-label"
             i18n>{{'LOGIN.SUBTITLE' | translate}}</span>
+    </div>
+    <div fxHide.xs="true"
+         fxFlex
+         fxLayout="row"
+         fxLayoutAlign="center center">
       <span class="mat-title"
             i18n> {{'LOGIN.SECOND_SUBTITLE' | translate}}</span>
     </div>
@@ -57,9 +69,10 @@
            fxLayout="column">
 
         <div fxLayout="row"
+             fxLayout.xs="column"
              fxFlex
              fxLayoutAlign="space-between center">
-          <mat-checkbox i18n>{{'LOGIN.FORM_KEEP_SESSION' | translate}}</mat-checkbox>
+          <mat-checkbox class="fxMargin" i18n>{{'LOGIN.FORM_KEEP_SESSION' | translate}}</mat-checkbox>
           <button mat-raised-button
                   (click)="login()"
                   [disabled]="authForm.invalid"
@@ -70,6 +83,7 @@
         <div fxLayout="row"
              fxFlex
              fxLayoutAlign="end center"
+             fxLayoutAlign.xs="center center"
              class="password-recovery-container">
           <button mat-button
                   i18n>{{'LOGIN.FORM_RECOVERY_BUTTON' | translate}}</button>

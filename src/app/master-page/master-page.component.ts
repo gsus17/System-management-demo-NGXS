@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, AfterContentInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Store, select } from '@ngrx/store';
@@ -23,8 +23,7 @@ import { MatDrawer } from '@angular/material/sidenav';
     ])
   ]
 })
-export class MasterPageComponent implements OnInit, OnDestroy {
-
+export class MasterPageComponent implements OnInit, OnDestroy, AfterContentInit {
   public openedSideBar: boolean;
   public openedSideBarMode: string = 'side';
   public viewportSmallSubscription: Subscription = null;
@@ -40,6 +39,8 @@ export class MasterPageComponent implements OnInit, OnDestroy {
     private breakpointObserver: BreakpointObserver,
     private appI18nService: AppI18nService,
     private store: Store<{}>) {
+    console.log(`${MasterPageComponent.name}::ctor`);
+
     this.masterPage$ = this.store.pipe(select('masterPage'));
     this.storeChangeDetector();
   }
@@ -48,8 +49,16 @@ export class MasterPageComponent implements OnInit, OnDestroy {
    * Inicializa el componente.
    */
   public ngOnInit() {
-
+    console.log(`${MasterPageComponent.name}::ngOnInit`);
     this.languageList = this.appI18nService.getLanguages();
+    // this.openedSideBar = false;
+    // this.breakpointDetector();
+  }
+
+  public ngAfterContentInit() {
+    console.log(`${MasterPageComponent.name}::ngAfterContentInit`);
+    // this.languageList = this.appI18nService.getLanguages();
+    this.openedSideBar = false;
     this.breakpointDetector();
   }
 
@@ -83,6 +92,7 @@ export class MasterPageComponent implements OnInit, OnDestroy {
   * Desuscribe las referencias a los observables.
   */
   ngOnDestroy() {
+    console.log(`${MasterPageComponent.name}::ngOnDestroy`);
     this.viewportSmallSubscription.unsubscribe();
     this.viewportWebSubscription.unsubscribe();
     this.masterPageNgrxSubscription.unsubscribe();
@@ -92,6 +102,7 @@ export class MasterPageComponent implements OnInit, OnDestroy {
    * Change the current language.
    */
   public changeLanguage(language: string): void {
+    console.log(`${MasterPageComponent.name}::changeLanguage`);
     this.appI18nService.use(language);
   }
 
@@ -99,6 +110,7 @@ export class MasterPageComponent implements OnInit, OnDestroy {
    * Redirecciona a la vista de login.
    */
   public logout() {
+    console.log(`${MasterPageComponent.name}::logout`);
     this.router.navigate(['login']);
   }
 
@@ -106,6 +118,7 @@ export class MasterPageComponent implements OnInit, OnDestroy {
    * Redirecciona al listado de personas.
    */
   public goToPersonList(drawer: MatDrawer) {
+    console.log(`${MasterPageComponent.name}::goToPersonList`);
     this.router.navigate(['master-page/personas/listado']);
     if (this.openedSideBarMode === 'over') {
       drawer.close();
@@ -116,6 +129,8 @@ export class MasterPageComponent implements OnInit, OnDestroy {
    * Redirecciona al listado de paises.
    */
   public goToCountryList(drawer: MatDrawer) {
+    console.log(`${MasterPageComponent.name}::goToCountryList`);
+
     this.router.navigate(['master-page/paises/listado']);
     if (this.openedSideBarMode === 'over') {
       drawer.close();
@@ -126,20 +141,25 @@ export class MasterPageComponent implements OnInit, OnDestroy {
    * Detecta el cambio de pantalla.
    */
   private breakpointDetector() {
+    console.log(`${MasterPageComponent.name}::breakpointDetector`);
+
+    this.viewportWebSubscription = this.breakpointObserver.observe([Breakpoints.Web])
+      .subscribe((result) => {
+        if (result.matches) {
+          this.openedSideBar = true;
+          this.openedSideBarMode = 'side';
+        }
+      });
 
     this.viewportSmallSubscription = this.breakpointObserver.observe([
       Breakpoints.Small,
       Breakpoints.XSmall
     ])
-      .subscribe(() => {
-        this.openedSideBar = false;
-        this.openedSideBarMode = 'over';
-      });
-
-    this.viewportWebSubscription = this.breakpointObserver.observe([Breakpoints.Web])
-      .subscribe(() => {
-        this.openedSideBar = true;
-        this.openedSideBarMode = 'side';
+      .subscribe((result) => {
+        if (result.matches) {
+          this.openedSideBar = false;
+          this.openedSideBarMode = 'over';
+        }
       });
   }
 }

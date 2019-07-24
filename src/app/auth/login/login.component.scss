@@ -1,4 +1,4 @@
-.login-content { width: 500px!important;  height: auto !important;}
+.login-content { height: auto !important;}
 
 .fxMargin { margin: 16px;}
 
@@ -14,4 +14,9 @@
 
 .password-recovery-container{
   margin: 16px 0 0 0;
+}
+
+// Mediaquery para formulario de una sola columna en xs.
+@media (min-width: 599px) {
+  .login-content { min-width: 500px;  height: auto !important;}
 }
