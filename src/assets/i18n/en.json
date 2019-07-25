@@ -30,7 +30,7 @@
     "BUTTON_UPDATE": "Update"
   },
   "PERSON_LIST": {
-    "TITLE": "Person list",
+    "TITLE": "List of person",
     "MENU_EDIT": "Edit",
     "MENU_DELETE": "Delete",
     "DETAIL_NAME": "Name",

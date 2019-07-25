@@ -5,8 +5,10 @@
         fxFlex>
     <div fxLayout="row"
          fxLayout.xs="column"
-         fxLayoutAlign="space-between center">
-      <mat-form-field fxFlex="50">
+         fxLayoutAlign="space-between center"
+         fxLayoutAlign.xs="space-between none">
+      <mat-form-field fxFlex="50%"
+                      fxFlex.xs>
         <input matInput
                type="text"
                name="nombre"
@@ -18,7 +20,8 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field fxFlex="40">
+      <mat-form-field fxFlex="40%"
+                      fxFlex.xs>
         <input matInput
                type="text"
                name="codigoIata"

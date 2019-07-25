@@ -1,11 +1,12 @@
 import { Routes } from '@angular/router';
 import { MasterPageComponent } from './master-page/master-page.component';
+import { LoginComponent } from './auth/login/login.component';
 
 // Configuracion de rutas de la aplicacion implementando lazy loading.
 export const routes: Routes = [
   {
     path: 'login',
-    loadChildren: () => import('./auth/login/login.module').then(m => m.LoginModule)
+    component: LoginComponent
   },
   {
     path: 'master-page',
