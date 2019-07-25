@@ -2,7 +2,7 @@
 .general-container {
   padding: 8px 16px;
   min-width: 470px !important;
-  }
+}
 
 .at-icons {
   font-size: 16px !important;  height: 16px !important;  width: 16px !important; padding-right: 8px;
@@ -10,3 +10,11 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// Mediaquery para formulario de una sola columna en xs.
+@media (max-width: 599px) {
+  .general-container {
+    padding: 8px 16px;
+    min-width: 0px !important;
+  }
+}

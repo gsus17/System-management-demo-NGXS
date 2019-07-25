@@ -13,7 +13,7 @@
 }
 
 .agregar-bien-label {
-  padding-left: 5px;
+  padding: 0 8px;
 }
 
 .form-container {
@@ -117,6 +117,9 @@ form {
 // Mediaquery para formulario de una sola columna en xs.
 @media (max-width: 599px) {
   form {
+    & > section {
+      padding: 0 !important;
+    }
     & > section {
       div {
         & > * {

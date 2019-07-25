@@ -56,7 +56,11 @@
 
 .label-person-id{
   font-size: 20px;
-  padding: 8px 0 8px 14px;
+  padding: 8px 0;
+}
+
+.person-id-container{
+  padding: 0px 16px;
 }
 
 .active-status-label {
@@ -88,5 +92,14 @@ mat-expansion-panel-header mat-icon {
 
   .msg-no-results {
     text-align: center;
+  }
+}
+
+
+// Mediaquery para formulario de una sola columna en xs.
+@media (max-width: 599px) {
+
+  .first-section-details{
+    margin-right: 8px !important;
   }
 }

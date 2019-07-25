@@ -1,12 +1,14 @@
 <div class="general-container">
   <mat-card>
     <div fxLayout="row"
-         fxLayoutAlign="space-between center">
+         fxLayout.xs="column"
+         fxLayoutAlign="space-between center"
+         fxLayoutAlign.xs="space-between none">
       <mat-card-title>
         <span> {{"PERSON_LIST.TITLE" | translate}}</span>
       </mat-card-title>
 
-      <mat-form-field>
+      <mat-form-field fxFlex.xs>
         <mat-label>{{'PERSON_LIST.STATUS_OPTION_LABEL' | translate}}</mat-label>
         <mat-select [(ngModel)]="statusSelected.value"
                     (selectionChange)="filter()">
@@ -28,7 +30,7 @@
               <div fxFlex
                    fxLayout="row">
                 <div fxFlex="5%"
-                     fxFlex.xs="10%"
+                     fxFlex.xs="15%"
                      fxFlex.sm="10%"
                      fxFlex.md="5%"
                      fxLayout="row"
@@ -41,18 +43,22 @@
                   </div>
                 </div>
                 <div fxFlex="5%"
-                     fxFlex.xs="10%"
+                     fxFlex.xs="5%"
                      fxFlex.sm="10%"
                      fxFlex.md="5%"
                      fxLayout="row"
                      fxLayoutAlign="start center"
-                     fxLayoutAlign.xs="center center"> {{person.id}}</div>
+                     fxLayoutAlign.xs="center center">
+                  <span fxHide.xs="true">{{person.id}}</span>
+                </div>
                 <div fxFlex
+                     fxFlex.xs="70%"
                      fxLayoutAlign.sm="center start"
-                     fxLayoutAlign.xs="start start"
+                     fxLayoutAlign.xs="center start"
                      fxLayout="column">
                   <span class="mat-body-2">{{person.nombreCompleto}}</span>
-                  <span class="mat-caption">{{person.eMail}}</span>
+                  <span fxHide.xs="true"
+                        class="mat-caption">{{person.eMail}}</span>
                 </div>
                 <div fxFlex
                      fxHide.xs="true"
@@ -72,12 +78,14 @@
                 <div class="icon-container"
                      fxLayout="row"
                      fxLayoutAlign="space-between center">
-                  <button mat-icon-button
+                  <button fxHide.xs="true"
+                          mat-icon-button
                           matTooltip="{{'PERSON_LIST.MENU_DELETE' | translate}}"
                           (click)="deletePersona(person.id)">
                     <mat-icon class="mat-18">delete_forever</mat-icon>
                   </button>
-                  <button mat-icon-button
+                  <button fxHide.xs="true"
+                          mat-icon-button
                           matTooltip="{{'PERSON_LIST.MENU_EDIT' | translate}}"
                           (click)="editPerson(person.id)">
                     <mat-icon class="mat-18">mode_edit</mat-icon>
@@ -105,14 +113,19 @@
                    fxFlex
                    class="first-section-details">
                 <div fxLayout="column"
+                     fxLayoutAlign.xs="center center"
                      fxFlex>
                   <div fxLayout="row"
-                       fxHide.xs="true">
+                       fxLayoutAlign="end center"
+                       fxLayoutAlign.xs="center center"
+                       class="person-id-container">
                     <span class="label-person-id">{{person.id}}</span>
                   </div>
 
                   <div fxLayout="row"
+                       fxHide.xs="true"
                        fxFlex="70%"
+                       fxLayoutAlign="center center"
                        [ngClass]="{
                     'active-status-label' : person.estado === 'Active',
                     'inactive-status-label' : person.estado === 'Inactive',
@@ -132,7 +145,9 @@
                   </div>
                 </div>
               </div>
-              <div fxFlex="90">
+              <div fxFlex="90"
+                   fxLayout="row"
+                   fxLayout.xs="column">
                 <div fxLayout="row"
                      fxLayoutAlign.xs="start center"
                      fxFlex>

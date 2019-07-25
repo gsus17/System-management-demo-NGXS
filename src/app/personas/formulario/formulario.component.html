@@ -326,13 +326,18 @@
                            fxFlex>
                         <div fxLayout="row"
                              fxFlex="30%"
-                             fxLayoutAlign="center center">{{bien.descripcion}}</div>
+                             fxLayoutAlign="center center"
+                             fxLayoutAlign.xs="start center">{{bien.descripcion}}</div>
                         <div fxLayout="row"
                              fxFlex="30%"
-                             fxLayoutAlign="center center">{{bien.tipo}}</div>
+                             fxFlex.xs="25%"
+                             fxLayoutAlign="center center"
+                             fxLayoutAlign.xs="start center">{{bien.tipo}}</div>
                         <div fxLayout="row"
                              fxFlex="30%"
-                             fxLayoutAlign="center center">{{bien.valor | currency}}</div>
+                             fxFlex.xs="35%"
+                             fxLayoutAlign="center center"
+                             fxLayoutAlign.xs="start center">{{bien.valor | currency}}</div>
                         <div fxLayout="row"
                              fxFlex="10%"
                              fxLayoutAlign="center center">
