@@ -1,10 +1,22 @@
 # About SystemManagementDemo
-System Management Demo is a proyect to management new users and countries,  applying all standars.
+System Management Demo is a proyect to management new users and countries, applying all standars.
+
+# Applied Standards
+* Mobile, tablet and Web responsive.
+* Code standar.
+* NgRx implementation.
+* Observables implementation.
+* I18n.
+* Angular Material components.
+* Lazy loading implementation.
+* Firebase connection
+* Firebase deploy.
 
 # Technology
 * Angular v8
 * Angular Material v8
 * Firebase Database (Firestore)
+* Ngrx
 
 # Quickstart
 Run `npm install` 
