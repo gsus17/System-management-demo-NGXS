@@ -18,6 +18,9 @@ System Management Demo is a proyect to management new users and countries, apply
 * Firebase Database (Firestore)
 * Ngrx
 
+# Demo
+* https://system-management-demo.firebaseapp.com/
+
 # Quickstart
 Run `npm install` 
 
@@ -31,6 +34,9 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 ## Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+# Author
+* https://github.com/gsus17
 
 ## License
 *This is a simple open-source software licensed under the MIT license.*
