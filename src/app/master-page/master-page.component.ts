@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, AfterContentInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Store, select } from '@ngrx/store';
 import { Subscription, Observable } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { AppI18nService } from '../app-i18n.service';
@@ -37,12 +36,8 @@ export class MasterPageComponent implements OnInit, OnDestroy, AfterContentInit 
   constructor(
     private router: Router,
     private breakpointObserver: BreakpointObserver,
-    private appI18nService: AppI18nService,
-    private store: Store<{}>) {
+    private appI18nService: AppI18nService) {
     console.log(`${MasterPageComponent.name}::ctor`);
-
-    this.masterPage$ = this.store.pipe(select('masterPage'));
-    this.storeChangeDetector();
   }
 
   /**
@@ -51,13 +46,10 @@ export class MasterPageComponent implements OnInit, OnDestroy, AfterContentInit 
   public ngOnInit() {
     console.log(`${MasterPageComponent.name}::ngOnInit`);
     this.languageList = this.appI18nService.getLanguages();
-    // this.openedSideBar = false;
-    // this.breakpointDetector();
   }
 
   public ngAfterContentInit() {
     console.log(`${MasterPageComponent.name}::ngAfterContentInit`);
-    // this.languageList = this.appI18nService.getLanguages();
     this.openedSideBar = false;
     this.breakpointDetector();
   }
@@ -75,20 +67,7 @@ export class MasterPageComponent implements OnInit, OnDestroy, AfterContentInit 
     }
   }
 
-  /**
-   * Actualiza los valores internos al detectar un cambio de estado.
-   */
-  private storeChangeDetector() {
-    this.masterPageNgrxSubscription = this.masterPage$
-      .subscribe((response: any) => {
-        this.activateDynamicSubHeader = response.changeDynamicSubHeader;
-        if (!this.activateDynamicSubHeader) {
-          this.showDynamicSubHeader = false;
-        }
-      });
-  }
-
-  /**
+ /**
   * Desuscribe las referencias a los observables.
   */
   ngOnDestroy() {

@@ -13,8 +13,6 @@ import { PaisesServiceSingleton } from 'src/app/paises/paises.service';
 import { Pais } from 'src/api/entities/pais.entity';
 import { CountryForm } from 'src/app/paises/formulario/formulario.entity';
 import { FormularioCountryComponent } from 'src/app/paises/formulario/formulario.component';
-import { Store } from '@ngrx/store';
-import * as MasterPageActions from '../../master-page/ngrx/master-page.actions';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -79,8 +77,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
     private paisesService: PaisesServiceSingleton,
     private route: ActivatedRoute,
     private router: Router,
-    private translateService: TranslateService,
-    private store: Store<{}>) {
+    private translateService: TranslateService) {
   }
 
   // Convenience getter for easy access to form fields.
@@ -108,9 +105,6 @@ export class FormularioComponent implements OnInit, OnDestroy {
     this.initDefaultForm();
     this.buildViewData();
 
-    // Setea el subtitulo correspondiente.
-    this.store.dispatch(MasterPageActions.changeSubHeader({ subHeader: this.viewdata.titleForm }));
-
     this.subscriptionRouteParams = this.route.params
       .subscribe(params => {
         const id = +params['id']; // (+) converts string 'id' to a number
@@ -126,8 +120,6 @@ export class FormularioComponent implements OnInit, OnDestroy {
    * Desuscribe las referencias a los observables.
    */
   public ngOnDestroy() {
-    // Resetea los valores por default.
-    this.store.dispatch(MasterPageActions.reset());
 
     // Unsubscribe.
     this.subscriptionReferences

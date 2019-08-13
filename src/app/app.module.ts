@@ -13,8 +13,6 @@ import { PersonasServiceSingleton } from './personas/personas.service';
 import { PaisesServiceSingleton } from './paises/paises.service';
 import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppI18nService } from './app-i18n.service';
@@ -48,7 +46,6 @@ const firebaseConfig = {
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
-    StoreModule.forRoot({}),
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -56,9 +53,6 @@ const firebaseConfig = {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    }),
-    StoreDevtoolsModule.instrument({
-      maxAge: 10
     })
   ],
   providers: [
