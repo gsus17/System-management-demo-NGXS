@@ -2,19 +2,21 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Persona } from 'src/api/entities/persona.entity';
 import { PersonasServiceSingleton } from '../personas.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { DialogDeleteComponent } from 'src/app/dialog-delete/dialog-delete.component';
 import { AccountStatus } from 'src/api/entities/account-status.entity';
+import { Store, Select } from '@ngxs/store';
+import { GetPersonas } from '../personas.actions';
 
 @Component({
   selector: 'app-listado',
   templateUrl: './listado.component.html',
   styleUrls: ['./listado.component.scss']
 })
-export class ListadoComponent implements OnInit, OnDestroy {
+export class ListadoComponent implements OnInit {
 
   public personList: Persona[] = [];
 
@@ -46,11 +48,12 @@ export class ListadoComponent implements OnInit, OnDestroy {
 
   public paginator: Paginator = null;
 
-  private personasSubscription: Subscription = null;
+  @Select(state => state.persons.personList) persons$: Observable<Persona[]>;
 
   constructor(
     public snackBar: MatSnackBar,
     private personasService: PersonasServiceSingleton,
+    private store: Store,
     private matPaginatorIntl: MatPaginatorIntl,
     private router: Router,
     private dialog: MatDialog) { }
@@ -69,23 +72,18 @@ export class ListadoComponent implements OnInit, OnDestroy {
     this.getPersons(this.paginator.pageIndex, this.paginator.pageSize);
   }
 
-  /**
-   * Desuscribe todas las referencias a los observables.
-   */
-  public ngOnDestroy() {
-    // Unsubscribe.
-    this.personasSubscription.unsubscribe();
-  }
 
   /**
    * Obtiene el listado de personas.
    */
   public getPersons(pageIndex: number, pageSize: number) {
-    this.personasSubscription = this.personasService.getPersonList$(pageIndex, pageSize)
-      .subscribe((listado: Persona[]) => {
-        this.personList = listado;
-        this.listToRender = listado;
-      });
+
+    this.store.dispatch(new GetPersonas(pageIndex, pageSize));
+    // this.personasSubscription = this.personasService.getPersonList$()
+    //   .subscribe((listado: Persona[]) => {
+    //     this.personList = listado;
+    //     this.listToRender = listado;
+    //   });
   }
 
   /**

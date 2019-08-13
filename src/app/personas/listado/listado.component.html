@@ -22,9 +22,8 @@
 
     <mat-card-content>
       <div class="virtual-viewport">
-        <mat-accordion fxFlex
-                       *ngIf="listToRender.length > 0">
-          <mat-expansion-panel *ngFor="let person of listToRender"
+        <mat-accordion fxFlex>
+          <mat-expansion-panel *ngFor="let person of persons$ | async"
                                class="virtual-item">
             <mat-expansion-panel-header>
               <div fxFlex
@@ -206,7 +205,7 @@
         </mat-accordion>
 
         <div class="no-results-container"
-             *ngIf="!(listToRender.length > 0)"
+             *ngIf="!( persons$ | async).length > 0"
              fxFlex
              fxLayout="column"
              fxLayoutAlign="center center">

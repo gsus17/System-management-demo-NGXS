@@ -15,7 +15,11 @@ import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { NgxsModule } from '@ngxs/store';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { AppI18nService } from './app-i18n.service';
+import { PersonasState } from './personas/personas.state';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -53,7 +57,10 @@ const firebaseConfig = {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    NgxsModule.forRoot([PersonasState]),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot(),
   ],
   providers: [
     AppI18nService,

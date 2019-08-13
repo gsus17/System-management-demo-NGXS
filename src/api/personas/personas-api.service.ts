@@ -17,7 +17,7 @@ export class PersonasApiService {
   public getPersonas$(pageIndex: number = 1, pageSize: number = 1): Observable<Persona[]> {
     console.log(`${PersonasApiService.name}::getPersona`);
 
-    const personList: any = this.db.collection('/personas');
+    const personList: any = this.db.collection('/personas', ref => ref.limit(pageSize));
     return personList.valueChanges();
   }
 
