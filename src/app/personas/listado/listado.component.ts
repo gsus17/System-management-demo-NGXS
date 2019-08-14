@@ -1,15 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Persona } from 'src/api/entities/persona.entity';
-import { PersonasServiceSingleton } from '../personas.service';
-import { Subscription, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { DialogDeleteComponent } from 'src/app/dialog-delete/dialog-delete.component';
 import { AccountStatus } from 'src/api/entities/account-status.entity';
 import { Store, Select } from '@ngxs/store';
-import { GetPersonas } from '../personas.actions';
+import { GetPersonas, DeletePersona, SetPaginator } from '../personas.actions';
+import { StatusItem } from './interfaces/status-item';
+import { Paginator } from './interfaces/paginator';
 
 @Component({
   selector: 'app-listado',
@@ -19,8 +20,6 @@ import { GetPersonas } from '../personas.actions';
 export class ListadoComponent implements OnInit {
 
   public personList: Persona[] = [];
-
-  public listToRender: Persona[] = [];
 
   public statusSelected = {
     keyTranslate: 'PERSON_LIST.STATUS_OPTION_ALL',
@@ -46,44 +45,46 @@ export class ListadoComponent implements OnInit {
     }
   ];
 
-  public paginator: Paginator = null;
-
   @Select(state => state.persons.personList) persons$: Observable<Persona[]>;
+  @Select(state => state.persons.paginator) paginator$: Observable<Paginator>;
 
   constructor(
-    public snackBar: MatSnackBar,
-    private personasService: PersonasServiceSingleton,
     private store: Store,
+    public snackBar: MatSnackBar,
     private matPaginatorIntl: MatPaginatorIntl,
     private router: Router,
     private dialog: MatDialog) { }
 
   ngOnInit() {
-
-    this.paginator = {
-      length: 10,
-      pageSize: 5,
-      pageIndex: 0,
-      previousPageIndex: 0,
-      pageSizeOptions: [5, 10, 15, 20, 25]
-    };
-
     this.matPaginatorIntl.itemsPerPageLabel = 'Resultados por pagina.';
-    this.getPersons(this.paginator.pageIndex, this.paginator.pageSize);
-  }
 
+    this.paginator$
+      .subscribe((response) => {
+        this.getPersons(response.pageIndex, response.pageSize);
+      });
+  }
 
   /**
    * Obtiene el listado de personas.
    */
   public getPersons(pageIndex: number, pageSize: number) {
+    this.store.dispatch(new GetPersonas(pageIndex, pageSize, this.statusSelected.value));
+  }
 
-    this.store.dispatch(new GetPersonas(pageIndex, pageSize));
-    // this.personasSubscription = this.personasService.getPersonList$()
-    //   .subscribe((listado: Persona[]) => {
-    //     this.personList = listado;
-    //     this.listToRender = listado;
-    //   });
+  /**
+   * Filter the local list.
+   */
+  public filter(): void {
+    this.store.dispatch(new GetPersonas(0, 5, this.statusSelected.value));
+  }
+
+  /**
+   * Actualiza el listado por el cambio del paginador.
+   */
+  public changePaginator(change: Paginator) {
+    console.log(`${ListadoComponent.name}::getPersons %o`, change);
+
+    this.store.dispatch(new SetPaginator({ pageIndex: change.pageIndex, pageSize: change.pageSize }));
   }
 
   /**
@@ -100,17 +101,6 @@ export class ListadoComponent implements OnInit {
   public editPerson(id: string) {
     console.log(`${ListadoComponent.name}::editPerson`);
     this.router.navigate([`/master-page/personas/formulario/${id}`]);
-  }
-
-  /**
-   * Filter the local list.
-   */
-  public filter(): void {
-    if (this.statusSelected.value === null) {
-      this.listToRender = this.personList;
-    } else {
-      this.listToRender = this.personList.filter((item) => item.estado === this.statusSelected.value);
-    }
   }
 
   /**
@@ -144,28 +134,16 @@ export class ListadoComponent implements OnInit {
    */
   public deletePersona(id: number) {
     console.log(`${ListadoComponent.name}::deletePersona`);
-
     this.openDeletePersonDialog()
       .then(() => {
-        this.personasService.deletePersonById(id)
+        this.store.dispatch(new DeletePersona(id)).toPromise()
           .then(() => {
             this.openSnackBar('Se ha eliminado correctamente.');
           })
           .catch(() => {
             this.openSnackBar('Ha ocurrido un error.');
           });
-      })
-      .catch(() => {
-        //
       });
-  }
-
-  /**
-   * Actualiza el listado por el cambio del paginador.
-   */
-  public changePaginator(change: Paginator) {
-    console.log(`${ListadoComponent.name}::getPersons %o`, change);
-    this.getPersons(change.pageIndex, change.pageSize);
   }
 
   /**
@@ -180,23 +158,4 @@ export class ListadoComponent implements OnInit {
 
     this.snackBar.open(msg, null, config);
   }
-}
-
-/**
- * Estructura de datos del paginador.
- */
-interface Paginator {
-  length: number;
-  pageIndex: number;
-  pageSize: number;
-  previousPageIndex: number;
-  pageSizeOptions: number[];
-}
-
-/**
- * Estructura de datos del listado de status.
- */
-interface StatusItem {
-  keyTranslate: string;
-  value: AccountStatus;
 }

@@ -22,7 +22,8 @@
 
     <mat-card-content>
       <div class="virtual-viewport">
-        <mat-accordion fxFlex>
+        <mat-accordion fxFlex
+                       *ngIf="( persons$ | async).length > 0">
           <mat-expansion-panel *ngFor="let person of persons$ | async"
                                class="virtual-item">
             <mat-expansion-panel-header>
@@ -234,9 +235,10 @@
       </div>
     </mat-card-content>
 
-    <mat-paginator [length]="paginator.length"
-                   [pageSize]="paginator.pageSize"
-                   [pageSizeOptions]="paginator.pageSizeOptions"
+    <mat-paginator *ngIf="(paginator$ | async)"
+                   [length]="(paginator$ | async).length"
+                   [pageSize]="(paginator$ | async).pageSize"
+                   [pageSizeOptions]="(paginator$ | async).pageSizeOptions"
                    (page)="changePaginator($event)">
     </mat-paginator>
   </mat-card>
