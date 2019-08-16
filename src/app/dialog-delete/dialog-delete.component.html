@@ -7,6 +7,6 @@
   <button mat-button
           (click)="onNoClick()">{{'DIALOG.BUTTON_CANCEL' | translate}}</button>
   <button mat-button
-          (click)="onClick()"
+          [mat-dialog-close]="true"
           cdkFocusInitial>{{'DIALOG.BUTTON_DELETE' | translate}}</button>
 </div>

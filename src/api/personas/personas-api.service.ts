@@ -3,6 +3,8 @@ import { Persona } from '../entities/persona.entity';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AccountStatus } from '../entities/account-status.entity';
+import { map } from 'rxjs/operators';
+import { Form } from 'src/app/personas/formulario/interfaces/formulario';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,8 @@ import { AccountStatus } from '../entities/account-status.entity';
 export class PersonasApiService {
 
 
-  constructor(private db: AngularFirestore) { }
+  constructor(
+    private db: AngularFirestore) { }
 
   /**
    * Obtiene una lista de personas.
@@ -25,6 +28,43 @@ export class PersonasApiService {
     });
 
     return personList.valueChanges();
+  }
+
+  /**
+   * Obtiene una lista de personas.
+   */
+  public getPersonForm$(id: number, editMode: boolean): Observable<Persona[]> {
+    console.log(`${PersonasApiService.name}::getPersona`);
+
+    const personList: any = this.db.collection('/personas', ref => ref.where('id', '==', id));
+
+    return personList.valueChanges()
+      .pipe(
+        map((persons: Persona[]) => {
+          const personFiltered: Persona = persons[0];
+          const form: Form = {
+            id: personFiltered.id === undefined ? null : personFiltered.id,
+            address: personFiltered.direccion,
+            regionalData: personFiltered.regionalData,
+            bienes: personFiltered.bienes === null || personFiltered.bienes === undefined ? [] : personFiltered.bienes,
+            ahorro: personFiltered.totalAhorro,
+            ahorroPercentage: personFiltered.porcAhorro,
+            birthdate: new Date(),
+            editMode: editMode,
+            email: personFiltered.eMail,
+            enableNotify: false,
+            gender: personFiltered.sexo,
+            name: personFiltered.nombreCompleto,
+            status: personFiltered.estado,
+            obs: personFiltered.obs,
+            nacionalidad:
+              personFiltered.nacionalidad === null
+                || personFiltered.nacionalidad === undefined
+                ? null : personFiltered.nacionalidad,
+          };
+
+          return form;
+        }));
   }
 
   /**

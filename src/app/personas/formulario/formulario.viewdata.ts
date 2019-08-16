@@ -72,11 +72,6 @@ export interface PersonasFormularioViewData {
   buttonActionText: string;
 
   /**
-   * Flag para indicar si esta en modo edicion.
-   */
-  editMode: boolean;
-
-  /**
    * Listado de paises.
    */
   countries: Pais[];

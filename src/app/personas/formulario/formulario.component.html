@@ -1,9 +1,10 @@
 <div fxFlex
+     *ngIf="(viewdata$ | async)?.countries.length > 0"
      fxLayout="column"
      fxLayoutAlign="center center">
 
   <mat-toolbar color="primary">
-    <span class="mat-title">{{viewdata.titleForm | translate}}</span>
+    <span class="mat-title">{{(viewdata$ | async)?.titleForm | translate}}</span>
   </mat-toolbar>
   <div class="general-container form-container"
        fxFlexLayout="row"
@@ -161,7 +162,7 @@
                                   name="gender"
                                   formControlName="gender"
                                   [(ngModel)]="formulario.gender">
-                        <mat-option *ngFor="let sexos of viewdata.sexos"
+                        <mat-option *ngFor="let sexos of (viewdata$ | async)?.sexos "
                                     [value]="sexos">
                           {{sexos}}
                         </mat-option>
@@ -180,7 +181,7 @@
                               name="status"
                               formControlName="status"
                               [(ngModel)]="formulario.status">
-                    <mat-option *ngFor="let accountStatusList of viewdata.accountStatusList"
+                    <mat-option *ngFor="let accountStatusList of (viewdata$ | async)?.accountStatusList  "
                                 [value]="accountStatusList">
                       {{accountStatusList}}
                     </mat-option>
@@ -221,7 +222,7 @@
                                         name="dateFormat"
                                         formControlName="dateFormat"
                                         [(ngModel)]="formulario.regionalData.dateFormat">
-                              <mat-option *ngFor="let dateFormats of viewdata.dateFormats"
+                              <mat-option *ngFor="let dateFormats of (viewdata$ | async)?.dateFormats "
                                           [value]="dateFormats">
                                 {{dateFormats}}
                               </mat-option>
@@ -238,7 +239,7 @@
                                         name="timeFormat"
                                         formControlName="timeFormat"
                                         [(ngModel)]="formulario.regionalData.timeFormat">
-                              <mat-option *ngFor="let timeFormats of viewdata.timeFormats"
+                              <mat-option *ngFor="let timeFormats of (viewdata$ | async)?.timeFormats "
                                           [value]="timeFormats">
                                 {{timeFormats}}
                               </mat-option>
@@ -257,7 +258,7 @@
                                     name="timeZone"
                                     formControlName="timeZone"
                                     [(ngModel)]="formulario.regionalData.timeZone">
-                          <mat-option *ngFor="let timeZones of viewdata.timeZones"
+                          <mat-option *ngFor="let timeZones of (viewdata$ | async)?.timeZones "
                                       [value]="timeZones.timeZoneId">
                             {{timeZones.timeZoneName}}
                           </mat-option>
@@ -277,9 +278,9 @@
                         <mat-select placeholder="{{'PERSON_FORM.NATIONALITY_PLACEHOLDER' | translate}}"
                                     formControlName="nacionalidad"
                                     [(ngModel)]="formulario.nacionalidad">
-                          <mat-option *ngFor="let countrie of viewdata.countries"
-                                      [value]="countrie.nombre">
-                            {{countrie.nombre}}
+                          <mat-option *ngFor="let country of (viewdata$ | async)?.countries "
+                                      [value]="country.nombre">
+                            {{country.nombre}}
                           </mat-option>
                         </mat-select>
                       </mat-form-field>
@@ -294,7 +295,7 @@
                                     name="languageCode"
                                     formControlName="languageCode"
                                     [(ngModel)]="formulario.regionalData.languageCode">
-                          <mat-option *ngFor="let languageCodes of viewdata.languageCodes"
+                          <mat-option *ngFor="let languageCodes of (viewdata$ | async)?.languageCodes "
                                       [value]="languageCodes">
                             {{languageCodes}}
                           </mat-option>
@@ -315,7 +316,7 @@
                 <div fxLayout="column">
                   <mat-list dense
                             [disableRipple]="false"
-                            *ngIf="hasBienes()"
+                            *ngIf="formulario.bienes.length > 0"
                             fxLayout="column"
                             fxFlex
                             fxLayoutAlign="space-between center">
@@ -351,7 +352,7 @@
                     </mat-list-item>
                   </mat-list>
 
-                  <span *ngIf="!hasBienes()"
+                  <span *ngIf="!formulario.bienes.length > 0"
                         i18n>{{'PERSON_FORM.PROPERIES_EMPTY' | translate}}</span>
                   <div class="agregar-bien-container">
                     <div fxLayout="row"
@@ -397,7 +398,7 @@
               <button mat-raised-button
                       [disabled]="personForm.invalid"
                       (click)="action()"
-                      color="primary">{{viewdata.buttonActionText | translate}}</button>
+                      color="primary">{{(viewdata$ | async)?.buttonActionText | translate}}</button>
             </div>
           </div>
         </form>

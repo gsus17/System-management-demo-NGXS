@@ -8,9 +8,10 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { DialogDeleteComponent } from 'src/app/dialog-delete/dialog-delete.component';
 import { AccountStatus } from 'src/api/entities/account-status.entity';
 import { Store, Select } from '@ngxs/store';
-import { GetPersonas, DeletePersona, SetPaginator } from '../personas.actions';
+import { GetPersonas, DeletePersona, SetPaginator, SetAccountStatusSelected } from '../personas.actions';
 import { StatusItem } from './interfaces/status-item';
 import { Paginator } from './interfaces/paginator';
+import { AccountStatusSelect } from './interfaces/account-status-select';
 
 @Component({
   selector: 'app-listado',
@@ -19,12 +20,7 @@ import { Paginator } from './interfaces/paginator';
 })
 export class ListadoComponent implements OnInit {
 
-  public personList: Persona[] = [];
-
-  public statusSelected = {
-    keyTranslate: 'PERSON_LIST.STATUS_OPTION_ALL',
-    value: null
-  };
+  public statusSelected: AccountStatusSelect;
 
   public statusList: StatusItem[] = [
     {
@@ -47,6 +43,7 @@ export class ListadoComponent implements OnInit {
 
   @Select(state => state.persons.personList) persons$: Observable<Persona[]>;
   @Select(state => state.persons.paginator) paginator$: Observable<Paginator>;
+  @Select(state => state.persons.statusSelected) statusSelected$: Observable<AccountStatusSelect>;
 
   constructor(
     private store: Store,
@@ -57,25 +54,27 @@ export class ListadoComponent implements OnInit {
 
   ngOnInit() {
     this.matPaginatorIntl.itemsPerPageLabel = 'Resultados por pagina.';
-
-    this.paginator$
-      .subscribe((response) => {
-        this.getPersons(response.pageIndex, response.pageSize);
+    this.getPersons();
+    this.statusSelected$
+      .subscribe((resp) => {
+        this.statusSelected = resp;
       });
   }
 
   /**
    * Obtiene el listado de personas.
    */
-  public getPersons(pageIndex: number, pageSize: number) {
-    this.store.dispatch(new GetPersonas(pageIndex, pageSize, this.statusSelected.value));
+  public getPersons() {
+    console.log(`${ListadoComponent.name}::getPersons`);
+    this.store.dispatch(new GetPersonas());
   }
 
   /**
    * Filter the local list.
    */
   public filter(): void {
-    this.store.dispatch(new GetPersonas(0, 5, this.statusSelected.value));
+    console.log(`${ListadoComponent.name}::filter`);
+    this.store.dispatch(new SetAccountStatusSelected(this.statusSelected));
   }
 
   /**
@@ -83,7 +82,6 @@ export class ListadoComponent implements OnInit {
    */
   public changePaginator(change: Paginator) {
     console.log(`${ListadoComponent.name}::getPersons %o`, change);
-
     this.store.dispatch(new SetPaginator({ pageIndex: change.pageIndex, pageSize: change.pageSize }));
   }
 
@@ -109,24 +107,12 @@ export class ListadoComponent implements OnInit {
   private openDeletePersonDialog(): Promise<any> {
     const methodName = `${ListadoComponent.name}::openImageNameDialog`;
     console.log(`${methodName}`);
-
-    const promise = new Promise((resolve, reject) => {
-      const dialogRef = this.dialog.open(DialogDeleteComponent, {
-        data: { message: '¿Esta seguro que desea eliminar a esta persona?', response: false }
-      });
-
-      dialogRef.afterClosed()
-        .subscribe(result => {
-          console.log(`${methodName}::The dialog was closed`);
-          if (result) {
-            resolve();
-          } else {
-            reject();
-          }
-        });
+    const dialogRef = this.dialog.open(DialogDeleteComponent, {
+      data: { message: '¿Esta seguro que desea eliminar a esta persona?', response: false }
     });
 
-    return promise;
+    return dialogRef.afterClosed()
+      .toPromise();
   }
 
   /**
@@ -135,14 +121,16 @@ export class ListadoComponent implements OnInit {
   public deletePersona(id: number) {
     console.log(`${ListadoComponent.name}::deletePersona`);
     this.openDeletePersonDialog()
-      .then(() => {
-        this.store.dispatch(new DeletePersona(id)).toPromise()
-          .then(() => {
-            this.openSnackBar('Se ha eliminado correctamente.');
-          })
-          .catch(() => {
-            this.openSnackBar('Ha ocurrido un error.');
-          });
+      .then((result) => {
+        if (result) {
+          this.store.dispatch(new DeletePersona(id)).toPromise()
+            .then(() => {
+              this.openSnackBar('Se ha eliminado correctamente.');
+            })
+            .catch(() => {
+              this.openSnackBar('Ha ocurrido un error.');
+            });
+        }
       });
   }
 

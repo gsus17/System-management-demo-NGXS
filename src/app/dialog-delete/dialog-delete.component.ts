@@ -19,12 +19,6 @@ export class DialogDeleteComponent implements OnInit {
    * Close the dialog.
    */
   public onNoClick(): void {
-    this.dialogRef.close(false);
-  }
-  /**
-   * Close the dialog.
-   */
-  public onClick(): void {
-    this.dialogRef.close(true);
+    this.dialogRef.close();
   }
 }

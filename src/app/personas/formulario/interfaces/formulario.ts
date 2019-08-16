@@ -22,4 +22,5 @@ export interface Form {
   bienes?: Bien[];
   nacionalidad: Pais;
   obs?: string;
+  editMode: boolean;
 }

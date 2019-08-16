@@ -20,6 +20,7 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { AppI18nService } from './app-i18n.service';
 import { PersonasState } from './personas/personas.state';
+import { PersonasFormState } from './personas/formulario/formulario.state';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -58,7 +59,7 @@ const firebaseConfig = {
         deps: [HttpClient]
       }
     }),
-    NgxsModule.forRoot([PersonasState]),
+    NgxsModule.forRoot([PersonasState, PersonasFormState]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
   ],

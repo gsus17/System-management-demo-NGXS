@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { PersonasServiceSingleton } from '../personas.service';
 import { PersonasFormularioViewData } from './formulario.viewdata';
-import { Form } from './formulario';
+import { Form } from './interfaces/formulario';
 import { FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, Observable } from 'rxjs';
@@ -13,7 +13,9 @@ import { PaisesServiceSingleton } from 'src/app/paises/paises.service';
 import { Pais } from 'src/api/entities/pais.entity';
 import { CountryForm } from 'src/app/paises/formulario/formulario.entity';
 import { FormularioCountryComponent } from 'src/app/paises/formulario/formulario.component';
-import { TranslateService } from '@ngx-translate/core';
+import { Store, Select } from '@ngxs/store';
+import { CreatePersona, UpdatePersona } from '../personas.actions';
+import { LoadInitData } from './formulario.actions';
 
 @Component({
   selector: 'app-formulario',
@@ -21,26 +23,6 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./formulario.component.scss']
 })
 export class FormularioComponent implements OnInit, OnDestroy {
-
-  /**
-   * Subscription reference.
-   */
-  private subscriptionRouteParams: Subscription;
-
-  /**
-   * Subscription reference.
-   */
-  private subscriptionGetPaises: Subscription;
-
-  /**
-   * Subscription reference.
-   */
-  private subscriptionGetFormPersonaById: Subscription;
-
-  /**
-   * Subscription reference List.
-   */
-  private subscriptionReferences: Subscription[] = [];
 
   /**
    * Validation Form control.
@@ -65,21 +47,6 @@ export class FormularioComponent implements OnInit, OnDestroy {
     }
   );
 
-  /**
-   * Datos para almacenar un bien.
-   */
-  public countryForm: Pais;
-
-  constructor(
-    public snackBar: MatSnackBar,
-    public dialog: MatDialog,
-    private personasService: PersonasServiceSingleton,
-    private paisesService: PaisesServiceSingleton,
-    private route: ActivatedRoute,
-    private router: Router,
-    private translateService: TranslateService) {
-  }
-
   // Convenience getter for easy access to form fields.
   get form() { return this.personForm.controls; }
 
@@ -99,21 +66,36 @@ export class FormularioComponent implements OnInit, OnDestroy {
   public bienForm: Bien;
 
   /**
+   * Datos para almacenar un bien.
+   */
+  public countryForm: Pais;
+
+  /**
+   * Subscription reference List.
+   */
+  private subscriptionReferences: Subscription[] = [];
+
+
+  @Select(state => state.personsForm.viewdata) viewdata$: Observable<PersonasFormularioViewData>;
+  @Select(state => state.personsForm.formulario) formulario$: Observable<Form>;
+
+  constructor(
+    private store: Store,
+    public snackBar: MatSnackBar,
+    public dialog: MatDialog,
+    public ngZone: NgZone,
+    private personasService: PersonasServiceSingleton,
+    private paisesService: PaisesServiceSingleton,
+    private route: ActivatedRoute,
+    private router: Router) {
+  }
+
+  /**
    * Inicializa el componente.
    */
   public ngOnInit() {
+    this.loadInitData();
     this.initDefaultForm();
-    this.buildViewData();
-
-    this.subscriptionRouteParams = this.route.params
-      .subscribe(params => {
-        const id = +params['id']; // (+) converts string 'id' to a number
-        if (id) {
-          this.initDataForm(id);
-        }
-      });
-
-    this.subscriptionReferences.push(this.subscriptionRouteParams);
   }
 
   /**
@@ -134,7 +116,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
   public action() {
     console.log(`${FormularioComponent.name}::action`);
 
-    if (this.viewdata.editMode) {
+    if (this.formulario.editMode) {
       this.updatePerson();
     } else {
       this.addPerson();
@@ -146,7 +128,8 @@ export class FormularioComponent implements OnInit, OnDestroy {
    */
   public updatePerson() {
     console.log(`${FormularioComponent.name}::update %o`, this.formulario);
-    this.personasService.updatePerson(this.formulario)
+    this.store.dispatch(new UpdatePersona(this.formulario))
+      .toPromise()
       .then(() => {
         this.openSnackBar('Se ha actualizado la persona correctamente.');
         this.router.navigate(['master-page/personas/listado']);
@@ -161,7 +144,8 @@ export class FormularioComponent implements OnInit, OnDestroy {
    */
   public addPerson() {
     console.log(`${FormularioComponent.name}::update %o`, this.formulario);
-    this.personasService.addPerson(this.formulario)
+    this.store.dispatch(new CreatePersona(this.formulario))
+      .toPromise()
       .then(() => {
         this.openSnackBar('Se ha creado la persona correctamente.');
         this.router.navigate(['master-page/personas/listado']);
@@ -185,16 +169,6 @@ export class FormularioComponent implements OnInit, OnDestroy {
   public validateError(indicator) {
     const res = this.getErrors(`${indicator}`) !== null;
     return res;
-  }
-
-  /**
-   * Determina si existen bienes relacionados.
-   */
-  public hasBienes() {
-    return this.formulario !== null
-      && this.formulario.bienes !== null
-      && this.formulario.bienes !== undefined
-      && this.formulario.bienes.length > 0;
   }
 
   /**
@@ -238,7 +212,6 @@ export class FormularioComponent implements OnInit, OnDestroy {
    */
   public deleteBien($index: number) {
     console.log(`${FormularioComponent.name}::deleteBien`);
-
     this.formulario.bienes.splice($index, 1);
     this.openSnackBar('Se ha eliminado correctamente.');
   }
@@ -311,77 +284,19 @@ export class FormularioComponent implements OnInit, OnDestroy {
   /**
    * Inicializa el modelo.
    */
-  private initDataForm(id) {
-    this.subscriptionGetFormPersonaById = this.personasService.getFormPersonaById$(id)
-      .subscribe((response: Form) => {
-        this.formulario = { ...response };
-      });
-
-    this.subscriptionReferences.push(this.subscriptionGetFormPersonaById);
-  }
-
-  /**
-   * Inicializa el modelo.
-   */
   private initDefaultForm() {
-    this.formulario = {
-      id: null,
-      address: '',
-      obs: '',
-      ahorro: 0,
-      ahorroPercentage: 0,
-      birthdate: new Date(),
-      email: '',
-      enableNotify: false,
-      gender: null,
-      name: '',
-      status: null,
-      bienes: [],
-      nacionalidad: null,
-      regionalData: {
-        dateFormat: '',
-        languageCode: '',
-        timeFormat: '',
-        timeZone: null
-      }
-    };
+    const subscription: Subscription = this.formulario$.subscribe((response) => this.formulario = response);
+    this.subscriptionReferences.push(subscription);
   }
 
   /**
    * Construye el viewdata.
    */
-  private buildViewData() {
+  private loadInitData() {
     console.log(`${FormularioComponent.name}::buildViewData`);
 
     const id = +this.route.snapshot.paramMap.get('id');
     const editMode: boolean = id ? true : false;
-
-    this.viewdata = {
-      isExpandedRegionalData: true,
-      isExpandedBienes: true,
-      inProgress: false,
-      isLocked: false,
-      sexos: this.personasService.getSexos(),
-      accountStatusList: this.personasService.getAccountStatusList(),
-      dateFormats: this.personasService.getDateFormats(),
-      timeFormats: this.personasService.getTimeFormats(),
-      timeZones: this.personasService.getTimeZones(),
-      languageCodes: this.personasService.getLanguageCodes(),
-      titleForm: editMode ?
-        'PERSON_FORM.SUBTITLE_EDIT' :
-        'PERSON_FORM.SUBTITLE_ADD',
-      buttonActionText: editMode ?
-        'PERSON_FORM.UPDATE_BUTTON' :
-        'PERSON_FORM.ADD_BUTTON',
-      editMode: editMode,
-      countries: []
-    };
-
-    this.subscriptionGetPaises = this.paisesService.getPaises$()
-      .subscribe((countries: Pais[]) => {
-        this.viewdata.countries = countries;
-      });
-
-    this.subscriptionReferences.push(this.subscriptionGetPaises);
+    this.store.dispatch(new LoadInitData(editMode, id));
   }
 }
