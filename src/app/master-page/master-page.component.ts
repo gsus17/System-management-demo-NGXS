@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, AfterContentInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, AfterContentInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subscription, Observable } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { AppI18nService } from '../app-i18n.service';
 import { MatDrawer } from '@angular/material/sidenav';
+import { Select } from '@ngxs/store';
 
 @Component({
   selector: 'app-master-page',
@@ -27,11 +28,10 @@ export class MasterPageComponent implements OnInit, OnDestroy, AfterContentInit 
   public openedSideBarMode: string = 'side';
   public viewportSmallSubscription: Subscription = null;
   public viewportWebSubscription: Subscription = null;
-  public masterPageNgrxSubscription: Subscription = null;
-  public masterPage$: Observable<string>;
   public showDynamicSubHeader: boolean = false;
   public languageList: string[] = [];
-  private activateDynamicSubHeader: boolean = false;
+
+  @Select(state => state.personsForm.masterPageSubHeader) masterPageSubHeader$: Observable<string>;
 
   constructor(
     private router: Router,
@@ -58,7 +58,7 @@ export class MasterPageComponent implements OnInit, OnDestroy, AfterContentInit 
    * Renderiza/Oculta el subheader.
    */
   public onElementScroll($event) {
-    if (this.activateDynamicSubHeader) {
+    if (this.router.isActive('/master-page/personas/formulario', false)) {
       if ($event.target.scrollTop > 31) {
         this.showDynamicSubHeader = true;
       } else if ($event.target.scrollTop === 0) {
@@ -67,14 +67,13 @@ export class MasterPageComponent implements OnInit, OnDestroy, AfterContentInit 
     }
   }
 
- /**
-  * Desuscribe las referencias a los observables.
-  */
+  /**
+   * Desuscribe las referencias a los observables.
+   */
   ngOnDestroy() {
     console.log(`${MasterPageComponent.name}::ngOnDestroy`);
     this.viewportSmallSubscription.unsubscribe();
     this.viewportWebSubscription.unsubscribe();
-    this.masterPageNgrxSubscription.unsubscribe();
   }
 
   /**

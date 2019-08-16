@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { PaisesServiceSingleton } from '../paises.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -12,6 +11,8 @@ import { CountryForm } from '../formulario/formulario.entity';
 import { Observable, Subscription } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { DialogDeleteComponent } from 'src/app/dialog-delete/dialog-delete.component';
+import { Store, Select } from '@ngxs/store';
+import { GetCountries, UpdateCountry, CreateCountry, DeleteCountry } from '../paises.actions';
 
 const COLUMNS: Columns[] = [];
 
@@ -48,11 +49,13 @@ export class ListadoComponent implements OnInit, OnDestroy {
    * Subscription reference.
    */
   private subscriptionPaisesService: Subscription;
+  @Select(state => state.country.countries) countries$: Observable<Pais[]>;
+  @Select(state => state.country.dataSource) dataSource$: Observable<MatTableDataSource<Columns>>;
 
   constructor(
     public snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private paisesService$: PaisesServiceSingleton,
+    private store: Store,
     private db: AngularFirestore) { }
 
   /**
@@ -80,7 +83,9 @@ export class ListadoComponent implements OnInit, OnDestroy {
    * Devuelve el listado de personas.
    */
   public getCountries(): void {
-    this.subscriptionPaisesService = this.paisesService$.getPaises$()
+    this.store.dispatch(new GetCountries());
+
+    this.subscriptionPaisesService = this.countries$
       .subscribe((data) => {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -92,6 +97,34 @@ export class ListadoComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Agrega un pais.
+   */
+  public addCountry() {
+    const methodName: string = `${ListadoComponent.name}::addCountry`;
+    console.log(`${methodName}`);
+
+    this.openDialog()
+      .then((response) => {
+        if (response) {
+          const country: Pais = {
+            codigoIata: response.codigoIata,
+            id: this.createId(),
+            nombre: response.nombre
+          };
+
+          this.store.dispatch(new CreateCountry(country))
+            .toPromise()
+            .then(() => {
+              this.openSnackBar('Se ha creado correctamente.');
+            })
+            .catch(() => {
+              this.openSnackBar('Ha ocurrido un error.');
+            });
+        }
+      });
+  }
+
+  /**
    * Edita el pais.
    */
   public editCountry(name: string, iata: string, id: string) {
@@ -99,8 +132,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
     console.log(`${methodName}`);
 
     this.openDialog(name, iata, id)
-      .subscribe(response => {
-        console.log(`${methodName}::afterClosed selection %o`, response);
+      .then((response) => {
         if (response) {
           const country: Pais = {
             codigoIata: response.codigoIata,
@@ -108,9 +140,25 @@ export class ListadoComponent implements OnInit, OnDestroy {
             nombre: response.nombre
           };
 
-          this.paisesService$.editCountry(country)
+          this.store.dispatch(new UpdateCountry(country));
+        }
+      });
+  }
+
+  /**
+   * Agrega un pais.
+   */
+  public deleteCountry(id: number) {
+    const methodName: string = `${ListadoComponent.name}::deleteCountry`;
+    console.log(`${methodName}`);
+
+    this.openDeletePersonDialog()
+      .then((result) => {
+        if (result) {
+          this.store.dispatch(new DeleteCountry(id))
+            .toPromise()
             .then(() => {
-              this.openSnackBar('Se ha editado correctamente.');
+              this.openSnackBar('Se ha eliminado correctamente.');
             })
             .catch(() => {
               this.openSnackBar('Ha ocurrido un error.');
@@ -127,57 +175,9 @@ export class ListadoComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Agrega un pais.
-   */
-  public addCountry() {
-    const methodName: string = `${ListadoComponent.name}::addCountry`;
-    console.log(`${methodName}`);
-
-    this.openDialog()
-      .subscribe(response => {
-        console.log(`${methodName}::afterClosed selection %o`, response);
-        const country: Pais = {
-          codigoIata: response.codigoIata,
-          id: this.createId(),
-          nombre: response.nombre
-        };
-
-        this.paisesService$.createContry(country)
-          .then(() => {
-            this.openSnackBar('Se ha creado correctamente.');
-          })
-          .catch(() => {
-            this.openSnackBar('Ha ocurrido un error.');
-          });
-      });
-  }
-
-  /**
-   * Agrega un pais.
-   */
-  public deleteCountry(id: number) {
-    const methodName: string = `${ListadoComponent.name}::deleteCountry`;
-    console.log(`${methodName}`);
-
-    this.openDeletePersonDialog()
-      .then(() => {
-        this.paisesService$.deleteCountry(id)
-          .then(() => {
-            this.openSnackBar('Se ha eliminado correctamente.');
-          })
-          .catch(() => {
-            this.openSnackBar('Ha ocurrido un error.');
-          });
-      })
-      .catch(() => {
-        //
-      });
-  }
-
-  /**
    * Abre formulario para agregar un nuevo bien.
    */
-  public openDialog(name: string = '', iata: string = '', id: string = '0'): Observable<any> {
+  public openDialog(name: string = '', iata: string = '', id: string = '0'): Promise<any> {
     const methodName: string = `${ListadoComponent.name}::openDialog`;
     console.log(`${methodName}`);
 
@@ -185,12 +185,13 @@ export class ListadoComponent implements OnInit, OnDestroy {
       { modify: true, ...this.countryForm, nombre: name, codigoIata: iata, id: id }
       : { modify: false, ...this.countryForm };
 
-    const dialogRef = this.dialog.open(FormularioCountryComponent, {
-      width: '500px',
-      data: countryForm
-    });
+    const dialogRef = this.dialog.open(
+      FormularioCountryComponent, {
+        width: '500px',
+        data: countryForm
+      });
 
-    return dialogRef.afterClosed();
+    return dialogRef.afterClosed().toPromise();
   }
 
   /**
@@ -230,24 +231,11 @@ export class ListadoComponent implements OnInit, OnDestroy {
   private openDeletePersonDialog(): Promise<any> {
     const methodName = `${ListadoComponent.name}::openImageNameDialog`;
     console.log(`${methodName}`);
-
-    const promise = new Promise((resolve, reject) => {
-      const dialogRef = this.dialog.open(DialogDeleteComponent, {
-        data: { message: 'COUNTRY.COUNTRY_DELETE_DIALOG_MESSAGE', response: false }
-      });
-
-      dialogRef.afterClosed()
-        .subscribe(result => {
-          console.log(`${methodName}::The dialog was closed`);
-          if (result) {
-            resolve();
-          } else {
-            reject();
-          }
-        });
+    const dialogRef = this.dialog.open(DialogDeleteComponent, {
+      data: { message: 'COUNTRY.DELETE_DIALOG_MESSAGE', response: false }
     });
 
-    return promise;
+    return dialogRef.afterClosed().toPromise();
   }
 }
 

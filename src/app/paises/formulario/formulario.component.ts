@@ -8,7 +8,7 @@ import { CountryForm } from './formulario.entity';
   templateUrl: './formulario.component.html',
   styleUrls: ['./formulario.component.scss']
 })
-export class FormularioCountryComponent implements OnInit {
+export class FormularioCountryComponent {
 
   /**
    * Validation Form control.
@@ -21,9 +21,6 @@ export class FormularioCountryComponent implements OnInit {
   );
   constructor(public dialogRef: MatDialogRef<FormularioCountryComponent>,
     @Inject(MAT_DIALOG_DATA) public data: CountryForm) { }
-
-  ngOnInit() {
-  }
 
   /**
    * Retorna el listado de errores.

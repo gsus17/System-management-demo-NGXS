@@ -6,15 +6,12 @@ import { tap } from 'rxjs/operators';
 import { AccountStatusSelect } from './listado/interfaces/account-status-select';
 import {
   GetPersonas,
-  SetPersonas,
-  FilterPersonas,
   DeletePersona,
   SetPaginator,
   SetAccountStatusSelected,
   CreatePersona,
   UpdatePersona
 } from './personas.actions';
-import { PersonasFormState } from './formulario/formulario.state';
 
 export interface PersonStateModel {
   personList: Persona[];
@@ -46,23 +43,18 @@ export class PersonasState {
   }
 
   @Action(GetPersonas)
-  getPersonas({ getState, dispatch }: StateContext<PersonStateModel>) {
+  getPersonas({ getState, setState, dispatch }: StateContext<PersonStateModel>) {
+    const state = getState();
     const { paginator, statusSelected } = getState();
     return this.personasApiService.getPersonas$(paginator.pageIndex, paginator.pageSize, statusSelected.value)
       .pipe(
         tap((response) => {
-          dispatch(new SetPersonas(response));
+          setState({
+            ...state,
+            personList: response
+          });
         })
       );
-  }
-
-  @Action(FilterPersonas)
-  filterPersonas({ setState, getState }: StateContext<PersonStateModel>, action: any) {
-    const state = getState();
-    setState({
-      ...state,
-      personList: state.personList.filter((item) => item.estado === action.accountStatus)
-    });
   }
 
   @Action(CreatePersona)
@@ -96,6 +88,7 @@ export class PersonasState {
   deletePersona({ getState, }: StateContext<PersonStateModel>, action) {
     return this.personasApiService.deleteById(action.personId);
   }
+
   @Action(UpdatePersona)
   updatePersona({ getState, }: StateContext<PersonStateModel>, action) {
     const form = action.form;
@@ -123,16 +116,6 @@ export class PersonasState {
     return this.personasApiService.put(person);
   }
 
-  @Action(SetPersonas)
-  setPersonas({ setState, getState }: StateContext<PersonStateModel>, action) {
-    const state = getState();
-
-    setState({
-      ...state,
-      personList: action.personList
-    });
-  }
-
   @Action(SetPaginator)
   setPaginator({ setState, getState, dispatch }: StateContext<PersonStateModel>, action) {
     const state = getState();
@@ -150,7 +133,7 @@ export class PersonasState {
   }
 
   @Action(SetAccountStatusSelected)
-  SetAccountStatusSelected({ setState, getState, dispatch }: StateContext<PersonStateModel>, action) {
+  setAccountStatusSelected({ setState, getState, dispatch }: StateContext<PersonStateModel>, action) {
     const state = getState();
 
     setState({

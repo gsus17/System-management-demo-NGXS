@@ -343,7 +343,7 @@
                              fxFlex="10%"
                              fxLayoutAlign="center center">
                           <button mat-icon-button
-                                  (click)="deleteBien($index)">
+                                  (click)="deleteProperty($index)">
                             <mat-icon>delete_forever</mat-icon>
                           </button>
                         </div>
@@ -358,7 +358,7 @@
                     <div fxLayout="row"
                          fxLayoutAlign="start center">
                       <button mat-button
-                              (click)="openDialog()">
+                              (click)="openPropertiesDialog()">
                         <mat-icon>add_circle_outline</mat-icon>
                         <span class="agregar-bien-label"
                               i18n>{{'PERSON_FORM.PROPERIES_ADD' | translate}}</span>
@@ -391,7 +391,7 @@
                fxLayoutAlign="end center">
             <div class="button-container">
               <button mat-raised-button
-                      (click)="cancel()"
+                      (click)="goToPersonList()"
                       i18n>{{'PERSON_FORM.CANCEL_BUTTON' | translate}}</button>
             </div>
             <div class="button-container">

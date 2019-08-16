@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Pais } from '../entities/pais.entity';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,13 @@ export class PaisesApiService {
    */
   public getPaises$(): Observable<Pais[]> {
     console.log(`${PaisesApiService.name}::getPaises`);
-
-    const personList: any = this.db.collection('/paises');
-
-    return personList.valueChanges();
+    return this.db.collection('/paises').valueChanges()
+      .pipe(
+        map((items) => {
+          const countries: Pais[] = <any>items;
+          return countries;
+        })
+      );
   }
 
   /**

@@ -1,6 +1,6 @@
 import { State, Action, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
-import { LoadInitData, BuildFormulario } from './formulario.actions';
+import { LoadInitData, BuildFormulario, SetMasterPageSubHeader } from './formulario.actions';
 import { PaisesApiService } from 'src/api/paises/paises-api.service';
 import { PersonasFormularioViewData } from './formulario.viewdata';
 import { PersonasServiceSingleton } from '../personas.service';
@@ -10,6 +10,7 @@ import { PersonasApiService } from 'src/api/personas/personas-api.service';
 export interface PersonFormStateModel {
   viewdata: PersonasFormularioViewData;
   formulario: Form;
+  masterPageSubHeader: string;
 }
 
 @State<PersonFormStateModel>({
@@ -51,7 +52,8 @@ export interface PersonFormStateModel {
         timeFormat: '',
         timeZone: null
       }
-    }
+    },
+    masterPageSubHeader: ''
   }
 })
 export class PersonasFormState {
@@ -119,7 +121,7 @@ export class PersonasFormState {
   }
 
   @Action(BuildFormulario)
-  buildFormulario({ setState, getState }: StateContext<PersonFormStateModel>, action: any) {
+  buildFormulario({ setState, getState, dispatch }: StateContext<PersonFormStateModel>, action: any) {
     const state = getState();
     return this.personasApiService.getPersonForm$(action.id, action.editMode)
       .pipe(
@@ -128,6 +130,18 @@ export class PersonasFormState {
             ...state,
             formulario: response
           });
+
+          dispatch(new SetMasterPageSubHeader(state.viewdata.titleForm));
         }));
+  }
+
+  @Action(SetMasterPageSubHeader)
+  setMasterPageSubHeader({ setState, getState, dispatch }: StateContext<PersonFormStateModel>, action) {
+    const state = getState();
+
+    setState({
+      ...state,
+      masterPageSubHeader: action.subHeader
+    });
   }
 }

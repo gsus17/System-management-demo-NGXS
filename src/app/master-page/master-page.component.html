@@ -9,9 +9,9 @@
         <mat-icon>menu</mat-icon>
       </button>
 
-      <div *ngIf="showDynamicSubHeader && masterPage$ | async as mp"
+      <div *ngIf="showDynamicSubHeader && masterPageSubHeader$ | async as mp"
            class="sub-header"
-           [@panelInOut]>{{mp.subHeader | translate}}</div>
+           [@panelInOut]>{{mp | translate}}</div>
 
       <div fxLayoutAlign="end center"
            fxFlex>

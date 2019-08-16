@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PersonasServiceSingleton } from '../personas.service';
 import { PersonasFormularioViewData } from './formulario.viewdata';
 import { Form } from './interfaces/formulario';
@@ -9,10 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BienComponent } from './bien/bien.component';
 import { Bien } from 'src/api/entities/bien.entity';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { PaisesServiceSingleton } from 'src/app/paises/paises.service';
 import { Pais } from 'src/api/entities/pais.entity';
-import { CountryForm } from 'src/app/paises/formulario/formulario.entity';
-import { FormularioCountryComponent } from 'src/app/paises/formulario/formulario.component';
 import { Store, Select } from '@ngxs/store';
 import { CreatePersona, UpdatePersona } from '../personas.actions';
 import { LoadInitData } from './formulario.actions';
@@ -56,11 +53,6 @@ export class FormularioComponent implements OnInit, OnDestroy {
   public formulario: Form;
 
   /**
-   * Datos complementario de la vista.
-   */
-  public viewdata: PersonasFormularioViewData;
-
-  /**
    * Datos para almacenar un bien.
    */
   public bienForm: Bien;
@@ -75,7 +67,6 @@ export class FormularioComponent implements OnInit, OnDestroy {
    */
   private subscriptionReferences: Subscription[] = [];
 
-
   @Select(state => state.personsForm.viewdata) viewdata$: Observable<PersonasFormularioViewData>;
   @Select(state => state.personsForm.formulario) formulario$: Observable<Form>;
 
@@ -83,9 +74,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
     private store: Store,
     public snackBar: MatSnackBar,
     public dialog: MatDialog,
-    public ngZone: NgZone,
     private personasService: PersonasServiceSingleton,
-    private paisesService: PaisesServiceSingleton,
     private route: ActivatedRoute,
     private router: Router) {
   }
@@ -174,20 +163,13 @@ export class FormularioComponent implements OnInit, OnDestroy {
   /**
    * Abre formulario para agregar un nuevo bien.
    */
-  public openDialog(): void {
-    const methodName: string = `${FormularioComponent.name}::openDialog`;
-    console.log(`${methodName}`);
+  public openPropertiesDialog(): void {
+    console.log(`${FormularioComponent.name}::openPropertiesDialog`);
 
-    const dialogRef = this.dialog.open(
-      BienComponent,
-      {
-        width: '500px',
-        data: { bienForm: this.bienForm }
-      });
-
+    const dialogRef = this.dialog.open(BienComponent, { width: '500px', data: { bienForm: this.bienForm } });
     dialogRef.afterClosed()
-      .subscribe(response => {
-        console.log(`${methodName}::afterClosed selection %o`, response);
+      .toPromise()
+      .then((response) => {
         if (response) {
           this.bienForm = {
             ...response,
@@ -200,72 +182,20 @@ export class FormularioComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Cancela la operacion.
+   * Redirecciona a la vista de listado de personas.
    */
-  public cancel() {
-    console.log(`${FormularioComponent.name}::cancel`);
+  public goToPersonList() {
+    console.log(`${FormularioComponent.name}::goToPersonList`);
     this.router.navigate([`/master-page/personas/listado`]);
   }
 
   /**
    * Elimina el item correspondiente.
    */
-  public deleteBien($index: number) {
-    console.log(`${FormularioComponent.name}::deleteBien`);
+  public deleteProperty($index: number) {
+    console.log(`${FormularioComponent.name}::deleteProperty`);
     this.formulario.bienes.splice($index, 1);
     this.openSnackBar('Se ha eliminado correctamente.');
-  }
-
-  /**
-   * Abre formulario para agregar un nuevo bien.
-   */
-  public openCountryDialog(name: string = '', iata: string = '', id: string = '0'): Observable<any> {
-    const methodName: string = `${FormularioComponent.name}::openCountryDialog`;
-    console.log(`${methodName}`);
-
-    const countryForm: CountryForm = name !== '' && iata !== '' ?
-      { modify: true, ...this.countryForm, nombre: name, codigoIata: iata, id: id }
-      : { modify: false, ...this.countryForm };
-
-    const dialogRef = this.dialog.open(FormularioCountryComponent, {
-      width: '500px',
-      data: countryForm
-    });
-
-    return dialogRef.afterClosed();
-  }
-
-  /**
-   * createId
-   */
-  public createId(): string {
-    return this.paisesService.createId();
-  }
-
-  /**
-   * Agrega un pais.
-   */
-  public addCountry() {
-    const methodName: string = `${FormularioComponent.name}::addCountry`;
-    console.log(`${methodName}`);
-
-    this.openCountryDialog()
-      .subscribe(response => {
-        console.log(`${methodName}::afterClosed selection %o`, response);
-        const country: Pais = {
-          codigoIata: response.codigoIata,
-          id: this.createId(),
-          nombre: response.nombre
-        };
-
-        this.paisesService.createContry(country)
-          .then(() => {
-            this.openSnackBar('Se ha creado correctamente.');
-          })
-          .catch(() => {
-            this.openSnackBar('Ha ocurrido un error.');
-          });
-      });
   }
 
   /**
@@ -282,14 +212,6 @@ export class FormularioComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Inicializa el modelo.
-   */
-  private initDefaultForm() {
-    const subscription: Subscription = this.formulario$.subscribe((response) => this.formulario = response);
-    this.subscriptionReferences.push(subscription);
-  }
-
-  /**
    * Construye el viewdata.
    */
   private loadInitData() {
@@ -298,5 +220,13 @@ export class FormularioComponent implements OnInit, OnDestroy {
     const id = +this.route.snapshot.paramMap.get('id');
     const editMode: boolean = id ? true : false;
     this.store.dispatch(new LoadInitData(editMode, id));
+  }
+
+  /**
+   * Inicializa el modelo.
+   */
+  private initDefaultForm() {
+    const subscription: Subscription = this.formulario$.subscribe((response) => this.formulario = response);
+    this.subscriptionReferences.push(subscription);
   }
 }
