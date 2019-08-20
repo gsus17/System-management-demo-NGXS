@@ -2,20 +2,12 @@ import { Injectable } from '@angular/core';
 import { TimeZone } from 'src/api/entities/time-zone.entity';
 import { Sexo } from 'src/api/entities/sexo.entity';
 import { AccountStatus } from 'src/api/entities/account-status.entity';
-import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonasServiceSingleton {
-  constructor(private db: AngularFirestore) { }
-
-  /**
-   * Devuelve un id generado por el servicio de firebase firestore.
-   */
-  public createIdByFirestore(): string {
-    return this.db.createId();
-  }
+  constructor() { }
 
   /**
    * Devuelve una lista de los estados de cuenta existentes.

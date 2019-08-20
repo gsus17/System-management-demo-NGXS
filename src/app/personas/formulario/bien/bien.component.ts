@@ -37,9 +37,6 @@ export class BienComponent implements OnInit {
     public dialogRef: MatDialogRef<BienComponent>,
     private personasService: PersonasServiceSingleton) { }
 
-  // Convenience getter for easy access to form fields.
-  get form() { return this.bienForm.controls; }
-
   /**
    * Inicializa el componente.
    */

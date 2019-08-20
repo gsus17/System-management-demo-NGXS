@@ -38,12 +38,10 @@ export interface PersonStateModel {
 })
 export class PersonasState {
 
-  constructor(private personasApiService: PersonasApiService) {
-
-  }
+  constructor(private personasApiService: PersonasApiService) { }
 
   @Action(GetPersonas)
-  getPersonas({ getState, setState, dispatch }: StateContext<PersonStateModel>) {
+  getPersonas({ getState, setState }: StateContext<PersonStateModel>) {
     const state = getState();
     const { paginator, statusSelected } = getState();
     return this.personasApiService.getPersonas$(paginator.pageIndex, paginator.pageSize, statusSelected.value)

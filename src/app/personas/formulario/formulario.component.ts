@@ -44,9 +44,6 @@ export class FormularioComponent implements OnInit, OnDestroy {
     }
   );
 
-  // Convenience getter for easy access to form fields.
-  get form() { return this.personForm.controls; }
-
   /**
    * Formulario.
    */

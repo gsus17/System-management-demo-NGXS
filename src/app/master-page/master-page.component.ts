@@ -48,6 +48,9 @@ export class MasterPageComponent implements OnInit, OnDestroy, AfterContentInit 
     this.languageList = this.appI18nService.getLanguages();
   }
 
+  /**
+   * Habilita el detector de responsive.
+   */
   public ngAfterContentInit() {
     console.log(`${MasterPageComponent.name}::ngAfterContentInit`);
     this.openedSideBar = false;
@@ -70,7 +73,7 @@ export class MasterPageComponent implements OnInit, OnDestroy, AfterContentInit 
   /**
    * Desuscribe las referencias a los observables.
    */
-  ngOnDestroy() {
+  public ngOnDestroy() {
     console.log(`${MasterPageComponent.name}::ngOnDestroy`);
     this.viewportSmallSubscription.unsubscribe();
     this.viewportWebSubscription.unsubscribe();

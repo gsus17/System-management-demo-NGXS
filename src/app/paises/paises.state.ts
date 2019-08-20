@@ -20,9 +20,7 @@ export interface CountryStateModel {
 })
 export class CountryState {
 
-  constructor(private paisesApiService: PaisesApiService) {
-
-  }
+  constructor(private paisesApiService: PaisesApiService) {}
 
   @Action(GetCountries)
   getCountries({ getState, setState, dispatch }: StateContext<CountryStateModel>) {
@@ -39,7 +37,6 @@ export class CountryState {
         })
       );
   }
-
 
   @Action(CreateCountry)
   createCountry({ getState, setState, dispatch }: StateContext<CountryStateModel>, action: any) {

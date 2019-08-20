@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Persona } from 'src/api/entities/persona.entity';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
@@ -18,10 +18,9 @@ import { AccountStatusSelect } from './interfaces/account-status-select';
   templateUrl: './listado.component.html',
   styleUrls: ['./listado.component.scss']
 })
-export class ListadoComponent implements OnInit {
+export class ListadoComponent implements OnInit, OnDestroy {
 
   public statusSelected: AccountStatusSelect;
-
   public statusList: StatusItem[] = [
     {
       keyTranslate: 'PERSON_LIST.STATUS_OPTION_ALL',
@@ -40,7 +39,7 @@ export class ListadoComponent implements OnInit {
       value: AccountStatus.suspended
     }
   ];
-
+  private subscriptionReference: Subscription = null;
   @Select(state => state.persons.personList) persons$: Observable<Persona[]>;
   @Select(state => state.persons.paginator) paginator$: Observable<Paginator>;
   @Select(state => state.persons.statusSelected) statusSelected$: Observable<AccountStatusSelect>;
@@ -52,13 +51,23 @@ export class ListadoComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog) { }
 
-  ngOnInit() {
+  /**
+   * Inicializacion del componente.
+   */
+  public ngOnInit() {
     this.matPaginatorIntl.itemsPerPageLabel = 'Resultados por pagina.';
     this.getPersons();
-    this.statusSelected$
+    this.subscriptionReference = this.statusSelected$
       .subscribe((resp) => {
         this.statusSelected = resp;
       });
+  }
+
+  /**
+   * Elimina la referencia a la subscripcion.
+   */
+  public ngOnDestroy() {
+    this.subscriptionReference.unsubscribe();
   }
 
   /**
