@@ -61,13 +61,20 @@ export class MasterPageComponent implements OnInit, OnDestroy, AfterContentInit 
    * Renderiza/Oculta el subheader.
    */
   public onElementScroll($event) {
-    if (this.router.isActive('/master-page/personas/formulario', false)) {
+    if (this.isPersonFormView()) {
       if ($event.target.scrollTop > 31) {
         this.showDynamicSubHeader = true;
       } else if ($event.target.scrollTop === 0) {
         this.showDynamicSubHeader = false;
       }
     }
+  }
+
+  /**
+   * Evalua si la vista actual es el formulario de persona.
+   */
+  public isPersonFormView(): boolean {
+    return this.router.isActive('/master-page/personas/formulario', false);
   }
 
   /**

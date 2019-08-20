@@ -9,7 +9,7 @@
         <mat-icon>menu</mat-icon>
       </button>
 
-      <div *ngIf="showDynamicSubHeader && masterPageSubHeader$ | async as mp"
+      <div *ngIf="isPersonFormView() && showDynamicSubHeader && masterPageSubHeader$ | async as mp"
            class="sub-header"
            [@panelInOut]>{{mp | translate}}</div>
 
