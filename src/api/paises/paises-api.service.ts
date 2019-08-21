@@ -48,7 +48,6 @@ export class PaisesApiService {
    */
   public deleteById(id: number): Promise<void> {
     console.log(`${PaisesApiService.name}::deleteById`);
-    // return this.db.database.ref(`/paises/${id}`).remove();
     return this.db.doc(`paises/${id}`)
       .delete();
   }

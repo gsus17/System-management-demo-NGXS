@@ -1,10 +1,10 @@
-# About SystemManagementDemo
+# About SystemManagementDemo NGXS
 System Management Demo is a proyect to management new users and countries, applying all standars.
 
 # Applied Standards
 * Mobile, tablet and Web responsive.
 * Code standar.
-* NgRx implementation.
+* Ngxs implementation.
 * Observables implementation.
 * I18n.
 * Angular Material components.
@@ -16,7 +16,7 @@ System Management Demo is a proyect to management new users and countries, apply
 * Angular v8
 * Angular Material v8
 * Firebase Database (Firestore)
-* Ngrx
+* Ngxs
 
 # Demo
 * https://system-management-demo.firebaseapp.com/
