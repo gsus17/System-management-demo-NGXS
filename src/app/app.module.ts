@@ -21,6 +21,7 @@ import { AppI18nService } from './app-i18n.service';
 import { PersonasState } from './personas/personas.state';
 import { PersonasFormState } from './personas/formulario/formulario.state';
 import { CountryState } from './paises/paises.state';
+import { MasterPageState } from './master-page/master-page.state';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -59,7 +60,7 @@ const firebaseConfig = {
         deps: [HttpClient]
       }
     }),
-    NgxsModule.forRoot([PersonasState, PersonasFormState, CountryState]),
+    NgxsModule.forRoot([MasterPageState, PersonasState, PersonasFormState, CountryState]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
   ],

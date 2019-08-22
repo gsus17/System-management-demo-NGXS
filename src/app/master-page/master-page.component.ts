@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, AfterContentInit, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, AfterContentInit, NgZone, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subscription, Observable } from 'rxjs';
@@ -11,6 +11,7 @@ import { Select } from '@ngxs/store';
   selector: 'app-master-page',
   templateUrl: './master-page.component.html',
   styleUrls: ['./master-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush, /** Fix error Expression has changed after it was checked. Previous value: */
   animations: [
     trigger('panelInOut', [
       transition('void => *', [
@@ -32,6 +33,7 @@ export class MasterPageComponent implements OnInit, OnDestroy, AfterContentInit 
   public languageList: string[] = [];
 
   @Select(state => state.personsForm.masterPageSubHeader) masterPageSubHeader$: Observable<string>;
+  @Select(state => state.masterpage.showProgressLinear) showProgressLinear$: Observable<string>;
 
   constructor(
     private router: Router,

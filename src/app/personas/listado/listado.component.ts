@@ -6,7 +6,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { DialogDeleteComponent } from 'src/app/dialog-delete/dialog-delete.component';
-import { AccountStatus } from 'src/api/entities/account-status.entity';
 import { Store, Select } from '@ngxs/store';
 import { GetPersonas, DeletePersona, SetPaginator, SetAccountStatusSelected } from '../personas.actions';
 import { StatusItem } from './interfaces/status-item';
@@ -21,28 +20,12 @@ import { AccountStatusSelect } from './interfaces/account-status-select';
 export class ListadoComponent implements OnInit, OnDestroy {
 
   public statusSelected: AccountStatusSelect;
-  public statusList: StatusItem[] = [
-    {
-      keyTranslate: 'PERSON_LIST.STATUS_OPTION_ALL',
-      value: null
-    },
-    {
-      keyTranslate: 'PERSON_LIST.STATUS_OPTION_ACTIVE',
-      value: AccountStatus.active
-    },
-    {
-      keyTranslate: 'PERSON_LIST.STATUS_OPTION_INACTIVE',
-      value: AccountStatus.inactive
-    },
-    {
-      keyTranslate: 'PERSON_LIST.STATUS_OPTION_SUSPENDED',
-      value: AccountStatus.suspended
-    }
-  ];
+
   private subscriptionReference: Subscription = null;
   @Select(state => state.persons.personList) persons$: Observable<Persona[]>;
   @Select(state => state.persons.paginator) paginator$: Observable<Paginator>;
   @Select(state => state.persons.statusSelected) statusSelected$: Observable<AccountStatusSelect>;
+  @Select(state => state.persons.statusList) statusList$: Observable<StatusItem[]>;
 
   constructor(
     private store: Store,

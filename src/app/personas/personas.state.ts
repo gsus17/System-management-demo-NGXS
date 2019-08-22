@@ -1,8 +1,8 @@
-import { State, Action, StateContext } from '@ngxs/store';
+import { State, Action, StateContext, Selector, Store } from '@ngxs/store';
 import { Persona } from 'src/api/entities/persona.entity';
 import { PersonasApiService } from 'src/api/personas/personas-api.service';
 import { Paginator } from './listado/interfaces/paginator';
-import { tap } from 'rxjs/operators';
+import { tap, mergeMap } from 'rxjs/operators';
 import { AccountStatusSelect } from './listado/interfaces/account-status-select';
 import {
   GetPersonas,
@@ -12,11 +12,15 @@ import {
   CreatePersona,
   UpdatePersona
 } from './personas.actions';
+import { ChangeProgressLinearState } from '../master-page/master-page.actions';
+import { StatusItem } from './listado/interfaces/status-item';
+import { AccountStatus } from 'src/api/entities/account-status.entity';
 
 export interface PersonStateModel {
   personList: Persona[];
   paginator: Paginator;
   statusSelected: AccountStatusSelect;
+  statusList: StatusItem[];
 }
 
 @State<PersonStateModel>({
@@ -30,6 +34,24 @@ export interface PersonStateModel {
       previousPageIndex: 0,
       pageSizeOptions: [5, 10, 15, 20, 25]
     },
+    statusList: [
+      {
+        keyTranslate: 'PERSON_LIST.STATUS_OPTION_ALL',
+        value: null
+      },
+      {
+        keyTranslate: 'PERSON_LIST.STATUS_OPTION_ACTIVE',
+        value: AccountStatus.active
+      },
+      {
+        keyTranslate: 'PERSON_LIST.STATUS_OPTION_INACTIVE',
+        value: AccountStatus.inactive
+      },
+      {
+        keyTranslate: 'PERSON_LIST.STATUS_OPTION_SUSPENDED',
+        value: AccountStatus.suspended
+      }
+    ],
     statusSelected: {
       keyTranslate: 'PERSON_LIST.STATUS_OPTION_ALL',
       value: null
@@ -41,22 +63,25 @@ export class PersonasState {
   constructor(private personasApiService: PersonasApiService) { }
 
   @Action(GetPersonas)
-  getPersonas({ getState, setState }: StateContext<PersonStateModel>) {
+  getPersonas({ getState, setState, dispatch }: StateContext<PersonStateModel>) {
     const state = getState();
     const { paginator, statusSelected } = getState();
-    return this.personasApiService.getPersonas$(paginator.pageIndex, paginator.pageSize, statusSelected.value)
+    dispatch(new ChangeProgressLinearState(true)); // Show progress linear.
+    return this.personasApiService
+      .getPersonas$(paginator.pageIndex, paginator.pageSize, statusSelected.value)
       .pipe(
         tap((response) => {
           setState({
             ...state,
             personList: response
           });
-        })
-      );
+        }),
+        mergeMap(() => dispatch(new ChangeProgressLinearState(false)))); // Hide progress linear.
   }
 
   @Action(CreatePersona)
-  createPersona({ getState }: StateContext<PersonStateModel>, action) {
+  createPersona({ dispatch }: StateContext<PersonStateModel>, action) {
+    dispatch(new ChangeProgressLinearState(true)); // Show progress linear.
     const formulario = action.form;
     const person: Persona = {
       id: Math.floor(Math.random() * (100 - 0 + 1)) + 0,
@@ -79,16 +104,24 @@ export class PersonasState {
       sexo: formulario.gender
     };
 
-    return this.personasApiService.post(person);
+    return this.personasApiService.post(person)
+      .finally(() => {
+        dispatch(new ChangeProgressLinearState(false)); // Hide progress linear.
+      });
   }
 
   @Action(DeletePersona)
-  deletePersona({ getState, }: StateContext<PersonStateModel>, action) {
-    return this.personasApiService.deleteById(action.personId);
+  deletePersona({ dispatch }: StateContext<PersonStateModel>, action) {
+    dispatch(new ChangeProgressLinearState(true)); // Show progress linear.
+    return this.personasApiService.deleteById(action.personId)
+      .finally(() => {
+        dispatch(new ChangeProgressLinearState(false)); // Hide progress linear.
+      });
   }
 
   @Action(UpdatePersona)
-  updatePersona({ getState, }: StateContext<PersonStateModel>, action) {
+  updatePersona({ dispatch }: StateContext<PersonStateModel>, action) {
+    dispatch(new ChangeProgressLinearState(true)); // Show progress linear.
     const form = action.form;
     const person: Persona = {
       id: form.id,
@@ -111,7 +144,10 @@ export class PersonasState {
       sexo: form.gender
     };
 
-    return this.personasApiService.put(person);
+    return this.personasApiService.put(person)
+      .finally(() => {
+        dispatch(new ChangeProgressLinearState(false)); // Hide progress linear.
+      });
   }
 
   @Action(SetPaginator)

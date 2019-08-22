@@ -12,7 +12,7 @@
         <mat-label>{{'PERSON_LIST.STATUS_OPTION_LABEL' | translate}}</mat-label>
         <mat-select [(ngModel)]="statusSelected.value"
                     (selectionChange)="filter()">
-          <mat-option *ngFor="let status of statusList"
+          <mat-option *ngFor="let status of statusList$ | async"
                       [value]="status.value">
             {{status.keyTranslate | translate}}
           </mat-option>
