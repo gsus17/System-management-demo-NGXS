@@ -19,7 +19,7 @@ System Management Demo is a proyect to management new users and countries, apply
 * Ngxs
 
 # Demo
-* https://system-management-demo.firebaseapp.com/
+* https://ngxs-system-management-demo.firebaseapp.com
 
 # Quickstart
 Run `npm install` 
