@@ -1,5 +1,5 @@
 <div fxFlex
-     *ngIf="(viewdata$ | async)?.countries.length > 0"
+     *ngIf="(viewdata$ | async)?.countries.length > 0 && formulario !== undefined"
      fxLayout="column"
      fxLayoutAlign="center center">
 
@@ -219,8 +219,8 @@
                              fxFlex.sm="100">
                           <mat-form-field fxFlex>
                             <mat-select placeholder="{{'PERSON_FORM.DATE_FORMAT_PLACEHOLDER' | translate}}"
-                                        name="dateFormat"
-                                        formControlName="dateFormat"
+                                        name="dateFormats"
+                                        formControlName="dateFormats"
                                         [(ngModel)]="formulario.regionalData.dateFormat">
                               <mat-option *ngFor="let dateFormats of (viewdata$ | async)?.dateFormats "
                                           [value]="dateFormats">
@@ -236,9 +236,9 @@
                              fxFlex.sm="100">
                           <mat-form-field fxFlex>
                             <mat-select placeholder="{{'PERSON_FORM.HOUR_FORMAT_PLACEHOLDER' | translate}}"
-                                        name="timeFormat"
-                                        formControlName="timeFormat"
-                                        [(ngModel)]="formulario.regionalData.timeFormat">
+                                        name="timeFormats"
+                                        formControlName="timeFormats"
+                                        [(ngModel)]="formulario.regionalData.timeFormats">
                               <mat-option *ngFor="let timeFormats of (viewdata$ | async)?.timeFormats "
                                           [value]="timeFormats">
                                 {{timeFormats}}
@@ -255,9 +255,9 @@
                          fxFlex>
                       <mat-form-field fxFlex>
                         <mat-select placeholder="{{'PERSON_FORM.ZONE_PLACEHOLDER' | translate}}"
-                                    name="timeZone"
-                                    formControlName="timeZone"
-                                    [(ngModel)]="formulario.regionalData.timeZone">
+                                    name="timeZones"
+                                    formControlName="timeZones"
+                                    [(ngModel)]="formulario.regionalData.timeZones">
                           <mat-option *ngFor="let timeZones of (viewdata$ | async)?.timeZones "
                                       [value]="timeZones.timeZoneId">
                             {{timeZones.timeZoneName}}
@@ -292,9 +292,9 @@
                          fxFlex.sm="100">
                       <mat-form-field fxFlex>
                         <mat-select placeholder="{{'PERSON_FORM.LANGUAGE_PLACEHOLDER' | translate}}"
-                                    name="languageCode"
-                                    formControlName="languageCode"
-                                    [(ngModel)]="formulario.regionalData.languageCode">
+                                    name="languageCodes"
+                                    formControlName="languageCodes"
+                                    [(ngModel)]="formulario.regionalData.languageCodes">
                           <mat-option *ngFor="let languageCodes of (viewdata$ | async)?.languageCodes "
                                       [value]="languageCodes">
                             {{languageCodes}}

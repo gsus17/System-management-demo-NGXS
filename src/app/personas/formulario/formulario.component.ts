@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { PersonasServiceSingleton } from '../personas.service';
 import { PersonasFormularioViewData } from './formulario.viewdata';
 import { Form } from './interfaces/formulario';
@@ -35,10 +35,10 @@ export class FormularioComponent implements OnInit, OnDestroy {
       'birthdate': new FormControl('', [Validators.required]),
       'gender': new FormControl('', [Validators.required]),
       'status': new FormControl('', [Validators.required]),
-      'dateFormat': new FormControl('', [Validators.required]),
-      'timeFormat': new FormControl('', [Validators.required]),
-      'timeZone': new FormControl('', [Validators.required]),
-      'languageCode': new FormControl('', [Validators.required]),
+      'dateFormats': new FormControl('', [Validators.required]),
+      'timeFormats': new FormControl('', [Validators.required]),
+      'timeZones': new FormControl('', [Validators.required]),
+      'languageCodes': new FormControl('', [Validators.required]),
       'nacionalidad': new FormControl('', [Validators.required]),
       'obs': new FormControl('', [Validators.required])
     }
@@ -223,7 +223,28 @@ export class FormularioComponent implements OnInit, OnDestroy {
    * Inicializa el modelo.
    */
   private initDefaultForm() {
-    const subscription: Subscription = this.formulario$.subscribe((response) => this.formulario = response);
+    const subscription: Subscription = this.formulario$.subscribe((response) => {
+
+      this.personForm.setValue({
+        name: response.name,
+        email: response.email,
+        ahorro: response.ahorro,
+        ahorroPercentage: response,
+        enableNotify: response.enableNotify,
+        address: response.address,
+        birthdate: response.birthdate,
+        gender: response.gender,
+        status: response.status,
+        dateFormats: response.regionalData.dateFormat,
+        timeFormats: response.regionalData.timeFormat,
+        timeZones: response.regionalData.timeZone,
+        languageCodes: response.regionalData.languageCode,
+        nacionalidad: response.nacionalidad,
+        obs: response.obs,
+      });
+
+      this.formulario = response;
+    });
     this.subscriptionReferences.push(subscription);
   }
 }

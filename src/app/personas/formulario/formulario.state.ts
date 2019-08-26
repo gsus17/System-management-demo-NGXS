@@ -111,7 +111,7 @@ export class PersonasFormState {
                 timeFormat: '',
                 timeZone: null
               }
-            }
+            },
           });
           if (action.id !== 0) {
             dispatch(new BuildFormulario(action.editMode, action.id));
