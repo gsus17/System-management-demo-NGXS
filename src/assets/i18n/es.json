@@ -88,8 +88,8 @@
     "FORM_TITLE": "Paises",
     "FORM_NAME_LABEL": "Nombre",
     "FORM_IATA_LABEL": "Iata",
-    "FORM_NAME_VALIDATION": " Debe ingresar el nombre del pais.",
-    "FORM_IATA_VALIDATION": "Debe ingresar el codigo iata.",
+    "NAME_VALIDATION": " Debe ingresar el nombre del pais.",
+    "IATA_VALIDATION": "Debe ingresar el codigo iata.",
     "DELETE_DIALOG_MESSAGE": "¿Esta seguro que desea eliminar este pais?"
   }
 }
