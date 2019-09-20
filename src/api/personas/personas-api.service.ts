@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Persona } from '../entities/persona.entity';
 import { Observable } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AccountStatus } from '../entities/account-status.entity';
 import { map } from 'rxjs/operators';
 import { Form } from 'src/app/personas/formulario/interfaces/formulario';
@@ -21,7 +21,7 @@ export class PersonasApiService {
   public getPersonas$(pageIndex: number = 1, pageSize: number = 1, accountStatus: AccountStatus = null): Observable<Persona[]> {
     console.log(`${PersonasApiService.name}::getPersona`);
 
-    const personList: any = this.db.collection('/personas', ref => {
+    const personList: AngularFirestoreCollection<Persona> = this.db.collection('/personas', ref => {
       let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref.limit(pageSize);
       if (accountStatus !== null) { query = query.where('estado', '==', accountStatus); }
       return query;
@@ -33,10 +33,10 @@ export class PersonasApiService {
   /**
    * Obtiene una lista de personas.
    */
-  public getPersonForm$(id: number, editMode: boolean): Observable<Persona[]> {
+  public getPersonForm$(id: number, editMode: boolean): Observable<Form> {
     console.log(`${PersonasApiService.name}::getPersona`);
 
-    const personList: any = this.db.collection('/personas', ref => ref.where('id', '==', id));
+    const personList: AngularFirestoreCollection<Persona> = this.db.collection('/personas', ref => ref.where('id', '==', id));
 
     return personList.valueChanges()
       .pipe(
@@ -65,16 +65,6 @@ export class PersonasApiService {
 
           return form;
         }));
-  }
-
-  /**
-   * Obtiene una persona segun su id.
-   */
-  public getById$(id: string): Observable<Persona> {
-    console.log(`${PersonasApiService.name}::getById`);
-
-    const personList = this.db.collection(`/personas/${id}`);
-    return <any>personList.valueChanges();
   }
 
   /**

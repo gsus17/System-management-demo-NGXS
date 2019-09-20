@@ -4,23 +4,24 @@
  * @enum {number}
  */
 export enum AccountStatus {
+
   /**
    * Estado Activa.
    */
-  active = <any>'Active',
+  active = 'Active',
 
   /**
    * Estado Inactiva.
    */
-  inactive = <any>'Inactive',
+  inactive = 'Inactive',
 
   /**
    * Estado Suspendida.
    */
-  suspended = <any>'Suspended',
+  suspended = 'Suspended',
 
   /**
    * Estado Eliminada (lógico).
    */
-  deleted = <any>'Deleted'
+  deleted = 'Deleted'
 }

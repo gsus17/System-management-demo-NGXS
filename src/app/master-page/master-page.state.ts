@@ -1,5 +1,5 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
-import { ChangeProgressLinearState } from './master-page.actions';
+import { EnabledProgressLinearAction, DisabledProgressLinearAction } from './master-page.actions';
 
 export interface MasterPageStateModel {
   showProgressLinear: boolean;
@@ -14,10 +14,17 @@ export interface MasterPageStateModel {
 export class MasterPageState {
   constructor() { }
 
-  @Action(ChangeProgressLinearState)
-  changeProgressLinearState({ setState }: StateContext<MasterPageStateModel>, payload: any) {
+  @Action(EnabledProgressLinearAction)
+  enabledProgressLinearAction({ setState }: StateContext<MasterPageStateModel>, payload: any) {
     setState({
-      showProgressLinear: payload.value
+      showProgressLinear: true
+    });
+  }
+
+  @Action(DisabledProgressLinearAction)
+  disabledProgressLinearAction({ setState }: StateContext<MasterPageStateModel>, payload: any) {
+    setState({
+      showProgressLinear: false
     });
   }
 }

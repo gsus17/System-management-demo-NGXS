@@ -12,9 +12,9 @@ import {
   CreatePersona,
   UpdatePersona
 } from './personas.actions';
-import { ChangeProgressLinearState } from '../master-page/master-page.actions';
 import { StatusItem } from './listado/interfaces/status-item';
 import { AccountStatus } from 'src/api/entities/account-status.entity';
+import { EnabledProgressLinearAction, DisabledProgressLinearAction } from '../master-page/master-page.actions';
 
 export interface PersonStateModel {
   personList: Persona[];
@@ -66,7 +66,7 @@ export class PersonasState {
   getPersonas({ getState, setState, dispatch }: StateContext<PersonStateModel>) {
     const state = getState();
     const { paginator, statusSelected } = getState();
-    dispatch(new ChangeProgressLinearState(true)); // Show progress linear.
+    dispatch(new EnabledProgressLinearAction()); // Show progress linear.
     return this.personasApiService
       .getPersonas$(paginator.pageIndex, paginator.pageSize, statusSelected.value)
       .pipe(
@@ -76,12 +76,12 @@ export class PersonasState {
             personList: response
           });
         }),
-        mergeMap(() => dispatch(new ChangeProgressLinearState(false)))); // Hide progress linear.
+        mergeMap(() => dispatch(new DisabledProgressLinearAction()))); // Hide progress linear.
   }
 
   @Action(CreatePersona)
   createPersona({ dispatch }: StateContext<PersonStateModel>, action) {
-    dispatch(new ChangeProgressLinearState(true)); // Show progress linear.
+    dispatch(new EnabledProgressLinearAction()); // Show progress linear.
     const formulario = action.form;
     const person: Persona = {
       id: Math.floor(Math.random() * (100 - 0 + 1)) + 0,
@@ -106,22 +106,22 @@ export class PersonasState {
 
     return this.personasApiService.post(person)
       .finally(() => {
-        dispatch(new ChangeProgressLinearState(false)); // Hide progress linear.
+        dispatch(new DisabledProgressLinearAction()); // Hide progress linear.
       });
   }
 
   @Action(DeletePersona)
   deletePersona({ dispatch }: StateContext<PersonStateModel>, action) {
-    dispatch(new ChangeProgressLinearState(true)); // Show progress linear.
+    dispatch(new EnabledProgressLinearAction()); // Show progress linear.
     return this.personasApiService.deleteById(action.personId)
       .finally(() => {
-        dispatch(new ChangeProgressLinearState(false)); // Hide progress linear.
+        dispatch(new DisabledProgressLinearAction()); // Hide progress linear.
       });
   }
 
   @Action(UpdatePersona)
   updatePersona({ dispatch }: StateContext<PersonStateModel>, action) {
-    dispatch(new ChangeProgressLinearState(true)); // Show progress linear.
+    dispatch(new EnabledProgressLinearAction()); // Show progress linear.
     const form = action.form;
     const person: Persona = {
       id: form.id,
@@ -146,7 +146,7 @@ export class PersonasState {
 
     return this.personasApiService.put(person)
       .finally(() => {
-        dispatch(new ChangeProgressLinearState(false)); // Hide progress linear.
+        dispatch(new DisabledProgressLinearAction()); // Hide progress linear.
       });
   }
 

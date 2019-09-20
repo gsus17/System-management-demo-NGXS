@@ -44,24 +44,24 @@
           fxLayout="column">
       <mat-form-field>
         <mat-label i18n>{{'LOGIN.FORM_USER' | translate}}</mat-label>
-        <input matInput
-               name="user"
+        <input #user
+               matInput
                formControlName="user"
-               [(ngModel)]="credentials.user"
                type="text"
-               placeholder="{{'LOGIN.FORM_USER' | translate}}">
-        <mat-error *ngIf="form.user.invalid"
+               placeholder="{{'LOGIN.FORM_USER' | translate}}"
+               required>
+        <mat-error *ngIf="!user.valid"
                    i18n>{{'LOGIN.FORM_USER_ERROR' | translate}}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
-        <input matInput
-               name="password"
+        <input #password
+               matInput
                type="password"
                formControlName="password"
-               [(ngModel)]="credentials.password"
-               placeholder="{{'LOGIN.FORM_PASSWORD' | translate}}">
-        <mat-error *ngIf="form.password.invalid"
+               placeholder="{{'LOGIN.FORM_PASSWORD' | translate}}"
+               required>
+        <mat-error *ngIf="!password.valid"
                    i18n>{{'LOGIN.FORM_PASSWORD_ERROR' | translate}}</mat-error>
       </mat-form-field>
 
@@ -72,10 +72,11 @@
              fxLayout.xs="column"
              fxFlex
              fxLayoutAlign="space-between center">
-          <mat-checkbox class="fxMargin" i18n>{{'LOGIN.FORM_KEEP_SESSION' | translate}}</mat-checkbox>
+          <mat-checkbox class="fxMargin"
+                        i18n>{{'LOGIN.FORM_KEEP_SESSION' | translate}}</mat-checkbox>
           <button mat-raised-button
                   (click)="login()"
-                  [disabled]="authForm.invalid"
+                  [disabled]="!authForm.valid"
                   color="primary"
                   i18n>{{'LOGIN.FORM_BUTTON' | translate}}</button>
         </div>

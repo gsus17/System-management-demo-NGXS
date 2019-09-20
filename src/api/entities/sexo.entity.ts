@@ -1,5 +1,3 @@
-// tslint:disable:no-any Se deshabilita ya que es necesario para los enums.
-
 /**
  * Tipo de sexo.
  * @export
@@ -7,11 +5,11 @@
 export enum Sexo {
 
   /** Sexo masculino. */
-  masculino = <any>'M',
+  masculino = 'M',
 
   /** Sexo femenino. */
-  femenino = <any>'F',
+  femenino = 'F',
 
   /** Sin especificar. */
-  sinEspecificar = <any>'O'
+  sinEspecificar = 'O'
 }

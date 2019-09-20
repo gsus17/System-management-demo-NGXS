@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "system-management-demo"
+  },
+  "targets": {
+    "system-management-demo": {
+      "hosting": {
+        "ngxs": [
+          "ngxs-system-management-demo"
+        ],
+        "ngrx": [
+          "ngrx-system-management-demo"
+        ]
+      }
+    }
   }
 }

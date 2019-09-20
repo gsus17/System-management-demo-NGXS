@@ -18,8 +18,8 @@ export class PaisesApiService {
     console.log(`${PaisesApiService.name}::getPaises`);
     return this.db.collection('/paises').valueChanges()
       .pipe(
-        map((items) => {
-          const countries: Pais[] = <any>items;
+        map((items: Pais[]) => {
+          const countries: Pais[] = items;
           return countries;
         })
       );
