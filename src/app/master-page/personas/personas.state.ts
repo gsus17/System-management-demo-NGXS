@@ -14,7 +14,7 @@ import {
 } from './personas.actions';
 import { StatusItem } from './listado/interfaces/status-item';
 import { AccountStatus } from 'src/api/entities/account-status.entity';
-import { EnabledProgressLinearAction, DisabledProgressLinearAction } from '../master-page/master-page.actions';
+import { EnabledProgressLinearAction, DisabledProgressLinearAction } from '../master-page.actions';
 
 export interface PersonStateModel {
   personList: Persona[];

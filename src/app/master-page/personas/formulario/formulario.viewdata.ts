@@ -1,8 +1,8 @@
 'use strict';
 
-import { Sexo } from '../../../api/entities/sexo.entity';
-import { AccountStatus } from '../../../api/entities/account-status.entity';
-import { TimeZone } from '../../../api/entities/time-zone.entity';
+import { Sexo } from '../../../../api/entities/sexo.entity';
+import { AccountStatus } from '../../../../api/entities/account-status.entity';
+import { TimeZone } from '../../../../api/entities/time-zone.entity';
 import { Pais } from 'src/api/entities/pais.entity';
 
 /**

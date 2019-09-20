@@ -5,7 +5,17 @@ import { MasterPageComponent } from './master-page.component';
 const routes: Routes = [
   {
     path: '',
-    component: MasterPageComponent
+    component: MasterPageComponent,
+    children: [
+      {
+        path: 'personas',
+        loadChildren: () => import('./personas/personas.module').then(m => m.PersonasModule)
+      },
+      {
+        path: 'paises',
+        loadChildren: () => import('./paises/paises.module').then(m => m.PaisesModule),
+      }
+    ]
   }
 ];
 

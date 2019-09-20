@@ -19,7 +19,7 @@ import { LoadInitData } from './formulario.actions';
   templateUrl: './formulario.component.html',
   styleUrls: ['./formulario.component.scss']
 })
-export class FormularioComponent implements OnInit, OnDestroy {
+export class PersonasFormularioComponent implements OnInit, OnDestroy {
 
   /**
    * Validation Form control.
@@ -100,7 +100,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
    * Filtra la accion ejecutada.
    */
   public action() {
-    console.log(`${FormularioComponent.name}::action`);
+    console.log(`${PersonasFormularioComponent.name}::action`);
 
     if (this.formulario.editMode) {
       this.updatePerson();
@@ -113,7 +113,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
    * Actualiza una persona.
    */
   public updatePerson() {
-    console.log(`${FormularioComponent.name}::update %o`, this.formulario);
+    console.log(`${PersonasFormularioComponent.name}::update %o`, this.formulario);
     this.store.dispatch(new UpdatePersona(this.formulario))
       .toPromise()
       .then(() => {
@@ -129,7 +129,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
    * Agraga una nueva persona.
    */
   public addPerson() {
-    console.log(`${FormularioComponent.name}::update %o`, this.formulario);
+    console.log(`${PersonasFormularioComponent.name}::update %o`, this.formulario);
     this.store.dispatch(new CreatePersona(this.formulario))
       .toPromise()
       .then(() => {
@@ -161,7 +161,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
    * Abre formulario para agregar un nuevo bien.
    */
   public openPropertiesDialog(): void {
-    console.log(`${FormularioComponent.name}::openPropertiesDialog`);
+    console.log(`${PersonasFormularioComponent.name}::openPropertiesDialog`);
 
     const dialogRef = this.dialog.open(BienComponent, { width: '500px', data: { bienForm: this.bienForm } });
     dialogRef.afterClosed()
@@ -182,7 +182,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
    * Redirecciona a la vista de listado de personas.
    */
   public goToPersonList() {
-    console.log(`${FormularioComponent.name}::goToPersonList`);
+    console.log(`${PersonasFormularioComponent.name}::goToPersonList`);
     this.router.navigate([`/master-page/personas/listado`]);
   }
 
@@ -190,7 +190,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
    * Elimina el item correspondiente.
    */
   public deleteProperty($index: number) {
-    console.log(`${FormularioComponent.name}::deleteProperty`);
+    console.log(`${PersonasFormularioComponent.name}::deleteProperty`);
     this.formulario.bienes.splice($index, 1);
     this.openSnackBar('Se ha eliminado correctamente.');
   }
@@ -212,7 +212,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
    * Construye el viewdata.
    */
   private loadInitData() {
-    console.log(`${FormularioComponent.name}::buildViewData`);
+    console.log(`${PersonasFormularioComponent.name}::buildViewData`);
 
     const id = +this.route.snapshot.paramMap.get('id');
     const editMode: boolean = id ? true : false;

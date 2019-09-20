@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { FormularioCountryComponent } from '../formulario/formulario.component';
+import { CountryFormularioComponent } from '../formulario/formulario.component';
 import { Pais } from 'src/api/entities/pais.entity';
 import { CountryForm } from '../formulario/formulario.entity';
 import { Observable, Subscription } from 'rxjs';
@@ -21,7 +21,7 @@ const COLUMNS: Columns[] = [];
   templateUrl: './listado.component.html',
   styleUrls: ['./listado.component.scss']
 })
-export class ListadoComponent implements OnInit, OnDestroy {
+export class CountryListadoComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -100,7 +100,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
    * Agrega un pais.
    */
   public addCountry() {
-    const methodName: string = `${ListadoComponent.name}::addCountry`;
+    const methodName: string = `${CountryListadoComponent.name}::addCountry`;
     console.log(`${methodName}`);
 
     this.openDialog()
@@ -128,7 +128,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
    * Edita el pais.
    */
   public editCountry(name: string, iata: string, id: string) {
-    const methodName: string = `${ListadoComponent.name}::editCountry`;
+    const methodName: string = `${CountryListadoComponent.name}::editCountry`;
     console.log(`${methodName}`);
 
     this.openDialog(name, iata, id)
@@ -149,7 +149,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
    * Agrega un pais.
    */
   public deleteCountry(id: number) {
-    const methodName: string = `${ListadoComponent.name}::deleteCountry`;
+    const methodName: string = `${CountryListadoComponent.name}::deleteCountry`;
     console.log(`${methodName}`);
 
     this.openDeletePersonDialog()
@@ -178,7 +178,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
    * Abre formulario para agregar un nuevo bien.
    */
   public openDialog(name: string = '', iata: string = '', id: string = '0'): Promise<any> {
-    const methodName: string = `${ListadoComponent.name}::openDialog`;
+    const methodName: string = `${CountryListadoComponent.name}::openDialog`;
     console.log(`${methodName}`);
 
     const countryForm: CountryForm = name !== '' && iata !== '' ?
@@ -186,7 +186,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
       : { modify: false, ...this.countryForm };
 
     const dialogRef = this.dialog.open(
-      FormularioCountryComponent, {
+      CountryFormularioComponent, {
         width: '500px',
         data: countryForm
       });
@@ -229,7 +229,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
    * Open the dialog to delete a country.
    */
   private openDeletePersonDialog(): Promise<any> {
-    const methodName = `${ListadoComponent.name}::openImageNameDialog`;
+    const methodName = `${CountryListadoComponent.name}::openImageNameDialog`;
     console.log(`${methodName}`);
     const dialogRef = this.dialog.open(DialogDeleteComponent, {
       data: { message: 'COUNTRY.DELETE_DIALOG_MESSAGE', response: false }

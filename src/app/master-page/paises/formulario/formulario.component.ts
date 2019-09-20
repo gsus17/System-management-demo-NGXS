@@ -8,7 +8,7 @@ import { CountryForm } from './formulario.entity';
   templateUrl: './formulario.component.html',
   styleUrls: ['./formulario.component.scss']
 })
-export class FormularioCountryComponent {
+export class CountryFormularioComponent {
 
   /**
    * Validation Form control.
@@ -19,7 +19,7 @@ export class FormularioCountryComponent {
       'codigoIata': new FormControl('', [Validators.required])
     }
   );
-  constructor(public dialogRef: MatDialogRef<FormularioCountryComponent>,
+  constructor(public dialogRef: MatDialogRef<CountryFormularioComponent>,
     @Inject(MAT_DIALOG_DATA) public data: CountryForm) { }
 
   /**

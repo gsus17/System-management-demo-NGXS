@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AccountStatus } from '../entities/account-status.entity';
 import { map } from 'rxjs/operators';
-import { Form } from 'src/app/personas/formulario/interfaces/formulario';
+import { Form } from 'src/app/master-page/personas/formulario/interfaces/formulario';
 
 @Injectable({
   providedIn: 'root'

@@ -9,7 +9,6 @@ import { AppInterceptor } from './app-interceptor';
 import { AngularFireModule, } from '@angular/fire';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
-import { PersonasServiceSingleton } from './personas/personas.service';
 import { DialogDeleteComponent } from './dialog-delete/dialog-delete.component';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -18,16 +17,15 @@ import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { AppI18nService } from './app-i18n.service';
-import { PersonasState } from './personas/personas.state';
-import { PersonasFormState } from './personas/formulario/formulario.state';
-import { CountryState } from './paises/paises.state';
+import { PersonasState } from './master-page/personas/personas.state';
+import { PersonasFormState } from './master-page/personas/formulario/formulario.state';
+import { CountryState } from './master-page/paises/paises.state';
 import { MasterPageState } from './master-page/master-page.state';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
-
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -68,9 +66,6 @@ const firebaseConfig = {
     AppI18nService,
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },
     { provide: FirestoreSettingsToken, useValue: {} },
-
-    // Fix singleton service when we working with lazy loading.
-    PersonasServiceSingleton
   ],
   bootstrap: [AppComponent]
 })

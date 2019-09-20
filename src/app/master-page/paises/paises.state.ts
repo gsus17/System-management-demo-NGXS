@@ -5,7 +5,7 @@ import { GetCountries, CreateCountry, UpdateCountry, DeleteCountry, GetCountries
 import { PaisesApiService } from 'src/api/paises/paises-api.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Columns } from './listado/listado.component';
-import { EnabledProgressLinearAction, DisabledProgressLinearAction } from '../master-page/master-page.actions';
+import { EnabledProgressLinearAction, DisabledProgressLinearAction } from '../master-page.actions';
 
 export interface CountryStateModel {
   countries: Pais[];

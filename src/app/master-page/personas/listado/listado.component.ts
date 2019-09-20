@@ -17,7 +17,7 @@ import { AccountStatusSelect } from './interfaces/account-status-select';
   templateUrl: './listado.component.html',
   styleUrls: ['./listado.component.scss']
 })
-export class ListadoComponent implements OnInit, OnDestroy {
+export class PersonasListadoComponent implements OnInit, OnDestroy {
 
   public statusSelected: AccountStatusSelect;
 
@@ -57,7 +57,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
    * Obtiene el listado de personas.
    */
   public getPersons() {
-    console.log(`${ListadoComponent.name}::getPersons`);
+    console.log(`${PersonasListadoComponent.name}::getPersons`);
     this.store.dispatch(new GetPersonas());
   }
 
@@ -65,7 +65,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
    * Filter the local list.
    */
   public filter(): void {
-    console.log(`${ListadoComponent.name}::filter`);
+    console.log(`${PersonasListadoComponent.name}::filter`);
     this.store.dispatch(new SetAccountStatusSelected(this.statusSelected));
   }
 
@@ -73,7 +73,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
    * Actualiza el listado por el cambio del paginador.
    */
   public changePaginator(change: Paginator) {
-    console.log(`${ListadoComponent.name}::getPersons %o`, change);
+    console.log(`${PersonasListadoComponent.name}::getPersons %o`, change);
     this.store.dispatch(new SetPaginator({ pageIndex: change.pageIndex, pageSize: change.pageSize }));
   }
 
@@ -81,7 +81,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
    * Add a new person.
    */
   public addPerson() {
-    console.log(`${ListadoComponent.name}::addPerson`);
+    console.log(`${PersonasListadoComponent.name}::addPerson`);
     this.router.navigate(['/master-page/personas/add']);
   }
 
@@ -89,7 +89,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
    * Edit a concret person.
    */
   public editPerson(id: string) {
-    console.log(`${ListadoComponent.name}::editPerson`);
+    console.log(`${PersonasListadoComponent.name}::editPerson`);
     this.router.navigate([`/master-page/personas/formulario/${id}`]);
   }
 
@@ -97,7 +97,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
    * Open the dialog to delete a person.
    */
   private openDeletePersonDialog(): Promise<any> {
-    const methodName = `${ListadoComponent.name}::openImageNameDialog`;
+    const methodName = `${PersonasListadoComponent.name}::openImageNameDialog`;
     console.log(`${methodName}`);
     const dialogRef = this.dialog.open(DialogDeleteComponent, {
       data: { message: '¿Esta seguro que desea eliminar a esta persona?', response: false }
@@ -111,7 +111,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
    * Edit a concret person.
    */
   public deletePersona(id: number) {
-    console.log(`${ListadoComponent.name}::deletePersona`);
+    console.log(`${PersonasListadoComponent.name}::deletePersona`);
     this.openDeletePersonDialog()
       .then((result) => {
         if (result) {

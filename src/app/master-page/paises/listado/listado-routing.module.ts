@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ListadoComponent } from './listado.component';
+import { CountryListadoComponent } from './listado.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ListadoComponent
+    component: CountryListadoComponent
   }
 ];
 
