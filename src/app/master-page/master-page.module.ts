@@ -4,6 +4,8 @@ import { MasterPageRoutingModule } from './master-page-routing.module';
 import { MasterPageComponent } from './master-page.component';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { MasterPageState } from './master-page.state';
+import { NgxsModule } from '@ngxs/store';
 
 @NgModule({
   declarations: [MasterPageComponent],
@@ -11,7 +13,8 @@ import { TranslateModule } from '@ngx-translate/core';
     AngularMaterialModule,
     CommonModule,
     TranslateModule,
-    MasterPageRoutingModule
+    MasterPageRoutingModule,
+    NgxsModule.forFeature([MasterPageState]),
   ]
 })
 export class MasterPageModule { }

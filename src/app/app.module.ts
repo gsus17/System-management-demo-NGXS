@@ -58,7 +58,7 @@ const firebaseConfig = {
         deps: [HttpClient]
       }
     }),
-    NgxsModule.forRoot([MasterPageState, PersonasState, PersonasFormState, CountryState]),
+    NgxsModule.forRoot([]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
   ],

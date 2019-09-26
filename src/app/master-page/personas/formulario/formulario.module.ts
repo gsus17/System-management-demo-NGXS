@@ -9,6 +9,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BienComponent } from './bien/bien.component';
 import { PaisesModule } from 'src/app/master-page/paises/paises.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { PersonasFormState } from './formulario.state';
+import { NgxsModule } from '@ngxs/store';
 
 @NgModule({
   declarations: [PersonasFormularioComponent, BienComponent],
@@ -20,6 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
     AngularMaterialModule,
     PaisesModule,
     PersonasModule,
+    NgxsModule.forFeature([PersonasFormState]),
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' })
   ],
   exports: [PersonasFormularioComponent]

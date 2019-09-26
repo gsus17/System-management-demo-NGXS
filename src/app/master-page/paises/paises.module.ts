@@ -5,6 +5,8 @@ import { CountryFormularioComponent } from './formulario/formulario.component';
 import { AngularMaterialModule } from '../../angular-material/angular-material.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { PaisesRoutingModule } from './paises-routing.module';
+import { NgxsModule } from '@ngxs/store';
+import { CountryState } from './paises.state';
 
 @NgModule({
   declarations: [CountryFormularioComponent],
@@ -13,7 +15,8 @@ import { PaisesRoutingModule } from './paises-routing.module';
     TranslateModule,
     AngularMaterialModule,
     PaisesRoutingModule,
-    CommonModule
+    CommonModule,
+    NgxsModule.forFeature([CountryState]),
   ],
   exports: [CountryFormularioComponent],
   entryComponents: [CountryFormularioComponent],
