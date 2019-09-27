@@ -11,6 +11,7 @@ import { GetPersonas, DeletePersona, SetPaginator, SetAccountStatusSelected } fr
 import { StatusItem } from './interfaces/status-item';
 import { Paginator } from './interfaces/paginator';
 import { AccountStatusSelect } from './interfaces/account-status-select';
+import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
   selector: 'app-listado',
@@ -82,7 +83,7 @@ export class PersonasListadoComponent implements OnInit, OnDestroy {
    */
   public addPerson() {
     console.log(`${PersonasListadoComponent.name}::addPerson`);
-    this.router.navigate(['/master-page/personas/add']);
+    this.store.dispatch(new Navigate['/master-page/personas/add']);
   }
 
   /**
@@ -90,7 +91,7 @@ export class PersonasListadoComponent implements OnInit, OnDestroy {
    */
   public editPerson(id: string) {
     console.log(`${PersonasListadoComponent.name}::editPerson`);
-    this.router.navigate([`/master-page/personas/formulario/${id}`]);
+    this.store.dispatch(new Navigate([`master-page/personas/formulario/${id}`]));
   }
 
   /**

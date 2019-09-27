@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PersonasServiceSingleton } from '../personas.service';
 import { PersonasFormularioViewData } from './formulario.viewdata';
 import { Form } from './interfaces/formulario';
@@ -13,6 +13,7 @@ import { Pais } from 'src/api/entities/pais.entity';
 import { Store, Select } from '@ngxs/store';
 import { CreatePersona, UpdatePersona } from '../personas.actions';
 import { LoadInitData } from './formulario.actions';
+import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
   selector: 'app-formulario',
@@ -118,7 +119,7 @@ export class PersonasFormularioComponent implements OnInit, OnDestroy {
       .toPromise()
       .then(() => {
         this.openSnackBar('Se ha actualizado la persona correctamente.');
-        this.router.navigate(['master-page/personas/listado']);
+        this.store.dispatch(new Navigate(['/master-page/personas/listado']));
       })
       .catch(() => {
         this.openSnackBar('Ha ocurrido un error.');
@@ -134,7 +135,7 @@ export class PersonasFormularioComponent implements OnInit, OnDestroy {
       .toPromise()
       .then(() => {
         this.openSnackBar('Se ha creado la persona correctamente.');
-        this.router.navigate(['master-page/personas/listado']);
+        this.store.dispatch(new Navigate(['/master-page/personas/listado']));
       })
       .catch(() => {
         this.openSnackBar('Ha ocurrido un error.');
@@ -183,7 +184,7 @@ export class PersonasFormularioComponent implements OnInit, OnDestroy {
    */
   public goToPersonList() {
     console.log(`${PersonasFormularioComponent.name}::goToPersonList`);
-    this.router.navigate([`/master-page/personas/listado`]);
+    this.store.dispatch(new Navigate(['/master-page/personas/listado']));
   }
 
   /**

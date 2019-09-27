@@ -1,11 +1,12 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, AfterContentInit, NgZone, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterContentInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subscription, Observable } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { AppI18nService } from '../app-i18n.service';
 import { MatDrawer } from '@angular/material/sidenav';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
+import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
   selector: 'app-master-page',
@@ -37,6 +38,7 @@ export class MasterPageComponent implements OnInit, OnDestroy, AfterContentInit 
 
   constructor(
     private router: Router,
+    private store: Store,
     private breakpointObserver: BreakpointObserver,
     private appI18nService: AppI18nService) {
     console.log(`${MasterPageComponent.name}::ctor`);
@@ -101,7 +103,7 @@ export class MasterPageComponent implements OnInit, OnDestroy, AfterContentInit 
    */
   public logout() {
     console.log(`${MasterPageComponent.name}::logout`);
-    this.router.navigate(['login']);
+    this.store.dispatch(new Navigate(['login']));
   }
 
   /**
@@ -109,7 +111,7 @@ export class MasterPageComponent implements OnInit, OnDestroy, AfterContentInit 
    */
   public goToPersonList(drawer: MatDrawer) {
     console.log(`${MasterPageComponent.name}::goToPersonList`);
-    this.router.navigate(['master-page/personas/listado']);
+    this.store.dispatch(new Navigate(['master-page/personas/listado']));
     if (this.openedSideBarMode === 'over') {
       drawer.close();
     }
@@ -121,7 +123,7 @@ export class MasterPageComponent implements OnInit, OnDestroy, AfterContentInit 
   public goToCountryList(drawer: MatDrawer) {
     console.log(`${MasterPageComponent.name}::goToCountryList`);
 
-    this.router.navigate(['master-page/paises/listado']);
+    this.store.dispatch(new Navigate(['master-page/paises/listado']));
     if (this.openedSideBarMode === 'over') {
       drawer.close();
     }

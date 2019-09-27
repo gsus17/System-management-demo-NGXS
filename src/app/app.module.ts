@@ -14,13 +14,10 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgxsModule } from '@ngxs/store';
+import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { AppI18nService } from './app-i18n.service';
-import { PersonasState } from './master-page/personas/personas.state';
-import { PersonasFormState } from './master-page/personas/formulario/formulario.state';
-import { CountryState } from './master-page/paises/paises.state';
-import { MasterPageState } from './master-page/master-page.state';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -59,6 +56,7 @@ const firebaseConfig = {
       }
     }),
     NgxsModule.forRoot([]),
+    NgxsRouterPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
   ],

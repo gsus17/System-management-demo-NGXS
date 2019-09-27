@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { Credentials } from './interfaces/credentials';
+import { Navigate } from '@ngxs/router-plugin';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
    */
   public progressLinear: boolean = false;
 
-  constructor(private router: Router) { }
+  constructor(private store: Store) { }
 
   ngOnInit() {
   }
@@ -42,6 +42,6 @@ export class LoginComponent implements OnInit {
    * Redirect to main view.
    */
   public redirect() {
-    this.router.navigate(['master-page/personas/listado']);
+    this.store.dispatch(new Navigate(['master-page/personas/listado']));
   }
 }
