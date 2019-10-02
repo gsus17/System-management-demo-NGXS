@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PersonasApiModule } from 'src/api/personas/personas-api.module';
 import { PersonasRoutingModule } from './personas-routing.module';
 import { PersonasServiceSingleton } from './personas.service';
-import { PersonasState } from './personas.state';
+import { PersonasState } from './store/personas.state';
 import { NgxsModule } from '@ngxs/store';
 
 @NgModule({

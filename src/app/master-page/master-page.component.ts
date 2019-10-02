@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy, AfterContentInit, ChangeDetectionStrategy } from '@angular/core';
-import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subscription, Observable } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { AppI18nService } from '../app-i18n.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Select, Store } from '@ngxs/store';
+import { AuthLogoutAction } from '../auth/login/store/auth.actions';
 import { Navigate } from '@ngxs/router-plugin';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-master-page',
@@ -40,9 +41,7 @@ export class MasterPageComponent implements OnInit, OnDestroy, AfterContentInit 
     private router: Router,
     private store: Store,
     private breakpointObserver: BreakpointObserver,
-    private appI18nService: AppI18nService) {
-    console.log(`${MasterPageComponent.name}::ctor`);
-  }
+    private appI18nService: AppI18nService) { }
 
   /**
    * Inicializa el componente.
@@ -103,7 +102,10 @@ export class MasterPageComponent implements OnInit, OnDestroy, AfterContentInit 
    */
   public logout() {
     console.log(`${MasterPageComponent.name}::logout`);
-    this.store.dispatch(new Navigate(['login']));
+    this.store.dispatch(new AuthLogoutAction())
+      .subscribe(() => {
+        this.store.dispatch(new Navigate(['auth/login']));
+      });
   }
 
   /**

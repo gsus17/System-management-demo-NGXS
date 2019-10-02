@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginModule } from './auth/login/login.module';
-import { PersonasModule } from './master-page/personas/personas.module';
-import { LoginComponent } from './auth/login/login.component';
 
 // Configuracion de rutas de la aplicacion implementando lazy loading.
 export const routes: Routes = [
   {
-    path: 'login',
-    component: LoginComponent
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {
     path: 'master-page',
@@ -16,15 +13,19 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'auth/login',
     pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: 'personas'
   }
 ];
 
 @NgModule({
   imports: [
-    LoginModule,
-    RouterModule.forRoot(routes)],
+    RouterModule.forRoot(routes)
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

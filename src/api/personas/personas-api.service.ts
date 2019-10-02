@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AccountStatus } from '../entities/account-status.entity';
 import { map } from 'rxjs/operators';
-import { Form } from 'src/app/master-page/personas/formulario/interfaces/formulario';
+import { Form } from 'src/app/master-page/personas/formulario/entities/formulario.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +33,7 @@ export class PersonasApiService {
   /**
    * Obtiene una lista de personas.
    */
-  public getPersonForm$(id: number, editMode: boolean): Observable<Form> {
+  public getPersonForm$(id: number): Observable<Form> {
     console.log(`${PersonasApiService.name}::getPersona`);
 
     const personList: AngularFirestoreCollection<Persona> = this.db.collection('/personas', ref => ref.where('id', '==', id));
@@ -50,7 +50,6 @@ export class PersonasApiService {
             ahorro: personFiltered.totalAhorro,
             ahorroPercentage: personFiltered.porcAhorro,
             birthdate: new Date(),
-            editMode: editMode,
             email: personFiltered.eMail,
             enableNotify: false,
             gender: personFiltered.sexo,

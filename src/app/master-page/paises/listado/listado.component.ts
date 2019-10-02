@@ -12,7 +12,12 @@ import { Observable, Subscription } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { DialogDeleteComponent } from 'src/app/dialog-delete/dialog-delete.component';
 import { Store, Select } from '@ngxs/store';
-import { GetCountries, UpdateCountry, CreateCountry, DeleteCountry } from '../paises.actions';
+import {
+  PaisesGetAction,
+  PaisesUpdateAction,
+  PaisesCreateAction,
+  PaisesDeleteAction
+} from '../store/paises.actions';
 
 const COLUMNS: Columns[] = [];
 
@@ -83,7 +88,7 @@ export class CountryListadoComponent implements OnInit, OnDestroy {
    * Devuelve el listado de personas.
    */
   public getCountries(): void {
-    this.store.dispatch(new GetCountries());
+    this.store.dispatch(new PaisesGetAction());
 
     this.subscriptionPaisesService = this.countries$
       .subscribe((data) => {
@@ -112,7 +117,7 @@ export class CountryListadoComponent implements OnInit, OnDestroy {
             nombre: response.nombre
           };
 
-          this.store.dispatch(new CreateCountry(country))
+          this.store.dispatch(new PaisesCreateAction(country))
             .toPromise()
             .then(() => {
               this.openSnackBar('Se ha creado correctamente.');
@@ -140,7 +145,7 @@ export class CountryListadoComponent implements OnInit, OnDestroy {
             nombre: response.nombre
           };
 
-          this.store.dispatch(new UpdateCountry(country));
+          this.store.dispatch(new PaisesUpdateAction(country));
         }
       });
   }
@@ -155,7 +160,7 @@ export class CountryListadoComponent implements OnInit, OnDestroy {
     this.openDeletePersonDialog()
       .then((result) => {
         if (result) {
-          this.store.dispatch(new DeleteCountry(id))
+          this.store.dispatch(new PaisesDeleteAction(id))
             .toPromise()
             .then(() => {
               this.openSnackBar('Se ha eliminado correctamente.');
@@ -187,9 +192,9 @@ export class CountryListadoComponent implements OnInit, OnDestroy {
 
     const dialogRef = this.dialog.open(
       CountryFormularioComponent, {
-        width: '500px',
-        data: countryForm
-      });
+      width: '500px',
+      data: countryForm
+    });
 
     return dialogRef.afterClosed().toPromise();
   }

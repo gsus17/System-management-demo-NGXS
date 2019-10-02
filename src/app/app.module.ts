@@ -14,15 +14,20 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgxsModule } from '@ngxs/store';
-import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { AppI18nService } from './app-i18n.service';
+import { AuthState } from './auth/login/store/auth.state';
+import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
+import { AuthModule } from './auth/auth.module';
+import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -55,15 +60,20 @@ const firebaseConfig = {
         deps: [HttpClient]
       }
     }),
-    NgxsModule.forRoot([]),
+    NgxsModule.forRoot([AuthState]),
     NgxsRouterPluginModule.forRoot(),
+    NgxsStoragePluginModule.forRoot({
+      key: 'auth.credentials'
+    }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
+    AuthModule,
+    NgxsFormPluginModule.forRoot()
   ],
   providers: [
     AppI18nService,
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },
-    { provide: FirestoreSettingsToken, useValue: {} },
+    { provide: FirestoreSettingsToken, useValue: {} }
   ],
   bootstrap: [AppComponent]
 })

@@ -123,7 +123,7 @@ export class PersonasFormState {
   @Action(BuildFormulario)
   buildFormulario({ setState, getState, dispatch }: StateContext<PersonFormStateModel>, action: any) {
     const state = getState();
-    return this.personasApiService.getPersonForm$(action.id, action.editMode)
+    return this.personasApiService.getPersonForm$(action.id)
       .pipe(
         tap((response: any) => {
           setState({

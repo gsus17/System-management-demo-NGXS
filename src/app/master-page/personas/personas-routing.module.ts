@@ -13,6 +13,10 @@ const routes: Routes = [
         path: 'formulario/:id',
         loadChildren: () => import('./formulario/formulario.module').then(m => m.PersonasFormularioModule),
       },
+      {
+        path: 'add',
+        loadChildren: () => import('./formulario/formulario.module').then(m => m.PersonasFormularioModule),
+      },
     ]
   }
 ];

@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 import { Persona } from 'src/api/entities/persona.entity';
 import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,10 +6,15 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { DialogDeleteComponent } from 'src/app/dialog-delete/dialog-delete.component';
 import { Store, Select } from '@ngxs/store';
-import { GetPersonas, DeletePersona, SetPaginator, SetAccountStatusSelected } from '../personas.actions';
-import { StatusItem } from './interfaces/status-item';
-import { Paginator } from './interfaces/paginator';
-import { AccountStatusSelect } from './interfaces/account-status-select';
+import {
+  PersonasGetAction,
+  PersonaDeleteAction,
+  PersonaSetPaginatorAction,
+  PersonaSetAccountStatusSelectedAction
+} from '../store/personas.actions';
+import { StatusItem } from './entities/status-item.entity';
+import { Paginator } from './entities/paginator.entity';
+import { AccountStatusSelect } from './entities/account-status-select.entity';
 import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
@@ -32,7 +36,6 @@ export class PersonasListadoComponent implements OnInit, OnDestroy {
     private store: Store,
     public snackBar: MatSnackBar,
     private matPaginatorIntl: MatPaginatorIntl,
-    private router: Router,
     private dialog: MatDialog) { }
 
   /**
@@ -59,7 +62,7 @@ export class PersonasListadoComponent implements OnInit, OnDestroy {
    */
   public getPersons() {
     console.log(`${PersonasListadoComponent.name}::getPersons`);
-    this.store.dispatch(new GetPersonas());
+    this.store.dispatch(new PersonasGetAction());
   }
 
   /**
@@ -67,7 +70,7 @@ export class PersonasListadoComponent implements OnInit, OnDestroy {
    */
   public filter(): void {
     console.log(`${PersonasListadoComponent.name}::filter`);
-    this.store.dispatch(new SetAccountStatusSelected(this.statusSelected));
+    this.store.dispatch(new PersonaSetAccountStatusSelectedAction(this.statusSelected));
   }
 
   /**
@@ -75,7 +78,7 @@ export class PersonasListadoComponent implements OnInit, OnDestroy {
    */
   public changePaginator(change: Paginator) {
     console.log(`${PersonasListadoComponent.name}::getPersons %o`, change);
-    this.store.dispatch(new SetPaginator({ pageIndex: change.pageIndex, pageSize: change.pageSize }));
+    this.store.dispatch(new PersonaSetPaginatorAction({ pageIndex: change.pageIndex, pageSize: change.pageSize }));
   }
 
   /**
@@ -83,7 +86,7 @@ export class PersonasListadoComponent implements OnInit, OnDestroy {
    */
   public addPerson() {
     console.log(`${PersonasListadoComponent.name}::addPerson`);
-    this.store.dispatch(new Navigate['/master-page/personas/add']);
+    this.store.dispatch(new Navigate(['master-page/personas/add']));
   }
 
   /**
@@ -116,7 +119,7 @@ export class PersonasListadoComponent implements OnInit, OnDestroy {
     this.openDeletePersonDialog()
       .then((result) => {
         if (result) {
-          this.store.dispatch(new DeletePersona(id)).toPromise()
+          this.store.dispatch(new PersonaDeleteAction(id)).toPromise()
             .then(() => {
               this.openSnackBar('Se ha eliminado correctamente.');
             })

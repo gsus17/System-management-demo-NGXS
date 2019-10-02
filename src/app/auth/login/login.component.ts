@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { Navigate } from '@ngxs/router-plugin';
-import { Store } from '@ngxs/store';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Store, Select } from '@ngxs/store';
+import { AuthLoginAction } from './store/auth.actions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -11,37 +12,43 @@ import { Store } from '@ngxs/store';
 export class LoginComponent implements OnInit {
 
   /**
-   * Validation Form control.
+   * Formulario de autenticación.
    */
-  public authForm = new FormGroup(
-    {
-      user: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required])
-    }
-  );
+  public form: FormGroup;
 
-  /**
-   * Progress linear to loading process.
-   */
-  public progressLinear: boolean = false;
+  @Select(state => state.auth.showProgressLinear) showProgressLinear$: Observable<boolean>;
 
-  constructor(private store: Store) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private store: Store) { }
+
 
   ngOnInit() {
+    this.buildForm();
   }
 
   /**
    * Auth process.
    */
   public login() {
-    console.log(`${LoginComponent.name}::login credentials %o`, this.authForm.value);
-    this.redirect();
+    console.log(`${LoginComponent.name}::login credentials %o`, this.form.value);
+    this.store.dispatch(new AuthLoginAction());
   }
 
   /**
-   * Redirect to main view.
+   * Devuelve la referencia del control.
    */
-  public redirect() {
-    this.store.dispatch(new Navigate(['master-page/personas/listado']));
+  public getControl(value: string) {
+    return this.form.get(value);
+  }
+
+  /**
+   * Configuración del formulario de login.
+   */
+  private buildForm() {
+    this.form = this.formBuilder.group({
+      username: [null, Validators.required],
+      password: [null, [Validators.required]]
+    });
   }
 }

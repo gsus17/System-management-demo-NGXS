@@ -6,7 +6,7 @@ import { AngularMaterialModule } from '../../angular-material/angular-material.m
 import { TranslateModule } from '@ngx-translate/core';
 import { PaisesRoutingModule } from './paises-routing.module';
 import { NgxsModule } from '@ngxs/store';
-import { CountryState } from './paises.state';
+import { CountryState } from './store/paises.state';
 
 @NgModule({
   declarations: [CountryFormularioComponent],
